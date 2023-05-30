@@ -1,0 +1,6 @@
+gi---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/u1585909/public_html/paymenttriwung
+    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp style.css $DEPLOYPATH
