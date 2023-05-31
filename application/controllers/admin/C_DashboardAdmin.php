@@ -19,7 +19,7 @@ class C_DashboardAdmin extends CI_Controller
     public function index()
     {
         // Memanggil data Mikrotik
-        $this->MikrotikModel->index();
+        // $this->MikrotikModel->index();
 
         // Notifikasi Login Berhasil
         $this->session->set_flashdata('LoginBerhasil_icon', 'success');

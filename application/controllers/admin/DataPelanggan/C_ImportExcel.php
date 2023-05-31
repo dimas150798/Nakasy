@@ -47,15 +47,61 @@ class C_ImportExcel extends CI_Controller
                 $counter = 0;
                 foreach ($sheet->getRowIterator(6) as $row) {
                     if (++$counter == 6) continue;
-                    $Kode_Customer   = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
-                    $Phone_Customer             = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
-                    $Nama_Customer           = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex());
+                    $Kode_Customer      = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
+                    $Phone_Customer     = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
+                    $Nama_Customer      = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex());
+                    $Nama_Paket         = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
+                    $Name_PPPOE         = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
+                    $Password_PPPOE     = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
+                    $Id_PPPOE           = $spreadsheet->getActiveSheet()->getCell('H' . $row->getRowIndex());
+                    $Alamat_Customer    = $spreadsheet->getActiveSheet()->getCell('I' . $row->getRowIndex());
+                    $Email_Customer     = $spreadsheet->getActiveSheet()->getCell('J' . $row->getRowIndex());
+                    $Tanggal_Registrasi = $spreadsheet->getActiveSheet()->getCell('K' . $row->getRowIndex())->getFormattedValue();
+                    $Tanggal_Terminated = $spreadsheet->getActiveSheet()->getCell('L' . $row->getRowIndex())->getFormattedValue();
+                    $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
+                    $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('N' . $row->getRowIndex());
 
-                    $data = array(
-                        'kode_customer'            => $Kode_Customer,
-                        'phone_customer'         => $Phone_Customer,
-                        'nama_customer'        => $Nama_Customer,
-                    );
+                    // Convert Date
+                    $spreadsheet->getActiveSheet()->getStyle('K' . $row->getRowIndex())
+                        ->getNumberFormat()
+                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+
+                    $spreadsheet->getActiveSheet()->getStyle('L' . $row->getRowIndex())
+                        ->getNumberFormat()
+                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+
+                    if ($Tanggal_Terminated == NULL) {
+                        $data = array(
+                            'kode_customer'     => $Kode_Customer,
+                            'phone_customer'    => $Phone_Customer,
+                            'nama_customer'     => $Nama_Customer,
+                            'nama_paket'        => $Nama_Paket,
+                            'name_pppoe'        => $Name_PPPOE,
+                            'password_pppoe'    => $Password_PPPOE,
+                            'id_pppoe'          => $Id_PPPOE,
+                            'alamat_customer'   => $Alamat_Customer,
+                            'email_customer'    => $Email_Customer,
+                            'start_date'        => $Tanggal_Registrasi,
+                            'nama_area'         => $Nama_Area,
+                            'nama_sales'        => $Nama_Sales
+                        );
+                    } else {
+                        $data = array(
+                            'kode_customer'     => $Kode_Customer,
+                            'phone_customer'    => $Phone_Customer,
+                            'nama_customer'     => $Nama_Customer,
+                            'nama_paket'        => $Nama_Paket,
+                            'name_pppoe'        => $Name_PPPOE,
+                            'password_pppoe'    => $Password_PPPOE,
+                            'id_pppoe'          => $Id_PPPOE,
+                            'alamat_customer'   => $Alamat_Customer,
+                            'email_customer'    => $Email_Customer,
+                            'start_date'        => $Tanggal_Registrasi,
+                            'stop_date'         => $Tanggal_Terminated,
+                            'nama_area'         => $Nama_Area,
+                            'nama_sales'        => $Nama_Sales
+                        );
+                    }
 
                     $this->db->insert('data_customer', $data);
                     $count_Rows++;
