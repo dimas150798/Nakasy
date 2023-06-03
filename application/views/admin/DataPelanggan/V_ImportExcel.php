@@ -1,3 +1,12 @@
+<?php
+if (!function_exists('changeDateFormat')) {
+    function changeDateFormat($format = 'd-m-Y', $givenDate = null)
+    {
+        return date($format, strtotime($givenDate));
+    }
+}
+?>
+
 <div id="layoutSidenav_content">
     <main>
 
@@ -42,6 +51,61 @@
                         </form>
 
                     </div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+
+                    <h3><i class="fas fa-table me-1"></i>
+                        Riwayat Import Excel
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesdekstop" class="table table-bordered" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="5%">No</th>
+                                <th width="30%">Nama</th>
+                                <th width="30%">Tanggal Import</th>
+                                <th width="5%" class="text-center">Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            foreach ($DataExcel as $data) :
+                            ?>
+
+                                <tr>
+                                    <td>
+                                        <?php echo $no++ ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo $data['file_name'] ?>
+                                    </td>
+
+
+                                    <td>
+                                        <?php echo changeDateFormat('d-m-Y / H:i:s', $data['created_at']) ?>
+                                    </td>
+
+
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
+                                                Opsi
+                                            </button>
+                                            <div class="dropdown-menu text-black" style="background-color:aqua;">
+                                                <a class="dropdown-item text-black" href="<?php echo base_url() ?>assets/uploads/imports/<?php echo $data['file_name'] ?>"><i class=" bi bi-pencil-square"></i> Download</a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

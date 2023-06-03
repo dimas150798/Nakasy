@@ -24,6 +24,7 @@ class C_ImportExcel extends CI_Controller
         $data['DataPaket']      = $this->M_Paket->DataPaket();
         $data['DataArea']       = $this->M_Area->DataArea();
         $data['DataSales']      = $this->M_Sales->DataSales();
+        $data['DataExcel']      = $this->M_ImportExcel->DataExcel();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);
@@ -59,6 +60,8 @@ class C_ImportExcel extends CI_Controller
                     $Tanggal_Terminated = $spreadsheet->getActiveSheet()->getCell('K' . $row->getRowIndex())->getFormattedValue();
                     $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('L' . $row->getRowIndex());
                     $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
+
+                    $this->session->set_userdata('name_pppoe', $Name_PPPOE);
 
                     $CheckDuplicate     = $this->M_Pelanggan->CheckDuplicatePelanggan($Name_PPPOE);
 
@@ -110,6 +113,7 @@ class C_ImportExcel extends CI_Controller
                         }
                         $this->db->insert('data_customer', $data);
                         $count_Rows++;
+
                         // Notifikasi Insert Data Berhasil
                         $this->session->set_flashdata('ExcelSuccess_icon', 'success');
                         $this->session->set_flashdata('ExcelSuccess_title', 'Insert Data Berhasil');
