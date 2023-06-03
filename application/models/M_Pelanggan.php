@@ -63,4 +63,21 @@ class M_Pelanggan extends CI_Model
 
         return $query->result_array();
     }
+
+    // Check akses login
+    public function CheckDuplicatePelanggan($Name_PPPOE)
+    {
+        $this->db->select('nama_customer, id_pppoe, name_pppoe');
+        $this->db->where('name_pppoe', $Name_PPPOE);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_customer');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

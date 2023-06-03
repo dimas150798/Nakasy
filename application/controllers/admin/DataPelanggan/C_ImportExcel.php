@@ -61,6 +61,8 @@ class C_ImportExcel extends CI_Controller
                     $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
                     $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('N' . $row->getRowIndex());
 
+                    $CheckDuplicate     = $this->M_Pelanggan->CheckDuplicatePelanggan($Name_PPPOE);
+
                     // Convert Date
                     $spreadsheet->getActiveSheet()->getStyle('K' . $row->getRowIndex())
                         ->getNumberFormat()
@@ -70,49 +72,54 @@ class C_ImportExcel extends CI_Controller
                         ->getNumberFormat()
                         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
-                    if ($Tanggal_Terminated == NULL) {
-                        $data = array(
-                            'kode_customer'     => $Kode_Customer,
-                            'phone_customer'    => $Phone_Customer,
-                            'nama_customer'     => $Nama_Customer,
-                            'nama_paket'        => $Nama_Paket,
-                            'name_pppoe'        => $Name_PPPOE,
-                            'password_pppoe'    => $Password_PPPOE,
-                            'id_pppoe'          => $Id_PPPOE,
-                            'alamat_customer'   => $Alamat_Customer,
-                            'email_customer'    => $Email_Customer,
-                            'start_date'        => $Tanggal_Registrasi,
-                            'nama_area'         => $Nama_Area,
-                            'nama_sales'        => $Nama_Sales
-                        );
+                    if ($CheckDuplicate->name_pppoe == $Name_PPPOE) {
+                        // Notifikasi Gagal Import
+                        $this->session->set_flashdata('ExcelGagal_icon', 'danger');
+                        $this->session->set_flashdata('ExcelGagal_title', 'Terdapat Data Nama Yang Sama');
+
+                        redirect('admin/DataPelanggan/C_ImportExcel');
                     } else {
-                        $data = array(
-                            'kode_customer'     => $Kode_Customer,
-                            'phone_customer'    => $Phone_Customer,
-                            'nama_customer'     => $Nama_Customer,
-                            'nama_paket'        => $Nama_Paket,
-                            'name_pppoe'        => $Name_PPPOE,
-                            'password_pppoe'    => $Password_PPPOE,
-                            'id_pppoe'          => $Id_PPPOE,
-                            'alamat_customer'   => $Alamat_Customer,
-                            'email_customer'    => $Email_Customer,
-                            'start_date'        => $Tanggal_Registrasi,
-                            'stop_date'         => $Tanggal_Terminated,
-                            'nama_area'         => $Nama_Area,
-                            'nama_sales'        => $Nama_Sales
-                        );
+                        if ($Tanggal_Terminated == NULL) {
+                            $data = array(
+                                'kode_customer'     => $Kode_Customer,
+                                'phone_customer'    => $Phone_Customer,
+                                'nama_customer'     => $Nama_Customer,
+                                'nama_paket'        => $Nama_Paket,
+                                'name_pppoe'        => $Name_PPPOE,
+                                'password_pppoe'    => $Password_PPPOE,
+                                'id_pppoe'          => $Id_PPPOE,
+                                'alamat_customer'   => $Alamat_Customer,
+                                'email_customer'    => $Email_Customer,
+                                'start_date'        => $Tanggal_Registrasi,
+                                'nama_area'         => $Nama_Area,
+                                'nama_sales'        => $Nama_Sales
+                            );
+                        } else {
+                            $data = array(
+                                'kode_customer'     => $Kode_Customer,
+                                'phone_customer'    => $Phone_Customer,
+                                'nama_customer'     => $Nama_Customer,
+                                'nama_paket'        => $Nama_Paket,
+                                'name_pppoe'        => $Name_PPPOE,
+                                'password_pppoe'    => $Password_PPPOE,
+                                'id_pppoe'          => $Id_PPPOE,
+                                'alamat_customer'   => $Alamat_Customer,
+                                'email_customer'    => $Email_Customer,
+                                'start_date'        => $Tanggal_Registrasi,
+                                'stop_date'         => $Tanggal_Terminated,
+                                'nama_area'         => $Nama_Area,
+                                'nama_sales'        => $Nama_Sales
+                            );
+                        }
+                        $this->db->insert('data_customer', $data);
+                        $count_Rows++;
+                        // Notifikasi Insert Data Berhasil
+                        $this->session->set_flashdata('ExcelSuccess_icon', 'success');
+                        $this->session->set_flashdata('ExcelSuccess_title', 'Insert Data Berhasil');
+
+                        redirect('admin/DataPelanggan/C_DataPelanggan');
                     }
-
-                    $this->db->insert('data_customer', $data);
-                    $count_Rows++;
                 }
-
-
-                // Notifikasi Insert Data Berhasil
-                $this->session->set_flashdata('ExcelSuccess_icon', 'success');
-                $this->session->set_flashdata('ExcelSuccess_title', 'Insert Data Berhasil');
-
-                redirect('admin/DataPelanggan/C_DataPelanggan');
             } else {
                 // Notifikasi Insert Data Gagal
                 $this->session->set_flashdata('ExcelGagal_icon', 'warning');
@@ -131,7 +138,6 @@ class C_ImportExcel extends CI_Controller
 
     function uploadDoc()
     {
-
         $uploadPath = 'assets/uploads/imports/';
         if (!is_dir($uploadPath)) {
             mkdir($uploadPath, 0777, TRUE);

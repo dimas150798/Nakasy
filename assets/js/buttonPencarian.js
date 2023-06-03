@@ -40,3 +40,24 @@ $('#id_akses').each(function() {
         dropdownParent: $(this).parent(),
     });
 });
+$('#nama_paket').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Paket :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#nama_area').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#nama_sales').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Sales :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
