@@ -28,7 +28,7 @@ if (!function_exists('changeDateFormat')) {
             <div class="card mb-3 mt-3">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Data Pelanggan
+                    Upload Dokumen
                 </div>
                 <div class="card-body">
                     <div class="container">
@@ -56,10 +56,8 @@ if (!function_exists('changeDateFormat')) {
 
             <div class="card mb-3">
                 <div class="card-header">
-
-                    <h3><i class="fas fa-table me-1"></i>
-                        Riwayat Import Excel
-                    </h3>
+                    <i class="fas fa-table me-1"></i>
+                    Riwayat Import Excel
                 </div>
                 <div class="card-body">
                     <table id="datatablesdekstop" class="table table-bordered" width="100%">
