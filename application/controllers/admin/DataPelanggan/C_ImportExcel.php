@@ -53,13 +53,12 @@ class C_ImportExcel extends CI_Controller
                     $Nama_Paket         = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
                     $Name_PPPOE         = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
                     $Password_PPPOE     = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
-                    $Id_PPPOE           = $spreadsheet->getActiveSheet()->getCell('H' . $row->getRowIndex());
-                    $Alamat_Customer    = $spreadsheet->getActiveSheet()->getCell('I' . $row->getRowIndex());
-                    $Email_Customer     = $spreadsheet->getActiveSheet()->getCell('J' . $row->getRowIndex());
-                    $Tanggal_Registrasi = $spreadsheet->getActiveSheet()->getCell('K' . $row->getRowIndex())->getFormattedValue();
-                    $Tanggal_Terminated = $spreadsheet->getActiveSheet()->getCell('L' . $row->getRowIndex())->getFormattedValue();
-                    $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
-                    $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('N' . $row->getRowIndex());
+                    $Alamat_Customer    = $spreadsheet->getActiveSheet()->getCell('H' . $row->getRowIndex());
+                    $Email_Customer     = $spreadsheet->getActiveSheet()->getCell('I' . $row->getRowIndex());
+                    $Tanggal_Registrasi = $spreadsheet->getActiveSheet()->getCell('J' . $row->getRowIndex())->getFormattedValue();
+                    $Tanggal_Terminated = $spreadsheet->getActiveSheet()->getCell('K' . $row->getRowIndex())->getFormattedValue();
+                    $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('L' . $row->getRowIndex());
+                    $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
 
                     $CheckDuplicate     = $this->M_Pelanggan->CheckDuplicatePelanggan($Name_PPPOE);
 
@@ -87,7 +86,6 @@ class C_ImportExcel extends CI_Controller
                                 'nama_paket'        => $Nama_Paket,
                                 'name_pppoe'        => $Name_PPPOE,
                                 'password_pppoe'    => $Password_PPPOE,
-                                'id_pppoe'          => $Id_PPPOE,
                                 'alamat_customer'   => $Alamat_Customer,
                                 'email_customer'    => $Email_Customer,
                                 'start_date'        => $Tanggal_Registrasi,
@@ -102,7 +100,6 @@ class C_ImportExcel extends CI_Controller
                                 'nama_paket'        => $Nama_Paket,
                                 'name_pppoe'        => $Name_PPPOE,
                                 'password_pppoe'    => $Password_PPPOE,
-                                'id_pppoe'          => $Id_PPPOE,
                                 'alamat_customer'   => $Alamat_Customer,
                                 'email_customer'    => $Email_Customer,
                                 'start_date'        => $Tanggal_Registrasi,
