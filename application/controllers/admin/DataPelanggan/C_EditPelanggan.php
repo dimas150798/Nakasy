@@ -37,15 +37,15 @@ class C_EditPelanggan extends CI_Controller
         $kode_customer          = $this->input->post('kode_customer');
         $phone_customer         = $this->input->post('phone_customer');
         $nama_customer          = $this->input->post('nama_customer');
-        $id_paket               = $this->input->post('id_paket');
+        $nama_paket             = $this->input->post('nama_paket');
         $name_pppoe             = $this->input->post('name_pppoe');
         $password_pppoe         = $this->input->post('password_pppoe');
         $alamat_customer        = $this->input->post('alamat_customer');
         $email_customer         = $this->input->post('email_customer');
         $start_date             = $this->input->post('start_date');
-        $id_area                = $this->input->post('id_area');
+        $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
-        $id_sales               = $this->input->post('id_sales');
+        $nama_sales             = $this->input->post('nama_sales');
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -53,15 +53,15 @@ class C_EditPelanggan extends CI_Controller
             'kode_customer'     => $kode_customer,
             'phone_customer'    => $phone_customer,
             'nama_customer'     => $nama_customer,
-            'id_paket'          => $id_paket,
+            'nama_paket'        => $nama_paket,
             'name_pppoe'        => $name_pppoe,
             'password_pppoe'    => $password_pppoe,
             'alamat_customer'   => $alamat_customer,
             'email_customer'    => $email_customer,
             'start_date'        => $start_date,
-            'id_area'           => $id_area,
+            'nama_area'         => $nama_area,
             'deskripsi_customer' => $deskripsi_customer,
-            'id_sales'          => $id_sales,
+            'nama_sales'        => $nama_sales,
             'updated_at'        => date('Y-m-d H:i:s', time())
         );
 
@@ -83,9 +83,9 @@ class C_EditPelanggan extends CI_Controller
         $this->form_validation->set_rules('name_pppoe', 'Name PPPOE', 'required');
         $this->form_validation->set_rules('password_pppoe', 'Password PPPOE', 'required');
         $this->form_validation->set_rules('phone_customer', 'Phone Customer', 'required');
-        $this->form_validation->set_rules('id_paket', 'Id Paket', 'required');
-        $this->form_validation->set_rules('id_area', 'Id Area', 'required');
-        $this->form_validation->set_rules('id_sales', 'Id Sales', 'required');
+        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
+        $this->form_validation->set_rules('nama_area', 'Nama Area', 'required');
+        $this->form_validation->set_rules('nama_sales', 'Nama Sales', 'required');
         $this->form_validation->set_rules('email_customer', 'Email Customer', 'required');
         $this->form_validation->set_rules('alamat_customer', 'Alamat Customer', 'required');
         $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');

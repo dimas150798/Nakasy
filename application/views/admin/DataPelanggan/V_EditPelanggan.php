@@ -79,42 +79,42 @@
 
                                 <div class="row mt-3">
                                     <div class="col-sm-4">
-                                        <label for="id_paket" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
-                                        <select id="id_paket" name="id_paket" class="form-control" required>
+                                        <label for="nama_paket" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
+                                        <select id="nama_paket" name="nama_paket" class="form-control" required>
                                             <?php foreach ($DataPaket as $dataPaket) : ?>
                                                 <option value="">Pilih Paket :</option>
-                                                <option value="<?php echo $dataPaket['id_paket'] ?>" <?= $data['id_paket'] == $dataPaket['id_paket'] ? "selected" : null ?>><?php echo $dataPaket['nama_paket'] ?>
+                                                <option value="<?php echo $dataPaket['nama_paket'] ?>" <?= $data['nama_paket'] == $dataPaket['nama_paket'] ? "selected" : null ?>><?php echo $dataPaket['nama_paket'] ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
                                         <div class="bg-danger">
-                                            <small class="text-white"><?php echo form_error('id_paket'); ?></small>
+                                            <small class="text-white"><?php echo form_error('nama_paket'); ?></small>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="id_area" class="form-label" style="font-weight: bold;"> Kode DP dan Area : <span class="text-danger">*</span></label>
-                                        <select id="id_area" name="id_area" class="form-control" required>
+                                        <label for="nama_area" class="form-label" style="font-weight: bold;"> Kode DP dan Area : <span class="text-danger">*</span></label>
+                                        <select id="nama_area" name="nama_area" class="form-control" required>
                                             <option value="">Pilih Area :</option>
                                             <?php foreach ($DataArea as $dataArea) : ?>
-                                                <option value="<?php echo $dataArea['id_area'] ?>" <?= $data['id_area'] == $dataArea['id_area'] ? "selected" : null ?>><?php echo $dataArea['nama_area'] ?>
+                                                <option value="<?php echo $dataArea['nama_area'] ?>" <?= $data['nama_area'] == $dataArea['nama_area'] ? "selected" : null ?>><?php echo $dataArea['nama_area'] ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
                                         <div class="bg-danger">
-                                            <small class="text-white"><?php echo form_error('id_area'); ?></small>
+                                            <small class="text-white"><?php echo form_error('nama_area'); ?></small>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="id_sales" class="form-label" style="font-weight: bold;"> Sales : <span class="text-danger">*</span></label>
-                                        <select id="id_sales" name="id_sales" class="form-control" required>
+                                        <label for="nama_sales" class="form-label" style="font-weight: bold;"> Sales : <span class="text-danger">*</span></label>
+                                        <select id="nama_sales" name="nama_sales" class="form-control" required>
                                             <option value="">Pilih Sales :</option>
                                             <?php foreach ($DataSales as $dataSales) : ?>
-                                                <option value="<?php echo $dataSales['id_sales'] ?>" <?= $data['id_sales'] == $dataSales['id_sales'] ? "selected" : null ?>><?php echo $dataSales['nama_sales'] ?>
+                                                <option value="<?php echo $dataSales['nama_sales'] ?>" <?= $data['nama_sales'] == $dataSales['nama_sales'] ? "selected" : null ?>><?php echo $dataSales['nama_sales'] ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
                                         <div class="bg-danger">
-                                            <small class="text-white"><?php echo form_error('id_sales'); ?></small>
+                                            <small class="text-white"><?php echo form_error('nama_sales'); ?></small>
                                         </div>
                                     </div>
                                 </div>
