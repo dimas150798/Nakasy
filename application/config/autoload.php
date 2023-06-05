@@ -132,6 +132,6 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('M_Pelanggan', 'M_Login', 'MikrotikModel', 'M_CRUD', 'M_Paket', 'M_Area', 'M_Sales', 'M_AksesLogin', 'M_DataAkun', 'M_BelumLunas', 'M_Jabatan', 'M_SudahLunas', 'M_ImportExcel');
+$autoload['model'] = array('M_Pelanggan', 'M_Login', 'MikrotikModel', 'M_CRUD', 'M_Paket', 'M_Area', 'M_Sales', 'M_AksesLogin', 'M_DataAkun', 'M_BelumLunas', 'M_Jabatan', 'M_SudahLunas', 'M_ImportExcel', 'M_TerminasiPelanggan');
 
 $config['composer_autoload'] = './vendor/autoload.php';

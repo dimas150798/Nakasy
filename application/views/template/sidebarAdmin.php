@@ -48,7 +48,7 @@
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/people-fill.svg" alt="Bootstrap" ...></div>
                                     Data Pelanggan
                                 </a>
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="<?php echo base_url('admin/TerminasiPelanggan/C_TerminasiPelanggan') ?>">
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/wifi-off.svg" alt="Bootstrap" ...></div>
                                     Pelanggan Terminasi
                                 </a>
@@ -75,10 +75,6 @@
                                 <a class="nav-link" href="#">
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/calendar-check-fill.svg" alt="Bootstrap" ...></div>
                                     Jatuh Tempo
-                                </a>
-                                <a class="nav-link" href="#">
-                                    <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/wifi-off.svg" alt="Bootstrap" ...></div>
-                                    Terminated
                                 </a>
                             </nav>
                         </div>
