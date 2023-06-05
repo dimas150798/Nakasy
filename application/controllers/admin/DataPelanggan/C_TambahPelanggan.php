@@ -69,6 +69,7 @@ class C_TambahPelanggan extends CI_Controller
         $data['DataPaket']      = $this->M_Paket->DataPaket();
         $data['DataArea']       = $this->M_Area->DataArea();
         $data['DataSales']      = $this->M_Sales->DataSales();
+        $checkDuplicate         = $this->M_Pelanggan->CheckDuplicatePelanggan($name_pppoe);
 
         // Rules form validation
         $this->form_validation->set_rules('nama_customer', 'Nama Customer', 'required');
@@ -90,12 +91,40 @@ class C_TambahPelanggan extends CI_Controller
             $this->load->view('admin/DataPelanggan/V_TambahPelanggan', $data);
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
-            $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-               <strong>UPDATE DATA BERHASIL</strong>
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-               </div>');
-            redirect('admin/DataPelanggan/C_DataPelanggan');
+            if ($name_pppoe == $checkDuplicate->name_pppoe) {
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Pelanggan');
+                $this->session->set_flashdata('DuplicateName_text', 'Name PPPOE Sudah Ada');
+
+                redirect('admin/DataPelanggan/C_TambahPelanggan');
+            } else {
+                $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
+
+                // Profile Mikrotik
+                $paket = array(
+                    'Home 5' => 'HOME 5 B', 'Home 10' => 'HOME 10 B', 'Home 20' => 'HOME 20 B', 'Home 30' => 'HOME 30 B',
+                    'Home 50' => 'HOME 50 B', 'Home 100' => 'HOME 100 B', 'Free Home 20' => 'HOME 20 B',
+                    'Home TV 25' => 'HOME TV 25 B', 'Home TV 70' => 'HOME TV 70'
+                );
+
+                // Tambah Pelanggan Ke Mikrotik
+                $api = connect();
+                $api->comm('/ppp/secret/add', [
+                    "name" => $name_pppoe,
+                    "password" => $password_pppoe,
+                    "service" => "pppoe",
+                    "profile" => $paket[$nama_paket],
+                    "comment" => "",
+                ]);
+                $api->disconnect();
+
+                // Notifikasi Tambah Data Berhasil
+                $this->session->set_flashdata('Tambah_icon', 'success');
+                $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                redirect('admin/DataPelanggan/C_DataPelanggan');
+            }
         }
     }
 }

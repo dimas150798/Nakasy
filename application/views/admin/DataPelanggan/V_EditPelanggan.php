@@ -7,7 +7,7 @@
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Edit Pelanggan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_DataPelanggan') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
+                    <a class="btn bg-danger text-white" href="<?php echo base_url('admin/DataPelanggan/C_DataPelanggan') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>
                 </div>
             </div>
@@ -27,6 +27,7 @@
 
                                 <div class="row">
                                     <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php echo $data['id_customer'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="id_pppoe" id="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
                                 </div>
 
                                 <div class="row mt-2">

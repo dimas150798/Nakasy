@@ -103,6 +103,20 @@ if (!function_exists('changeDateFormat')) {
 
                         <div class="row">
                             <div class="col-6">
+                                <p class="dataPencarian">Data</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="dataPencarian">:
+                                    <?php if ($tahunGET == NULL) {
+                                        echo $bulan . ' / ' . $tahun;
+                                    } else {
+                                        echo $bulanGET . ' / ' . $tahunGET;
+                                    } ?></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
                                 <p class="dataPencarian">Belum Lunas</p>
                             </div>
                             <div class="col-6">

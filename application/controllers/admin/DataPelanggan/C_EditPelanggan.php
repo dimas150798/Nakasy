@@ -33,6 +33,7 @@ class C_EditPelanggan extends CI_Controller
     public function EditPelangganSave()
     {
         // Mengambil data post pada view
+        $id_pppoe               = $this->input->post('id_pppoe');
         $id_customer            = $this->input->post('id_customer');
         $kode_customer          = $this->input->post('kode_customer');
         $phone_customer         = $this->input->post('phone_customer');
@@ -96,11 +97,31 @@ class C_EditPelanggan extends CI_Controller
             $this->load->view('admin/DataPelanggan/V_EditPelanggan', $data);
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
+            // Profile Mikrotik
+            $paket = array(
+                'Home 5' => 'HOME 5 B', 'Home 10' => 'HOME 10 B', 'Home 20' => 'HOME 20 B', 'Home 30' => 'HOME 30 B',
+                'Home 50' => 'HOME 50 B', 'Home 100' => 'HOME 100 B', 'Free Home 20' => 'HOME 20 B',
+                'Home TV 25' => 'HOME TV 25 B', 'Home TV 70' => 'HOME TV 70'
+            );
+
+            // Edit Pelanggan Ke Mikrotik
+            $api = connect();
+            $api->comm('/ppp/secret/set', [
+                ".id" => $id_pppoe,
+                "name" => $name_pppoe,
+                "password" => $password_pppoe,
+                "service" => "pppoe",
+                "profile"   => $paket[$nama_paket],
+                "comment" => "",
+            ]);
+            $api->disconnect();
+
+            $this->M_CRUD->updateData('data_customer', $dataPelanggan, $idCustomer);
+
             // Notifikasi Login Berhasil
             $this->session->set_flashdata('Edit_icon', 'success');
             $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
 
-            $this->M_CRUD->updateData('data_customer', $dataPelanggan, $idCustomer);
             redirect('admin/DataPelanggan/C_DataPelanggan');
         }
     }

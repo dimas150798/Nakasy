@@ -64,7 +64,7 @@ class M_Pelanggan extends CI_Model
         return $query->result_array();
     }
 
-    // Check akses login
+    // Check data pelanggan
     public function CheckDuplicatePelanggan($Name_PPPOE)
     {
         $this->db->select('nama_customer, id_pppoe, name_pppoe');
