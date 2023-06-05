@@ -63,6 +63,7 @@ class C_DataPelanggan extends CI_Controller
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
                         <a onclick="EditDataPelanggan(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Edit</a>
                         <a onclick="DeleteDataPelanggan(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
+                        <a onclick="TerminatedPelanggan(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Terminated</a>
                     </div>
                 </div>
                 </div>';

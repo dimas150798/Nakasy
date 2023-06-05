@@ -74,7 +74,7 @@
 	}
 </script>
 
-<!-- Alert Tambah Data -->
+<!-- Alert Tambah Data Pelanggan -->
 <script>
 	<?php if ($this->session->flashdata('Tambah_icon')) { ?>
 		var toastMixin = Swal.mixin({
@@ -95,6 +95,32 @@
 		toastMixin.fire({
 			animation: true,
 			title: '<?php echo $this->session->flashdata('Tambah_title') ?>'
+		});
+
+	<?php } ?>
+</script>
+
+<!-- Alert Tambah Data Termiasi-->
+<script>
+	<?php if ($this->session->flashdata('Terminasi_icon')) { ?>
+		var toastMixin = Swal.mixin({
+			toast: true,
+			icon: '<?php echo $this->session->flashdata('Terminasi_icon') ?>',
+			title: 'General Title',
+			animation: false,
+			position: 'top-right',
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		});
+
+		toastMixin.fire({
+			animation: true,
+			title: '<?php echo $this->session->flashdata('Terminasi_title') ?>'
 		});
 
 	<?php } ?>
@@ -209,6 +235,25 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				window.location.href = "<?php echo site_url('admin/DataPelanggan/C_EditPelanggan/EditPelanggan') ?>/" + parameter_id;
+			}
+		})
+	}
+</script>
+
+<!-- Terminated Data Pelanggan -->
+<script>
+	function TerminatedPelanggan(parameter_id) {
+		Swal.fire({
+			title: 'Yakin Melakukan Terminated Pelanggan ?',
+			text: "Apabila Yakin Tekan Button Ya",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya, Terminated!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "<?php echo site_url('admin/DataPelanggan/C_TambahTerminated/TerminatedPelanggan') ?>/" + parameter_id;
 			}
 		})
 	}
