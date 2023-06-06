@@ -66,22 +66,13 @@ class C_EditSales extends CI_Controller
             $this->load->view('admin/DataSales/V_EditSales', $data);
             $this->load->view('template/V_FooterSales', $data);
         } else {
-            if ($nama_sales == $checkDuplicate->nama_sales) {
-                // Notifikasi Duplicate Name 
-                $this->session->set_flashdata('DuplicateName_icon', 'error');
-                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Sales');
-                $this->session->set_flashdata('DuplicateName_text', 'Nama sales sudah ada');
+            $this->M_CRUD->updateData('data_sales', $dataSales, $idSales);
 
-                redirect('admin/DataSales/C_DataSales');
-            } else {
-                $this->M_CRUD->updateData('data_sales', $dataSales, $idSales);
+            // Notifikasi Edit Berhasil
+            $this->session->set_flashdata('Edit_icon', 'success');
+            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
 
-                // Notifikasi Edit Berhasil
-                $this->session->set_flashdata('Edit_icon', 'success');
-                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
-
-                redirect('admin/DataSales/C_DataSales');
-            }
+            redirect('admin/DataSales/C_DataSales');
         }
     }
 }
