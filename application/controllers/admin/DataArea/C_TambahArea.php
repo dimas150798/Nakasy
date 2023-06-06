@@ -40,7 +40,8 @@ class C_TambahArea extends CI_Controller
         );
 
         //memanggil mysql dari model 
-        $data['DataArea']      = $this->M_Area->DataArea();
+        $data['DataArea']       = $this->M_Area->DataArea();
+        $checkDuplicate         = $this->M_Area->CheckDuplicateArea($nama_area);
 
         // Rules form Validation
         $this->form_validation->set_rules('nama_area', 'Nama Area', 'required');
@@ -52,12 +53,23 @@ class C_TambahArea extends CI_Controller
             $this->load->view('admin/DataArea/V_TambahArea', $data);
             $this->load->view('template/V_FooterArea', $data);
         } else {
-            $this->M_CRUD->insertData($dataArea, 'data_area');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-               <strong>TAMBAH DATA BERHASIL</strong>
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-               </div>');
-            redirect('admin/DataArea/C_DataArea');
+            if ($nama_area == $checkDuplicate->nama_area) {
+
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Area');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama area sudah ada');
+
+                redirect('admin/DataArea/C_TambahArea');
+            } else {
+                $this->M_CRUD->insertData($dataArea, 'data_area');
+
+                // Notifikasi Tambah Berhasil
+                $this->session->set_flashdata('Tambah_icon', 'success');
+                $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                redirect('admin/DataArea/C_DataArea');
+            }
         }
     }
 }

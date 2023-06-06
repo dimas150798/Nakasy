@@ -27,13 +27,11 @@
                 <div class="col-12">
                     <div class="card mb-3">
                         <div class="card-header">
-
-                            <h3><i class="fas fa-table me-1"></i>
-                                Data Area
-                            </h3>
+                            <i class="fas fa-table me-1"></i>
+                            Data Area
                         </div>
                         <div class="card-body">
-                            <table id="datatablesdekstop" class="table table-bordered" width="100%">
+                            <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
@@ -42,33 +40,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1;
-                                    foreach ($DataArea as $data) :
-                                    ?>
 
-                                        <tr>
-                                            <td>
-                                                <?php echo $no++ ?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo $data['nama_area'] ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
-                                                        Opsi
-                                                    </button>
-                                                    <div class="dropdown-menu text-black" style="background-color:aqua;">
-                                                        <a class="dropdown-item text-black" href="<?php echo base_url('admin/DataArea/C_EditArea/EditArea/' . $data['id_area']) ?>"><i class="bi bi-pencil-square"></i> Edit</a>
-                                                        <a onclick="return confirm('Yakin Menghapus Data')" class="dropdown-item text-black" href="<?php echo base_url('admin/DataArea/C_DeleteArea/DeleteArea/' . $data['id_area']) ?>"><i class="bi bi-trash3-fill"></i> Hapus</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

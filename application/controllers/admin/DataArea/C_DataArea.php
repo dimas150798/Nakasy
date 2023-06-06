@@ -30,4 +30,36 @@ class C_DataArea extends CI_Controller
         $this->load->view('admin/DataArea/V_DataArea', $data);
         $this->load->view('template/V_FooterArea', $data);
     }
+
+    public function GetDataAjax()
+    {
+        $result = $this->M_Area->DataArea();
+
+        $no = 0;
+
+        foreach ($result as $dataArea) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $dataArea['nama_area'];
+            $row[] =
+                '<div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
+                        Opsi
+                    </button>
+                    <div class="dropdown-menu text-black" style="background-color:aqua;">
+                        <a onclick="EditArea(' . $dataArea['id_area'] . ')"class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="DeleteArea(' . $dataArea['id_area'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
+                    </div>
+                </div>
+                </div>';
+            $data[] = $row;
+        }
+
+        $ouput = array(
+            'data' => $data
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
+    }
 }

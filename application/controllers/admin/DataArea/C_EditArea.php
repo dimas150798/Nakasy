@@ -59,10 +59,11 @@ class C_EditArea extends CI_Controller
             $this->load->view('template/V_FooterArea', $data);
         } else {
             $this->M_CRUD->updateData('data_area', $dataArea, $idArea);
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>EDIT DATA BERHASIL</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
+
+            // Notifikasi Edit Berhasil
+            $this->session->set_flashdata('Edit_icon', 'success');
+            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+
             redirect('admin/DataArea/C_DataArea');
         }
     }
