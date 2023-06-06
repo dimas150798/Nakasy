@@ -17,20 +17,6 @@ class C_EditPaket extends CI_Controller
         }
     }
 
-    public function index()
-    {
-        // clear session login
-        $this->session->unset_userdata('LoginBerhasil_icon');
-
-        // Memanggil mysql dari model
-        $data['DataPaket']          = $this->M_Paket->DataPaket();
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/DataPaket/V_DataPaket', $data);
-        $this->load->view('template/V_FooterPaket', $data);
-    }
-
     public function EditPaket($id_paket)
     {
         //memanggil mysql dari model 
@@ -81,7 +67,7 @@ class C_EditPaket extends CI_Controller
             if ($nama_paket == $checkDuplicate->nama_paket) {
                 // Notifikasi Duplicate Name 
                 $this->session->set_flashdata('DuplicateName_icon', 'error');
-                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Paket');
                 $this->session->set_flashdata('DuplicateName_text', 'Nama paket sudah ada');
 
                 redirect('admin/DataPaket/C_DataPaket');

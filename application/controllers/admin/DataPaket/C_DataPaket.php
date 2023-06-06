@@ -44,12 +44,12 @@ class C_DataPaket extends CI_Controller
 
         $no = 0;
 
-        foreach ($result as $dataCustomer) {
+        foreach ($result as $dataPaket) {
             $row = array();
             $row[] = ++$no;
-            $row[] = $dataCustomer['nama_paket'];
-            $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-            $row[] = '<div class="text-center">' . $dataCustomer['deskripsi_paket'] . '</div>';
+            $row[] = $dataPaket['nama_paket'];
+            $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataPaket['harga_paket'], 0, ',', '.') . '</div>';
+            $row[] = '<div class="text-center">' . $dataPaket['deskripsi_paket'] . '</div>';
             $row[] =
                 '<div class="text-center">
                 <div class="btn-group">
@@ -57,8 +57,8 @@ class C_DataPaket extends CI_Controller
                         Opsi
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
-                        <a onclick="EditPaket(' . $dataCustomer['id_paket'] . ')"class="dropdown-item text-black"></i> Edit</a>
-                        <a onclick="DeletePaket(' . $dataCustomer['id_paket'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
+                        <a onclick="EditPaket(' . $dataPaket['id_paket'] . ')"class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="DeletePaket(' . $dataPaket['id_paket'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
                     </div>
                 </div>
                 </div>';
