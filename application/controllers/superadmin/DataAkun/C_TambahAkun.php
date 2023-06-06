@@ -18,13 +18,16 @@ class C_TambahAkun extends CI_Controller
 
     public function index()
     {
+        // clear session login
+        $this->session->unset_userdata('LoginBerhasil_icon');
+
         //memanggil mysql dari model 
         $data['DataAkses']      = $this->M_AksesLogin->DataAksesLogin();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarSuperadmin', $data);
         $this->load->view('superadmin/DataAkun/V_TambahAkun', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('template/V_FooterAkun', $data);
     }
 
     public function TambahAkunSave()
@@ -44,6 +47,7 @@ class C_TambahAkun extends CI_Controller
 
         //memanggil mysql dari model 
         $data['DataAkses']      = $this->M_AksesLogin->DataAksesLogin();
+        $checkDuplicate         = $this->M_DataAkun->CheckDuplicateakun($email_login);
 
         // Rules form Validation
         $this->form_validation->set_rules('email_login', 'Email', 'required');
@@ -55,14 +59,25 @@ class C_TambahAkun extends CI_Controller
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebarSuperadmin', $data);
             $this->load->view('superadmin/DataAkun/V_TambahAkun', $data);
-            $this->load->view('template/footer', $data);
+            $this->load->view('template/V_FooterAkun', $data);
         } else {
-            $this->M_CRUD->insertData($dataAkun, 'data_login');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-               <strong>TAMBAH DATA BERHASIL</strong>
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-               </div>');
-            redirect('superadmin/DataAkun/C_DataAkun');
+            if ($email_login == $checkDuplicate->email_login) {
+
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Akun');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama akun sudah ada');
+
+                redirect('superadmin/DataAkun/C_TambahAkun');
+            } else {
+                $this->M_CRUD->insertData($dataAkun, 'data_login');
+
+                // Notifikasi Tambah Berhasil
+                $this->session->set_flashdata('Tambah_icon', 'success');
+                $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                redirect('superadmin/DataAkun/C_DataAkun');
+            }
         }
     }
 }

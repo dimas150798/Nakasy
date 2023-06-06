@@ -7,7 +7,7 @@
                     <i class="fa fa-list"></i> <b class="textmenuatas">Tambah Akun</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('superadmin/DataAkun/C_DataAkun') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
+                    <a class="btn bg-danger text-white" href="<?php echo base_url('superadmin/DataAkun/C_DataAkun') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>
                 </div>
             </div>

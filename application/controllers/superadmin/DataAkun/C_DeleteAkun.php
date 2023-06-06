@@ -18,16 +18,20 @@ class C_DeleteAkun extends CI_Controller
 
     public function DeleteAkun($id_login)
     {
+        // clear session login
+        $this->session->unset_userdata('LoginBerhasil_icon');
+
         // Kondisi delete menggunakan id_customer
         $idLogin = array(
             'id_login'       => $id_login
         );
 
         $this->M_CRUD->deleteData($idLogin, 'data_login');
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>DELETE DATA BERHASIL</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
+
+        // Notifikasi Delete Berhasil
+        $this->session->set_flashdata('Delete_icon', 'success');
+        $this->session->set_flashdata('Delete_title', 'Delete Data Berhasil');
+
         redirect('superadmin/DataAkun/C_DataAkun');
     }
 }

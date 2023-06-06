@@ -63,10 +63,11 @@ class C_EditAkun extends CI_Controller
             $this->load->view('template/footer', $data);
         } else {
             $this->M_CRUD->updateData('data_login', $dataAkun, $idLogin);
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>EDIT DATA BERHASIL</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
+
+            // Notifikasi Edit Berhasil
+            $this->session->set_flashdata('Edit_icon', 'success');
+            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+
             redirect('superadmin/DataAkun/C_DataAkun');
         }
     }

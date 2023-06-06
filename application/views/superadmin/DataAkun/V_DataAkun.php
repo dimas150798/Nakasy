@@ -33,52 +33,18 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <table id="datatablesdekstop" class="table table-bordered" width="100%">
+                            <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
                                         <th width="30%">Email</th>
-                                        <th width="30%" class="text-center">Password</th>
-                                        <th width="30%" class="text-center">Nama Akses</th>
-                                        <th width="5%" class="text-center">Opsi</th>
+                                        <th width="30%">Password</th>
+                                        <th width="30%">Nama Akses</th>
+                                        <th width="5%">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1;
-                                    foreach ($DataLogin as $data) :
-                                    ?>
 
-                                        <tr>
-                                            <td>
-                                                <?php echo $no++ ?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo $data['email_login'] ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <?php echo $data['password_login'] ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <?php echo $data['nama_akses'] ?>
-                                            </td>
-
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
-                                                        Opsi
-                                                    </button>
-                                                    <div class="dropdown-menu text-black" style="background-color:aqua;">
-                                                        <a class="dropdown-item text-black" href="<?php echo base_url('superadmin/DataAkun/C_EditAkun/EditAkun/' . $data['id_login']) ?>"><i class="bi bi-pencil-square"></i> Edit</a>
-                                                        <a onclick="return confirm('Yakin Menghapus Data')" class="dropdown-item text-black" href="<?php echo base_url('superadmin/DataAkun/C_DeleteAkun/DeleteAkun/' . $data['id_login']) ?>"><i class="bi bi-trash3-fill"></i> Hapus</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

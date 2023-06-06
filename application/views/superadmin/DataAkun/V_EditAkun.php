@@ -4,10 +4,10 @@
         <div class="menuatas">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6">
-                    <i class="fa fa-list"></i> <b class="textmenuatas">Tambah Akun</b>
+                    <i class="fa fa-list"></i> <b class="textmenuatas">Edit Akun</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('superadmin/DataAkun/C_DataAkun') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
+                    <a class="btn bg-danger text-white" href="<?php echo base_url('superadmin/DataAkun/C_DataAkun') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="card mb-3 mt-3">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Data Pelanggan
+                    Data Akun
                 </div>
                 <div class="card-body">
                     <div class="container">
