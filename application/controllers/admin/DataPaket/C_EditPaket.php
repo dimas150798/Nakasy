@@ -64,22 +64,13 @@ class C_EditPaket extends CI_Controller
             $this->load->view('admin/DataPaket/V_EditPaket', $data);
             $this->load->view('template/V_FooterPaket', $data);
         } else {
-            if ($nama_paket == $checkDuplicate->nama_paket) {
-                // Notifikasi Duplicate Name 
-                $this->session->set_flashdata('DuplicateName_icon', 'error');
-                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Paket');
-                $this->session->set_flashdata('DuplicateName_text', 'Nama paket sudah ada');
+            $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
 
-                redirect('admin/DataPaket/C_DataPaket');
-            } else {
-                $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
+            // Notifikasi Edit Berhasil
+            $this->session->set_flashdata('Edit_icon', 'success');
+            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
 
-                // Notifikasi Edit Berhasil
-                $this->session->set_flashdata('Edit_icon', 'success');
-                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
-
-                redirect('admin/DataPaket/C_DataPaket');
-            }
+            redirect('admin/DataPaket/C_DataPaket');
         }
     }
 }
