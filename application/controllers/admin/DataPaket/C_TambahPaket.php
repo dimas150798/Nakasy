@@ -40,6 +40,9 @@ class C_TambahPaket extends CI_Controller
             'created_at'        => date('Y-m-d H:i:s', time())
         );
 
+        //memanggil mysql dari model 
+        $checkDuplicate         = $this->M_Paket->CheckDuplicatePaket($nama_paket);
+
         // Rules form Validation
         $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
         $this->form_validation->set_rules('harga_paket', 'Harga Paket', 'required');
@@ -52,13 +55,22 @@ class C_TambahPaket extends CI_Controller
             $this->load->view('admin/DataPaket/V_TambahPaket');
             $this->load->view('template/V_FooterArea');
         } else {
-            $this->M_CRUD->insertData($dataPaket, 'data_paket');
+            if ($nama_paket == $checkDuplicate->nama_paket) {
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama paket sudah ada');
 
-            // Notifikasi Edit Berhasil
-            $this->session->set_flashdata('Tambah_icon', 'success');
-            $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+                redirect('admin/DataPaket/C_TambahPaket');
+            } else {
+                $this->M_CRUD->insertData($dataPaket, 'data_paket');
 
-            redirect('admin/DataPaket/C_DataPaket');
+                // Notifikasi Tambah Berhasil
+                $this->session->set_flashdata('Tambah_icon', 'success');
+                $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                redirect('admin/DataPaket/C_DataPaket');
+            }
         }
     }
 }

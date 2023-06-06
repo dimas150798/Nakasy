@@ -152,6 +152,16 @@
 	<?php } ?>
 </script>
 
+<!-- Alert Duplicate Name (Tambah Data) -->
+<script>
+	<?php if ($this->session->flashdata('DuplicateName_icon')) { ?>
+		Swal.fire(
+			"<?php echo $this->session->flashdata('DuplicateName_title') ?>",
+			"<?php echo $this->session->flashdata('DuplicateName_text') ?>",
+			"<?php echo $this->session->flashdata('DuplicateName_icon') ?>");
+	<?php } ?>
+</script>
+
 <!-- Ajax Show Data Pelanggan -->
 <script>
 	$(document).ready(function() {

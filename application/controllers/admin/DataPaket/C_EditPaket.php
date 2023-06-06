@@ -17,6 +17,20 @@ class C_EditPaket extends CI_Controller
         }
     }
 
+    public function index()
+    {
+        // clear session login
+        $this->session->unset_userdata('LoginBerhasil_icon');
+
+        // Memanggil mysql dari model
+        $data['DataPaket']          = $this->M_Paket->DataPaket();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebarAdmin', $data);
+        $this->load->view('admin/DataPaket/V_DataPaket', $data);
+        $this->load->view('template/V_FooterPaket', $data);
+    }
+
     public function EditPaket($id_paket)
     {
         //memanggil mysql dari model 
@@ -38,6 +52,7 @@ class C_EditPaket extends CI_Controller
 
         //memanggil mysql dari model 
         $data['DataPaket']       = $this->M_Paket->EditPaket($id_paket);
+        $checkDuplicate          = $this->M_Paket->CheckDuplicatePaket($nama_paket);
 
         //menyimpan data ke dalam array
         $dataPaket = array(
@@ -63,13 +78,22 @@ class C_EditPaket extends CI_Controller
             $this->load->view('admin/DataPaket/V_EditPaket', $data);
             $this->load->view('template/V_FooterPaket', $data);
         } else {
-            $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
+            if ($nama_paket == $checkDuplicate->nama_paket) {
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama paket sudah ada');
 
-            // Notifikasi Edit Berhasil
-            $this->session->set_flashdata('Edit_icon', 'success');
-            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+                redirect('admin/DataPaket/C_DataPaket');
+            } else {
+                $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
 
-            redirect('admin/DataPaket/C_DataPaket');
+                // Notifikasi Edit Berhasil
+                $this->session->set_flashdata('Edit_icon', 'success');
+                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+
+                redirect('admin/DataPaket/C_DataPaket');
+            }
         }
     }
 }

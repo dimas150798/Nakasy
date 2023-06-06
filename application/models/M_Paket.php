@@ -23,4 +23,21 @@ class M_Paket extends CI_Model
 
         return $query->result_array();
     }
+
+    // Check data paket
+    public function CheckDuplicatePaket($nama_paket)
+    {
+        $this->db->select('nama_paket, id_paket');
+        $this->db->where('nama_paket', $nama_paket);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_paket');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

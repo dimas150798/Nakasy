@@ -38,10 +38,8 @@ if (!function_exists('changeDateFormat')) {
                 <div class="col-12">
                     <div class="card mb-3">
                         <div class="card-header">
-
-                            <h3><i class="fas fa-table me-1"></i>
-                                Data Paket
-                            </h3>
+                            <i class="fas fa-table me-1"></i>
+                            Data Paket
                         </div>
                         <div class="card-body">
                             <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">
