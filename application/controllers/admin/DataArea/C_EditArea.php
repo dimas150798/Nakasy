@@ -17,6 +17,20 @@ class C_EditArea extends CI_Controller
         }
     }
 
+    public function index()
+    {
+        // clear session login
+        $this->session->unset_userdata('LoginBerhasil_icon');
+
+        // Memanggil mysql dari model
+        $data['DataArea'] = $this->M_Area->DataArea();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebarAdmin', $data);
+        $this->load->view('admin/DataArea/V_DataArea', $data);
+        $this->load->view('template/V_FooterArea', $data);
+    }
+
     public function EditArea($id_area)
     {
         //memanggil mysql dari model 
@@ -47,6 +61,7 @@ class C_EditArea extends CI_Controller
 
         //memanggil mysql dari model 
         $data['DataArea']       = $this->M_Area->EditArea($id_area);
+        $checkDuplicate         = $this->M_Area->CheckDuplicateArea($nama_area);
 
         // Rules form Validation
         $this->form_validation->set_rules('nama_area', 'Nama', 'required');
@@ -58,13 +73,23 @@ class C_EditArea extends CI_Controller
             $this->load->view('admin/DataArea/V_EditArea', $data);
             $this->load->view('template/V_FooterArea', $data);
         } else {
-            $this->M_CRUD->updateData('data_area', $dataArea, $idArea);
+            if ($nama_area == $checkDuplicate->nama_area) {
 
-            // Notifikasi Edit Berhasil
-            $this->session->set_flashdata('Edit_icon', 'success');
-            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Area');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama area sudah ada');
 
-            redirect('admin/DataArea/C_DataArea');
+                redirect('admin/DataArea/C_EditArea');
+            } else {
+                $this->M_CRUD->updateData('data_area', $dataArea, $idArea);
+
+                // Notifikasi Edit Berhasil
+                $this->session->set_flashdata('Edit_icon', 'success');
+                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+
+                redirect('admin/DataArea/C_DataArea');
+            }
         }
     }
 }
