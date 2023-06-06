@@ -81,6 +81,11 @@
 
 
                         <div class="sb-sidenav-menu-heading">Data Master</div>
+                        <!-- Paket Menu -->
+                        <a class="nav-link" href="<?php echo base_url('admin/DataPaket/C_DataPaket') ?>">
+                            <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/router.svg" alt="Bootstrap" ...></div>
+                            Paket Internet
+                        </a>
                         <!-- DP dan Area Menu -->
                         <a class="nav-link" href="<?php echo base_url('admin/DataArea/C_DataArea') ?>">
                             <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/globe.svg" alt="Bootstrap" ...></div>
