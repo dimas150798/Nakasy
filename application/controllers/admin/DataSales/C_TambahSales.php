@@ -46,6 +46,7 @@ class C_TambahSales extends CI_Controller
 
         //memanggil mysql dari model 
         $data['DataJabatan']      = $this->M_Jabatan->DataJabatan();
+        $checkDuplicate          = $this->M_Sales->CheckDuplicateSales($nama_sales);
 
         // Rules form Validation
         $this->form_validation->set_rules('nama_sales', 'Nama Sales', 'required');
@@ -59,12 +60,22 @@ class C_TambahSales extends CI_Controller
             $this->load->view('admin/DataSales/V_TambahSales', $data);
             $this->load->view('template/V_FooterSales', $data);
         } else {
-            $this->M_CRUD->insertData($dataSales, 'data_sales');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-               <strong>TAMBAH DATA BERHASIL</strong>
-               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-               </div>');
-            redirect('admin/DataSales/C_DataSales');
+            if ($nama_sales == $checkDuplicate->nama_sales) {
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Sales');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama sales sudah ada');
+
+                redirect('admin/DataSales/C_DataSales');
+            } else {
+                $this->M_CRUD->insertData($dataSales, 'data_sales');
+
+                // Notifikasi Tambah Berhasil
+                $this->session->set_flashdata('Tambah_icon', 'success');
+                $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                redirect('admin/DataSales/C_DataSales');
+            }
         }
     }
 }

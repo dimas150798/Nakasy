@@ -24,4 +24,21 @@ class M_Sales extends CI_Model
 
         return $query->result_array();
     }
+
+    // Check data sales
+    public function CheckDuplicateSales($nama_sales)
+    {
+        $this->db->select('nama_sales, id_sales');
+        $this->db->where('nama_sales', $nama_sales);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_sales');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

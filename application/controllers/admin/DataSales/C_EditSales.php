@@ -52,6 +52,7 @@ class C_EditSales extends CI_Controller
         );
         //memanggil mysql dari model 
         $data['DataSales']       = $this->M_Sales->EditSales($id_sales);
+        $checkDuplicate          = $this->M_Sales->CheckDuplicateSales($nama_sales);
 
         // Rules form Validation
         $this->form_validation->set_rules('nama_sales', 'Nama', 'required');
@@ -65,12 +66,22 @@ class C_EditSales extends CI_Controller
             $this->load->view('admin/DataSales/V_EditSales', $data);
             $this->load->view('template/V_FooterSales', $data);
         } else {
-            $this->M_CRUD->updateData('data_sales', $dataSales, $idSales);
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>EDIT DATA BERHASIL</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
-            redirect('admin/DataSales/C_DataSales');
+            if ($nama_sales == $checkDuplicate->nama_sales) {
+                // Notifikasi Duplicate Name 
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Sales');
+                $this->session->set_flashdata('DuplicateName_text', 'Nama sales sudah ada');
+
+                redirect('admin/DataSales/C_DataSales');
+            } else {
+                $this->M_CRUD->updateData('data_sales', $dataSales, $idSales);
+
+                // Notifikasi Edit Berhasil
+                $this->session->set_flashdata('Edit_icon', 'success');
+                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
+
+                redirect('admin/DataSales/C_DataSales');
+            }
         }
     }
 }

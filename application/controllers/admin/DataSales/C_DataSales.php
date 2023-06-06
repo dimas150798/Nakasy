@@ -30,4 +30,38 @@ class C_DataSales extends CI_Controller
         $this->load->view('admin/DataSales/V_DataSales', $data);
         $this->load->view('template/V_FooterSales', $data);
     }
+
+    public function GetDataAjax()
+    {
+        $result = $this->M_Sales->DataSales();
+
+        $no = 0;
+
+        foreach ($result as $dataSales) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $dataSales['nama_sales'];
+            $row[] = '<div class="text-center">' . $dataSales['phone_sales'] . '</div>';
+            $row[] = '<div class="text-center">' . $dataSales['nama_jabatan'] . '</div>';
+            $row[] =
+                '<div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
+                        Opsi
+                    </button>
+                    <div class="dropdown-menu text-black" style="background-color:aqua;">
+                        <a onclick="EditSales(' . $dataSales['id_sales'] . ')"class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="DeleteSales(' . $dataSales['id_sales'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
+                    </div>
+                </div>
+                </div>';
+            $data[] = $row;
+        }
+
+        $ouput = array(
+            'data' => $data
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
+    }
 }

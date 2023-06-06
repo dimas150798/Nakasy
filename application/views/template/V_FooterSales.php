@@ -74,6 +74,146 @@
 	}
 </script>
 
+<!-- Alert Duplicate Name (Tambah Data) -->
+<script>
+	<?php if ($this->session->flashdata('DuplicateName_icon')) { ?>
+		Swal.fire(
+			"<?php echo $this->session->flashdata('DuplicateName_title') ?>",
+			"<?php echo $this->session->flashdata('DuplicateName_text') ?>",
+			"<?php echo $this->session->flashdata('DuplicateName_icon') ?>");
+	<?php } ?>
+</script>
+
+<!-- Alert Tambah Data -->
+<script>
+	<?php if ($this->session->flashdata('Tambah_icon')) { ?>
+		var toastMixin = Swal.mixin({
+			toast: true,
+			icon: '<?php echo $this->session->flashdata('Tambah_icon') ?>',
+			title: 'General Title',
+			animation: false,
+			position: 'top-right',
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		});
+
+		toastMixin.fire({
+			animation: true,
+			title: '<?php echo $this->session->flashdata('Tambah_title') ?>'
+		});
+
+	<?php } ?>
+</script>
+
+<!-- Alert Edit Data -->
+<script>
+	<?php if ($this->session->flashdata('Edit_icon')) { ?>
+		var toastMixin = Swal.mixin({
+			toast: true,
+			icon: 'success',
+			title: 'General Title',
+			animation: false,
+			position: 'top-right',
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		});
+
+		toastMixin.fire({
+			animation: true,
+			title: '<?php echo $this->session->flashdata('Edit_title') ?>'
+		});
+
+	<?php } ?>
+</script>
+
+<!-- Alert Delete Data -->
+<script>
+	<?php if ($this->session->flashdata('Delete_icon')) { ?>
+		var toastMixin = Swal.mixin({
+			toast: true,
+			icon: 'success',
+			title: 'General Title',
+			animation: false,
+			position: 'top-right',
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		});
+
+		toastMixin.fire({
+			animation: true,
+			title: '<?php echo $this->session->flashdata('Delete_title') ?>'
+		});
+
+	<?php } ?>
+</script>
+
+<!-- Ajax Show Data Sales -->
+<script>
+	$(document).ready(function() {
+		$('#mytable').DataTable({
+			"autoFill": true,
+			"pagingType": 'numbers',
+			"ajax": {
+				"url": "<?= base_url('admin/DataSales/C_DataSales/GetDataAjax'); ?>",
+			},
+
+		})
+	})
+</script>
+
+<!-- Delete Sales -->
+<script>
+	function DeleteSales(parameter_id) {
+		Swal.fire({
+			title: 'Yakin Melakukan Delete Data ?',
+			text: "Data yang dihapus tidak akan kembali",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya, Hapus Data!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "<?php echo site_url('admin/DataSales/C_DeleteSales/DeleteSales') ?>/" + parameter_id;
+			}
+		})
+	}
+</script>
+
+<!-- Edit Data Sales -->
+<script>
+	function EditSales(parameter_id) {
+		Swal.fire({
+			title: 'Yakin Melakukan Edit Data ?',
+			text: "Data yang diedit tidak akan kembali",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya, Edit Data!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "<?php echo site_url('admin/DataSales/C_EditSales/EditSales') ?>/" + parameter_id;
+			}
+		})
+	}
+</script>
+
 </body>
 
 </html>

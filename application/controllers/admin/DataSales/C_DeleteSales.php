@@ -25,10 +25,11 @@ class C_DeleteSales extends CI_Controller
         );
 
         $this->M_CRUD->deleteData($idSales, 'data_sales');
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>DELETE DATA BERHASIL</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
+
+        // Notifikasi Delete Berhasil
+        $this->session->set_flashdata('Delete_icon', 'success');
+        $this->session->set_flashdata('Delete_title', 'Delete Data Berhasil');
+
         redirect('admin/DataSales/C_DataSales');
     }
 }
