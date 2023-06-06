@@ -17,20 +17,6 @@ class C_EditArea extends CI_Controller
         }
     }
 
-    public function index()
-    {
-        // clear session login
-        $this->session->unset_userdata('LoginBerhasil_icon');
-
-        // Memanggil mysql dari model
-        $data['DataArea'] = $this->M_Area->DataArea();
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/DataArea/V_DataArea', $data);
-        $this->load->view('template/V_FooterArea', $data);
-    }
-
     public function EditArea($id_area)
     {
         //memanggil mysql dari model 
@@ -80,7 +66,7 @@ class C_EditArea extends CI_Controller
                 $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Area');
                 $this->session->set_flashdata('DuplicateName_text', 'Nama area sudah ada');
 
-                redirect('admin/DataArea/C_EditArea');
+                redirect('admin/DataArea/C_DataArea');
             } else {
                 $this->M_CRUD->updateData('data_area', $dataArea, $idArea);
 
