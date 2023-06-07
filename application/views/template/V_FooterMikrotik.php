@@ -153,30 +153,30 @@
 
 <!-- Alert Duplicate Name (Tambah Data) -->
 <script>
-    <?php if ($this->session->flashdata('CheckJumlah_icon')) { ?>
+    <?php if ($this->session->flashdata('DuplicateName_icon')) { ?>
         Swal.fire(
-            "<?php echo $this->session->flashdata('CheckJumlah_title') ?>",
-            "<?php echo $this->session->flashdata('CheckJumlah_text') ?>",
-            "<?php echo $this->session->flashdata('CheckJumlah_icon') ?>");
+            "<?php echo $this->session->flashdata('DuplicateName_title') ?>",
+            "<?php echo $this->session->flashdata('DuplicateName_text') ?>",
+            "<?php echo $this->session->flashdata('DuplicateName_icon') ?>");
     <?php } ?>
 </script>
 
-<!-- Ajax Show Data Akun -->
+<!-- Ajax Show Data Mikrotik -->
 <script>
     $(document).ready(function() {
         $('#mytable').DataTable({
             "autoFill": true,
             "pagingType": 'numbers',
             "ajax": {
-                "url": "<?= base_url('superadmin/DataAkun/C_DataAkun/GetDataAjax'); ?>",
+                "url": "<?= base_url('superadmin/DataMikrotik/C_DataMikrotik/GetDataAjax'); ?>",
             },
         })
     })
 </script>
 
-<!-- Delete Data Akun -->
+<!-- Delete Data Mikrotik -->
 <script>
-    function DeleteAkun(parameter_id) {
+    function DeleteMikrotik(parameter_id) {
         Swal.fire({
             title: 'Yakin Melakukan Delete Data ?',
             text: "Data yang dihapus tidak akan kembali",
@@ -187,15 +187,15 @@
             confirmButtonText: 'Ya, Hapus Data!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo site_url('superadmin/DataAkun/C_DeleteAkun/DeleteAkun') ?>/" + parameter_id;
+                window.location.href = "<?php echo site_url('superadmin/DataMikrotik/C_DeleteMikrotik/DeleteMikrotik') ?>/" + parameter_id;
             }
         })
     }
 </script>
 
-<!-- Edit Data Akun -->
+<!-- Edit Data Mikrotik -->
 <script>
-    function EditAkun(parameter_id) {
+    function EditMikrotik(parameter_id) {
         Swal.fire({
             title: 'Yakin Melakukan Edit Data ?',
             text: "Data yang diedit tidak akan kembali",
@@ -206,7 +206,45 @@
             confirmButtonText: 'Ya, Edit Data!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo site_url('superadmin/DataAkun/C_EditAkun/EditAkun') ?>/" + parameter_id;
+                window.location.href = "<?php echo site_url('superadmin/DataMikrotik/C_EditMikrotik/EditMikrotik') ?>/" + parameter_id;
+            }
+        })
+    }
+</script>
+
+<!-- Enable Mikrotik -->
+<script>
+    function EnableMikrotik(parameter_id) {
+        Swal.fire({
+            title: 'Yakin Melakukan Enable ?',
+            text: "Data yang dienable, maka akan aktif",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Enable!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?php echo site_url('superadmin/DataMikrotik/C_EnableMikrotik/EnableMikrotik') ?>/" + parameter_id;
+            }
+        })
+    }
+</script>
+
+<!-- Disable Mikrotik -->
+<script>
+    function DisableMikrotik(parameter_id) {
+        Swal.fire({
+            title: 'Yakin Melakukan Disable ?',
+            text: "Data yang disable, maka akan tidak aktif",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Disable!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?php echo site_url('superadmin/DataMikrotik/C_DisableMikrotik/DisableMikrotik') ?>/" + parameter_id;
             }
         })
     }

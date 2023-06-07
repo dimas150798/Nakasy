@@ -120,4 +120,42 @@ class MikrotikModel extends CI_Model
 
         return $response;
     }
+
+    // Menampilkan Data Login
+    public function DataMikrotik()
+    {
+        $query   = $this->db->query("SELECT id_mikrotik, ip_mikrotik, username_mikrotik, password_mikrotik, status_mikrotik
+                FROM data_mikrotik
+    
+                ORDER BY id_mikrotik DESC");
+
+        return $query->result_array();
+    }
+
+    // Edit Mikrotik
+    public function EditMikrotik($id_mikrotik)
+    {
+        $query   = $this->db->query("SELECT id_mikrotik, ip_mikrotik, username_mikrotik, password_mikrotik, status_mikrotik
+                FROM data_mikrotik
+                WHERE id_mikrotik = '$id_mikrotik'
+                ORDER BY ip_mikrotik ASC");
+
+        return $query->result_array();
+    }
+
+    // Check data mikrotik
+    public function jumlahMikrotik()
+    {
+        $this->db->select('ip_mikrotik, username_mikrotik, password_mikrotik');
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_mikrotik');
+
+        return $result->num_rows();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

@@ -41,6 +41,11 @@
                             Data Akun
                         </a>
 
+                        <a class="nav-link" href="<?php echo base_url() ?>superadmin/DataMikrotik/C_DataMikrotik">
+                            <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/router.svg" alt="Bootstrap" ...></div>
+                            Data Mikrotik
+                        </a>
+
                         <!-- Logout Menu -->
                         <a onclick="LogOut()" class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/box-arrow-right.svg" alt="Bootstrap" ...></div>
