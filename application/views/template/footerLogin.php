@@ -64,6 +64,13 @@
 	<?php } ?>
 </script>
 
+<!-- Alert Login -->
+<script>
+	<?php if ($this->session->flashdata('CheckMikrotik_icon')) { ?>
+		Swal.fire("<?php echo $this->session->flashdata('CheckMikrotik_title') ?>", "<?php echo $this->session->flashdata('CheckMikrotik_text') ?>", "<?php echo $this->session->flashdata('CheckMikrotik_icon') ?>");
+	<?php } ?>
+</script>
+
 </body>
 
 </html>

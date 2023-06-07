@@ -34,6 +34,10 @@ class C_FormLogin extends CI_Controller
                 $this->load->view('template/footerLogin');
             } elseif ($email_login == $checkDataLogin->email_login && $checkDataLogin->id_akses == 1) {
 
+                // Notifikasi gagal login
+                $this->session->set_flashdata('CheckMikrotik_icon', 'error');
+                $this->session->set_flashdata('CheckMikrotik_title', 'Email atau Password Salah');
+
                 // Setting session login email
                 $this->session->set_userdata('email', $checkDataLogin->email_login);
 

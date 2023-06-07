@@ -17,8 +17,17 @@ function formatBytes($bytes, $decimal = null)
 
 function connect()
 {
+    $CI = &get_instance();
+    $CI->load->model('MikrotikModel');
+    $result = $CI->MikrotikModel->CheckStatusMikrotik();
+
+    $ipMikrotik         = $result->ip_mikrotik;
+    $usernameMikrotik   = $result->username_mikrotik;
+    $passwordMikrotik   = $result->password_mikrotik;
+
+
     $api = new RouterosAPI();
-    $api->connect(env('ipmikrotik'), env('usernamemikrotik'), env('passwordmikrotik'));
+    $api->connect($ipMikrotik, $usernameMikrotik, $passwordMikrotik);
 
     if (count($api->comm('/ppp/secret/print')) == 0) {
         echo json_encode("Connection Failed");

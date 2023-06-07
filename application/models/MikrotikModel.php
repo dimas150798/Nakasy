@@ -158,4 +158,37 @@ class MikrotikModel extends CI_Model
             return false;
         }
     }
+
+    // Check data mikrotik
+    public function jumlahMikrotikAktif()
+    {
+        $this->db->select('ip_mikrotik, username_mikrotik, password_mikrotik');
+        $this->db->where('status_mikrotik', 'enable');
+        $this->db->limit(1);
+        $result = $this->db->get('data_mikrotik');
+
+        return $result->num_rows();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Check status mikrotik
+    public function CheckStatusMikrotik()
+    {
+        $this->db->select('ip_mikrotik, username_mikrotik, password_mikrotik', 'status_mikrotik');
+        $this->db->where('status_mikrotik', 'enable');
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_mikrotik');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

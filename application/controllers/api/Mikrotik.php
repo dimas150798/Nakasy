@@ -12,8 +12,14 @@ class Mikrotik extends CI_Controller
 
     private function connect()
     {
+        $Mikrotik           = $this->MikrotikModel->CheckStatusMikrotik();
+
+        $ipMikrotik         = $Mikrotik->ip_mikrotik;
+        $usernameMikrotik   = $Mikrotik->username_mikrotik;
+        $passwordMikrotik   = $Mikrotik->password_mikrotik;
+
         $api = new RouterosAPI();
-        $api->connect(env('ipmikrotik'), env('usernamemikrotik'), env('passwordmikrotik'));
+        $api->connect($ipMikrotik, $usernameMikrotik, $passwordMikrotik);
 
         if (count($api->comm('/system/resource/print')) == 0) {
             echo json_encode("Connection Failed");
