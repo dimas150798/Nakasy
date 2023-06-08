@@ -26,22 +26,22 @@
                                 <div class="row">
                                     <input type="hidden" class="form-control" name="id_paket" value=" <?php echo $data['id_paket'] ?>" readonly>
                                 </div>
-                                <div class="row mt-3 justify-content-center">
-                                    <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="nama_paket" class="form-label" style="font-weight: bold;"> Nama Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nama_paket" value="<?php echo $data['nama_paket'] ?>" placeholder="Masukkan nama paket...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('nama_paket'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="harga_paket" class="form-label" style="font-weight: bold;"> Harga Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="harga_paket" value="<?php echo $data['harga_paket'] ?>" placeholder="Masukkan harga paket...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('harga_paket'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="deskripsi_paket" class="form-label" style="font-weight: bold;"> Deskripsi Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="deskripsi_paket" value="<?php echo $data['deskripsi_paket'] ?>" placeholder="Masukkan deskripsi...">
                                         <div class="bg-danger">
@@ -49,7 +49,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="row mt-3">
                                     <div class="col-sm-12 d-flex justify-content-end">
