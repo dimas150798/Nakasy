@@ -100,6 +100,13 @@
 	<?php } ?>
 </script>
 
+<!-- Alert duplicate -->
+<script>
+	<?php if ($this->session->flashdata('DuplicatePay_icon')) { ?>
+		Swal.fire("<?php echo $this->session->flashdata('DuplicatePay_title') ?>", "<?php echo $this->session->flashdata('DuplicatePay_text') ?>", "<?php echo $this->session->flashdata('DuplicatePay_icon') ?>");
+	<?php } ?>
+</script>
+
 <!-- Ajax Show Data Pelanggan -->
 <script>
 	$(document).ready(function() {
