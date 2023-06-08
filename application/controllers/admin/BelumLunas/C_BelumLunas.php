@@ -126,6 +126,7 @@ class C_BelumLunas extends CI_Controller
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
                         <a onclick="Payment(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
+                        <a onclick="KirimWA(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim Tagihan</a>
                     </div>
                 </div>
                 </div>';
@@ -160,6 +161,7 @@ class C_BelumLunas extends CI_Controller
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
                         <a onclick="Payment(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
+                        <a onclick="KirimWA(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim Tagihan</a>
                     </div>
                 </div>
                 </div>';

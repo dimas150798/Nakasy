@@ -121,6 +121,13 @@
 	}
 </script>
 
+<!-- Kirim Tagihan-->
+<script>
+	function KirimWA(parameter_id) {
+		window.location.href = "<?php echo site_url('admin/BelumLunas/C_WA_Tagihan/KirimWA') ?>/" + parameter_id;
+	}
+</script>
+
 </body>
 
 </html>
