@@ -30,22 +30,22 @@
                                     <input type="hidden" class="form-control" name="id_pppoe" id="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
                                 </div>
 
-                                <div class="row mt-2">
-                                    <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="nama_customer" class="form-label" style="font-weight: bold;"> Nama : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nama_customer" id="nama_customer" value="<?php echo $data['nama_customer'] ?>" placeholder="Masukkan nama pelanggan...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('nama_customer'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="start_date" class="form-label" style="font-weight: bold;"> Tanggal Registrasi : <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="start_date" id="start_date" value="<?php echo $data['start_date'] ?>">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('start_date'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="kode_customer" class="form-label" style="font-weight: bold;"> Kode Pelanggan : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="kode_customer" id="kode_customer" value="<?php echo $data['kode_customer'] ?>" placeholder="Masukkan kode pelanggan...">
                                         <div class="bg-danger">
@@ -54,22 +54,22 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="name_pppoe" class="form-label" style="font-weight: bold;"> Name PPPOE : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="name_pppoe" id="name_pppoe" value="<?php echo $data['name_pppoe'] ?>" placeholder="Masukkan nama pelanggan...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('name_pppoe'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="password_pppoe" class="form-label" style="font-weight: bold;"> Password PPPOE : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="password_pppoe" id="password_pppoe" value="<?php echo $data['password_pppoe'] ?>" placeholder="Masukkan nama pelanggan...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('password_pppoe'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="phone_customer" class="form-label" style="font-weight: bold;"> No. Telephone : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="phone_customer" id="phone_customer" value="<?php echo $data['phone_customer'] ?>" placeholder="Masukkan nama pelanggan...">
                                         <div class="bg-danger">
@@ -78,8 +78,8 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="nama_paket" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
                                         <select id="nama_paket" name="nama_paket" class="form-control" required>
                                             <?php foreach ($DataPaket as $dataPaket) : ?>
@@ -92,7 +92,7 @@
                                             <small class="text-white"><?php echo form_error('nama_paket'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="nama_area" class="form-label" style="font-weight: bold;"> Kode DP dan Area : <span class="text-danger">*</span></label>
                                         <select id="nama_area" name="nama_area" class="form-control" required>
                                             <option value="">Pilih Area :</option>
@@ -105,7 +105,7 @@
                                             <small class="text-white"><?php echo form_error('nama_area'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="nama_sales" class="form-label" style="font-weight: bold;"> Sales : <span class="text-danger">*</span></label>
                                         <select id="nama_sales" name="nama_sales" class="form-control" required>
                                             <option value="">Pilih Sales :</option>
@@ -120,22 +120,22 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="email_customer" class="form-label" style="font-weight: bold;"> Email : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="email_customer" id="email_customer" value="<?php echo $data['email_customer'] ?>" placeholder="Masukkan email pelanggan...">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('email_customer'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="alamat_customer" class="form-label" style="font-weight: bold;">Alamat : <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="alamat_customer" id="alamat_customer" cols="10" rows="4"><?php echo $data['alamat_customer'] ?></textarea>
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('alamat_customer'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mt-3">
                                         <label for="deskripsi_customer" class="form-label" style="font-weight: bold;">Keterangan : <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name="deskripsi_customer" id="deskripsi_customer" cols="10" rows="4"><?php echo $data['deskripsi_customer'] ?></textarea>
                                         <div class="bg-danger">
