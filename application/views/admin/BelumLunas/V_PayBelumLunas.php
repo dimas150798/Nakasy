@@ -7,7 +7,7 @@
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Pembayaran Pelanggan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/BelumLunas/C_BelumLunas') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
+                    <a class="btn bg-danger text-white" href="<?php echo base_url('admin/BelumLunas/C_BelumLunas') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>
                 </div>
             </div>
@@ -26,10 +26,10 @@
                             <form method="POST" action="<?php echo base_url('admin/BelumLunas/C_PayBelumLunas/PaymentSave') ?>">
 
                                 <div class="row">
-                                    <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php echo $data['id_customer'] ?>" readonly>
-                                    <input type="hidden" class="form-control" name="id_pppoe" id="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
-                                    <input type="hidden" class="form-control" name="nama_paket" id="nama_paket" value="<?php echo $data['namaPaket'] ?>" readonly>
-                                    <input type="hidden" class="form-control" name="gross_amount" id="gross_amount" value="<?php echo $data['harga_paket'] ?>">
+                                    <input type="hidden" class="form-control" name="id_customer" value="<?php echo $data['id_customer'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="nama_paket" value="<?php echo $data['namaPaket'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="gross_amount" value="<?php echo $data['harga_paket'] ?>">
                                 </div>
 
                                 <div class="row mt-2">
