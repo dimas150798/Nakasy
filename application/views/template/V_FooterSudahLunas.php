@@ -114,10 +114,17 @@
 	})
 </script>
 
-<!-- Payment Pelanggan -->
+<!-- Kirim Lunas Pelanggan -->
 <script>
-	function Payment(parameter_id) {
-		window.location.href = "<?php echo site_url('admin/BelumLunas/C_PayBelumLunas/Payment') ?>/" + parameter_id;
+	function KirimWA_Lunas(parameter_id) {
+		window.location.href = "<?php echo site_url('admin/SudahLunas/C_WA_Lunas/KirimWA_Lunas') ?>/" + parameter_id;
+	}
+</script>
+
+<!-- Kwitansi Pelanggan -->
+<script>
+	function KwitansiLunas(parameter_id) {
+		window.location.href = "<?php echo site_url('admin/SudahLunas/C_KwitansiLunas/Kwitansi') ?>/" + parameter_id;
 	}
 </script>
 

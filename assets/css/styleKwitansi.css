@@ -1,0 +1,32 @@
+.center {
+    border: 2px solid black;
+}
+
+@media print {
+
+    html,
+    body {
+        font-family: "Helvetica", Sans-Serif;
+        width: auto;
+        height: auto;
+        padding: 0px;
+        margin: 0;
+        margin-top: 0;
+        padding-left: 0;
+    }
+
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+
+    #cetakKwitansi,
+    #kembaliKwitansi,
+    #footer,
+    #sidebarLogo,
+    #preloader,
+    #kwitansiJudul {
+        display: none;
+    }
+
+}

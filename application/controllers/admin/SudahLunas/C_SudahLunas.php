@@ -118,6 +118,18 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
                 $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">Sudah Lunas</span>') . '</div>';
+                $row[] =
+                    '<div class="text-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
+                                Opsi
+                            </button>
+                            <div class="dropdown-menu text-black" style="background-color:aqua;">
+                                <a onclick="KwitansiLunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
+                                <a onclick="KirimWA_Lunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim Tagihan</a>
+                            </div>
+                        </div>
+                    </div>';
 
                 $data[] = $row;
             }
@@ -142,6 +154,18 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
                 $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">Sudah Lunas</span>') . '</div>';
+                $row[] =
+                    '<div class="text-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
+                                Opsi
+                            </button>
+                            <div class="dropdown-menu text-black" style="background-color:aqua;">
+                                <a onclick="KwitansiLunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kwitansi</a>
+                                <a onclick="KirimWA_Lunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim WA Lunas</a>
+                            </div>
+                        </div>
+                    </div>';
 
                 $data[] = $row;
             }
