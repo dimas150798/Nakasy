@@ -34,51 +34,24 @@ class C_WA_Tagihan extends CI_Controller
     public function KirimWAAksi()
     {
         //mengambil data post pada view 
-        $id_area           = $this->input->post('id_area');
-        $nama_area         = $this->input->post('nama_area');
+        $id_customer            = $this->input->post('id_customer');
+        $nama_paket             = $this->input->post('nama_paket');
+        $harga_paket            = $this->input->post('harga_paket');
+        $nama_customer          = $this->input->post('nama_customer');
+        $phone_customer         = $this->input->post('phone_customer');
+        $tanggal_penagihan      = $this->input->post('tanggal_penagihan');
+        $bulan_penagihan        = $this->input->post('bulan_penagihan');
+        $tahun_penagihan        = $this->input->post('tahun_penagihan');
 
-        //menyimpan data ke dalam array
-        $dataArea = array(
-            'id_area'          => $id_area,
-            'nama_area'        => $nama_area,
-            'updated_at'        => date('Y-m-d H:i:s', time())
-        );
+        $convertPhone = preg_replace('/^\+?08/', '628', $phone_customer);
 
-        $idArea = array(
-            'id_area' => $id_area
-        );
+        header("location:https://api.whatsapp.com/send?phone=$convertPhone&text=*INFLY NETWORKS* %0a%0a Yth Bapak / Ibu %0a Nama : $nama_customer %0a Telepon : $phone_customer %0a%0a *PEMBAYARAN* %0a Tagihan Bulan : $bulan_penagihan %0a Jenis Paket : $nama_paket %0a Harga Paket : $harga_paket %0a Total : $harga_paket (Sudah Termasuk PPN) %0a%0a Masa aktif s/d $tanggal_penagihan $bulan_penagihan $tahun_penagihan %0a Keterangan : *Belum Terbayar* %0a%0a *Informasi Tambahan* %0a Pembayaran dapat dilakukan dengan cara : %0a%0a *Transfer BANK* %0a Nomor rekening 0561009449 Bank Jatim atas nama *PT. Urban Teknologi Nusantara* %0a%0a Atau via mobile Banking/QRIS dengan cara Scan barcode QRIS %0a%0a Selesai melakukan pembayaran Mohon dapat *dilampirkan bukti pembayaran* pada balasan pesan ini %0a%0a *Tidak melakukan pembayaran disaat jatuh tempo pukul 19.00 WIB Layanan internet akan otomatis terisolir oleh system.* %0a%0a Batas pembayaran maksimal 3 hari setelah melewati jatuh tempo. %0a%0a Jika ada pertanyaan lebih lanjut, anda dapat langsung membalas pesan ini. %0a%0a Terima Kasih. %0a Hormat Kami. %0a%0a *INFLY NETWORKS*
+            ");
 
-        //memanggil mysql dari model 
-        $data['DataArea']       = $this->M_Area->EditArea($id_area);
-        $checkDuplicate         = $this->M_Area->CheckDuplicateArea($nama_area);
-
-        // Rules form Validation
-        $this->form_validation->set_rules('nama_area', 'Nama', 'required');
-        $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/DataArea/V_EditArea', $data);
-            $this->load->view('template/V_FooterArea', $data);
-        } else {
-            if ($nama_area == $checkDuplicate->nama_area) {
-
-                // Notifikasi Duplicate Name 
-                $this->session->set_flashdata('DuplicateName_icon', 'error');
-                $this->session->set_flashdata('DuplicateName_title', 'Gagal Edit Area');
-                $this->session->set_flashdata('DuplicateName_text', 'Nama area sudah ada');
-
-                redirect('admin/DataArea/C_DataArea');
-            } else {
-                $this->M_CRUD->updateData('data_area', $dataArea, $idArea);
-
-                // Notifikasi Edit Berhasil
-                $this->session->set_flashdata('Edit_icon', 'success');
-                $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
-
-                redirect('admin/DataArea/C_DataArea');
-            }
-        }
+        echo "
+            <script>
+               window.location=history.go(-1);
+            </script>
+            ";
     }
 }

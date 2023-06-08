@@ -7,7 +7,7 @@
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Pembayaran Pelanggan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn bg-danger text-white" href="<?php echo base_url('admin/BelumLunas/C_BelumLunas') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
+                    <a class="btn bg-danger text-white" onclick="history.back()"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>
                 </div>
             </div>
