@@ -30,3 +30,35 @@
     }
 
 }
+
+.kwitansiJudul{
+    color: black;
+    text-align: center;
+}
+
+.kwitansiAlamat{
+    color: black;
+    font-size: 17px;
+    text-align: center;
+}
+
+.kwitansiBody{
+    color: black;
+    font-size: 17px;
+}
+
+.kwitansiPembayaran{
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.kwitansiPenutup{
+    color: black;
+    text-align: center;
+}
+
+.kwitansiGaris{
+    color: black;
+    text-align: center;
+}

@@ -33,67 +33,67 @@ if (!function_exists('changeDateFormat')) {
                         <?php foreach ($DataPelanggan as $data) : ?>
                             <div class="row">
                                 <div class="col-12 .col-md-8">
-                                    <h2 class="text-center">INFLY NETWORKS</h2>
+                                    <h2 class="kwitansiJudul">INFLY NETWORKS</h2>
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <p class="text-center">Jl. Raya Bromo No.86 A, RT 10 / RW 03, <br>
+                                    <p class="kwitansiAlamat">Jl. Raya Bromo No.86 A, RT 10 / RW 03, <br>
                                         Triwung Lor, Kec. Kademangan, Kota Probolinggo,
                                         Jawa Timur - 67223, Indonesia
                                     </p>
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <p class="text-center">=========================</p>
+                                    <p class="kwitansiGaris">=========================</p>
                                 </div>
                                 <div class="col-sm-12 mt-4">
-                                    <p>Yth Bapak / Ibu</p>
+                                    <p class="kwitansiBody">Yth Bapak / Ibu</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p><?php echo $data['nama_customer'] ?></p>
+                                    <p class="kwitansiBody"><?php echo $data['nama_customer'] ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p><?php echo $data['phone_customer'] ?></p>
+                                    <p class="kwitansiBody"><?php echo $data['phone_customer'] ?></p>
                                 </div>
 
                                 <div class="col-sm-12 mt-4">
-                                    <p>PEMBAYARAN</p>
+                                    <p class="kwitansiPembayaran">PEMBAYARAN</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Transaksi : <?php echo $months[(int)$data['bulan_payment']] ?></p>
+                                    <p class="kwitansiBody">Transaksi : <?php echo $months[(int)$data['bulan_payment']] ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Telepon : <?php echo $data['phone_customer'] ?></p>
+                                    <p class="kwitansiBody">Telepon : <?php echo $data['phone_customer'] ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Paket : <?php echo $data['nama_paket'] ?></p>
+                                    <p class="kwitansiBody">Paket : <?php echo $data['nama_paket'] ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Harga : Rp. <?php echo number_format($data['harga_paket'], 0, ',', '.') ?></p>
+                                    <p class="kwitansiBody">Harga : Rp. <?php echo number_format($data['harga_paket'], 0, ',', '.') ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Biaya Admin : Rp. <?php echo number_format($data['biaya_admin'], 0, ',', '.') ?></p>
+                                    <p class="kwitansiBody">Biaya Admin : Rp. <?php echo number_format($data['biaya_admin'], 0, ',', '.') ?></p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Total : Rp. <?php echo number_format($data['harga_paket'] + $data['biaya_admin'], 0, ',', '.') ?> + PPN</p>
+                                    <p class="kwitansiBody">Total : Rp. <?php echo number_format($data['harga_paket'] + $data['biaya_admin'], 0, ',', '.') ?> + PPN</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Keterangan : Sudah Lunas</p>
+                                    <p class="kwitansiBody">Keterangan : <b>Sudah Lunas</b></p>
                                 </div>
 
                                 <div class="col-sm-12 mt-4">
-                                    <p>Simpan struk ini sebagai bukti telah melakukan pembayaran</p>
+                                    <p class="kwitansiBody">Simpan struk ini sebagai bukti telah melakukan pembayaran</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>Info dan Keluhan</p>
+                                    <p class="kwitansiBody">Info dan Keluhan</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>WA 083-849-268-666</p>
+                                    <p class="kwitansiBody">WA 083-849-268-666</p>
                                 </div>
 
                                 <div class="col-sm-12 mt-4">
-                                    <p class="text-center">=========================</p>
+                                    <p class="kwitansiGaris">=========================</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <h2 class="text-center">TERIMA KASIH</h2>
+                                    <h2 class="kwitansiPenutup">TERIMA KASIH</h2>
                                 </div>
                             </div>
                             <div class="row mt-4">
