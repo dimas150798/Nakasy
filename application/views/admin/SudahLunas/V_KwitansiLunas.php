@@ -96,9 +96,9 @@ if (!function_exists('changeDateFormat')) {
                                     <h2 class="text-center">TERIMA KASIH</h2>
                                 </div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-sm-12 d-flex justify-content-end">
-                                    <button onclick="window.print();" type="submit" id="cetakKwitansi" class="btn btn-success mt-2 justify-content-end"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/whatsapp.svg" alt="Bootstrap" ...> Print</button>
+                            <div class="row mt-4">
+                                <div class="col-sm-12 d-flex justify-content-center">
+                                    <button onclick="window.print();" type="submit" id="cetakKwitansi" class="btn btn-warning mt-2 btn-lg justify-content-end"> PRINT</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>
