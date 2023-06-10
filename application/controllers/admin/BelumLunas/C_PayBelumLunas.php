@@ -48,6 +48,13 @@ class C_PayBelumLunas extends CI_Controller
         $nama_admin             = $this->input->post('nama_admin');
         $keterangan             = $this->input->post('keterangan');
 
+        $api = connect();
+        $api->comm('/ppp/secret/set', [
+            ".id" => $id_pppoe,
+            "disabled" => 'false',
+        ]);
+        $api->disconnect();
+
         $explode = explode("-", $transaction_time);
         echo $explode[0]; //untuk tahun
         echo $explode[1]; //untuk bulan

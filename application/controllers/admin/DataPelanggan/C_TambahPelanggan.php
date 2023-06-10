@@ -103,21 +103,21 @@ class C_TambahPelanggan extends CI_Controller
 
                 // Profile Mikrotik
                 $paket = array(
-                    'Home 5' => 'HOME 5 B', 'Home 10' => 'HOME 10 B', 'Home 20' => 'HOME 20 B', 'Home 30' => 'HOME 30 B',
-                    'Home 50' => 'HOME 50 B', 'Home 100' => 'HOME 100 B', 'Free Home 20' => 'HOME 20 B',
-                    'Home TV 25' => 'HOME TV 25 B', 'Home TV 70' => 'HOME TV 70'
+                    '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
+                    'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
+                    'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
                 );
 
                 // Tambah Pelanggan Ke Mikrotik
-                // $api = connect();
-                // $api->comm('/ppp/secret/add', [
-                //     "name" => $name_pppoe,
-                //     "password" => $password_pppoe,
-                //     "service" => "pppoe",
-                //     "profile" => $paket[$nama_paket],
-                //     "comment" => "",
-                // ]);
-                // $api->disconnect();
+                $api = connect();
+                $api->comm('/ppp/secret/add', [
+                    "name" => $name_pppoe,
+                    "password" => $password_pppoe,
+                    "service" => "any",
+                    "profile" => $paket[$nama_paket],
+                    "comment" => "",
+                ]);
+                $api->disconnect();
 
                 // Notifikasi Tambah Data Berhasil
                 $this->session->set_flashdata('Tambah_icon', 'success');
