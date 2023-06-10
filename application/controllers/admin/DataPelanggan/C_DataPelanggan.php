@@ -26,8 +26,11 @@ class C_DataPelanggan extends CI_Controller
 
     public function index()
     {
-        // clear session login
+        // clear session
         $this->session->unset_userdata('LoginBerhasil_icon');
+        $this->session->unset_userdata('tahunGET');
+        $this->session->unset_userdata('bulanGET');
+        $this->session->unset_userdata('TanggalAkhirGET');
 
         // Memanggil mysql dari model
         $data['DataPelanggan'] = $this->M_Pelanggan->DataPelanggan();

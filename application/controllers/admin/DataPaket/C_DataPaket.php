@@ -28,6 +28,10 @@ class C_DataPaket extends CI_Controller
     {
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
+        $this->session->unset_userdata('LoginBerhasil_icon');
+        $this->session->unset_userdata('tahunGET');
+        $this->session->unset_userdata('bulanGET');
+        $this->session->unset_userdata('TanggalAkhirGET');
 
         // Memanggil mysql dari model
         $data['DataPaket']          = $this->M_Paket->DataPaket();

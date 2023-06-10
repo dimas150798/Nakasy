@@ -21,6 +21,9 @@ class C_DataArea extends CI_Controller
     {
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
+        $this->session->unset_userdata('tahunGET');
+        $this->session->unset_userdata('bulanGET');
+        $this->session->unset_userdata('TanggalAkhirGET');
 
         // Memanggil mysql dari model
         $data['DataArea'] = $this->M_Area->DataArea();

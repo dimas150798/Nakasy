@@ -98,11 +98,11 @@ class C_EditPelanggan extends CI_Controller
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
             // Profile Mikrotik
-            $paket = array(
-                'Home 5' => 'HOME 5 B', 'Home 10' => 'HOME 10 B', 'Home 20' => 'HOME 20 B', 'Home 30' => 'HOME 30 B',
-                'Home 50' => 'HOME 50 B', 'Home 100' => 'HOME 100 B', 'Free Home 20' => 'HOME 20 B',
-                'Home TV 25' => 'HOME TV 25 B', 'Home TV 70' => 'HOME TV 70'
-            );
+            // $paket = array(
+            //     'Home 5' => 'HOME 5 B', 'Home 10' => 'HOME 10 B', 'Home 20' => 'HOME 20 B', 'Home 30' => 'HOME 30 B',
+            //     'Home 50' => 'HOME 50 B', 'Home 100' => 'HOME 100 B', 'Free Home 20' => 'HOME 20 B',
+            //     'Home TV 25' => 'HOME TV 25 B', 'Home TV 70' => 'HOME TV 70'
+            // );
 
             // Edit Pelanggan Ke Mikrotik
             // $api = connect();

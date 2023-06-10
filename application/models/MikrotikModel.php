@@ -14,10 +14,17 @@ class MikrotikModel extends CI_Model
         $api->disconnect();
 
         $paket = array(
-            '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-            'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-            'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+            'HOME 5 A' => 'Home 5', 'HOME 5 B' => 'Home 5', 'HOME 10 A' => 'Home 10', 'HOME 10 B' => 'Home 10',
+            'HOME 20 A' => 'Home 20', 'HOME 20 B' => 'Home 20', 'HOME 30 A' => 'Home 30', 'HOME 30 B' => 'Home 30',
+            'HOME 50 A' => 'Home 50', 'HOME 50 B' => 'Home 50', 'HOME 100' => 'Home 100', 'HOME TV 25' => 'Home TV 25',
+            'HOME TV 70' => 'Home TV 70', 'HOME 2' => 'Home 2'
         );
+
+        // $paket = array(
+        //     '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
+        //     'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
+        //     'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+        // );
 
         $getData = $this->db->query("
             SELECT 
@@ -187,6 +194,61 @@ class MikrotikModel extends CI_Model
             return $result->row();
         } else {
             return false;
+        }
+    }
+
+    public function TerminasiAuto($bulan, $tahun, $tanggalAkhir)
+    {
+        $getData = $this->db->query("
+        SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
+        data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
+        DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
+        data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
+        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+        data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
+        data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
+
+        FROM data_customer
+        LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+
+        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
+        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+
+        GROUP BY data_customer.name_pppoe
+        ORDER BY DAY(data_customer.start_date) ASC
+        ")->result_array();
+
+        foreach ($getData as $data) {
+            date_default_timezone_set("Asia/Jakarta");
+            $tanggalNow                    = date('d');
+
+            if ($tanggalNow == 11) {
+                // disable secret dan active otomatis 
+                $api = connect();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $data['id_pppoe'],
+                    "disabled" => 'true',
+                ]);
+
+                // disable active otomatis
+                $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                $api->disconnect();
+
+                // Notifikasi Terminasi Auto Berhasil
+                $this->session->set_flashdata('DuplicateName_icon', 'success');
+                $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
+                $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
+
+                return $getData;
+            } else {
+                // Notifikasi Terminasi Auto Gagal
+                $this->session->set_flashdata('DuplicateName_icon', 'error');
+                $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Gagal');
+                $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
+            }
         }
     }
 }
