@@ -19,6 +19,7 @@ class C_DashboardAdmin extends CI_Controller
     public function index()
     {
         $checkKoneksi = $this->MikrotikModel->jumlahMikrotikAktif();
+        $data['JumlahPelanggan']    = $this->M_Pelanggan->JumlahPelanggan();
 
         if ($checkKoneksi == 0) {
             // Notifikasi gagal login
@@ -26,23 +27,23 @@ class C_DashboardAdmin extends CI_Controller
             $this->session->set_flashdata('CheckMikrotik_title', 'Koneksi Gagal');
             $this->session->set_flashdata('CheckMikrotik_text', 'Check Kembali Lagi Koneksi <br> Mikrotik Anda');
 
-            $this->load->view('template/headerLogin');
-            $this->load->view('V_FormLogin');
-            $this->load->view('template/footerLogin');
+            $this->load->view('template/headerLogin', $data);
+            $this->load->view('V_FormLogin', $data);
+            $this->load->view('template/footerLogin', $data);
 
             // redirect('admin/DataPaket/C_DataPaket');
         } elseif ($checkKoneksi == 1) {
             // Memanggil data Mikrotik
-            $this->MikrotikModel->index();
+            // $this->MikrotikModel->index();
 
             // Notifikasi Login Berhasil
             $this->session->set_flashdata('LoginBerhasil_icon', 'success');
             $this->session->set_flashdata('LoginBerhasil_title', 'Selamat Datang <br>' . $this->session->userdata('email'));
 
-            $this->load->view('template/header');
-            $this->load->view('template/sidebarAdmin');
-            $this->load->view('admin/V_DashboardAdmin');
-            $this->load->view('template/footer');
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('admin/V_DashboardAdmin', $data);
+            $this->load->view('template/footer', $data);
         }
     }
 }

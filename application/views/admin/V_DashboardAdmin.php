@@ -1,46 +1,5 @@
 <div id="layoutSidenav_content">
     <main>
-        <div id="preloader">
-            <div id="ctn-preloader" class="ctn-preloader">
-                <div class="animation-preloader">
-                    <div class="txt-loading">
-                        <div class="lingkaran">
-                            <img src="<?php echo base_url(); ?>assets/img/GIFloading.gif" alt="">
-                        </div>
-
-                        <span data-text-preloader="#" class="letters-loading">
-                            #
-                        </span>
-                        <span data-text-preloader="I" class="letters-loading">
-                            I
-                        </span>
-                        <span data-text-preloader="N" class="letters-loading">
-                            N
-                        </span>
-                        <span data-text-preloader="F" class="letters-loading">
-                            F
-                        </span>
-                        <span data-text-preloader="L" class="letters-loading">
-                            L
-                        </span>
-                        <span data-text-preloader="Y" class="letters-loading">
-                            Y
-                        </span>
-                        <span data-text-preloader="A" class="letters-loading">
-                            A
-                        </span>
-                        <span data-text-preloader="J" class="letters-loading">
-                            J
-                        </span>
-                        <span data-text-preloader="A" class="letters-loading">
-                            A
-                        </span>
-                    </div>
-                </div>
-                <div class="loader-section section-left"></div>
-                <div class="loader-section section-right"></div>
-            </div>
-        </div>
 
         <div class="container-fluid">
             <div class="row">
@@ -76,7 +35,7 @@
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-white stretched-link" href="<?php echo base_url('admin/DataPelanggan/DataPelanggan') ?>">
-                                <!-- <h3><?php echo $customerKBS ?></h3> -->
+                                <h3 id="jumlahpelanggan"><?php echo $JumlahPelanggan ?></h3>
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
