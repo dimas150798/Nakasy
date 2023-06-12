@@ -44,16 +44,22 @@ class C_TambahPaket extends CI_Controller
         $checkDuplicate         = $this->M_Paket->CheckDuplicatePaket($nama_paket);
 
         // Rules form Validation
-        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
+        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'trim|required|alpha_numeric_spaces');
         $this->form_validation->set_rules('harga_paket', 'Harga Paket', 'required');
-        $this->form_validation->set_rules('deskripsi_paket', 'Deskripsi Paket', 'required');
+        $this->form_validation->set_rules('deskripsi_paket', 'Deskripsi Paket', 'trim|required|alpha_numeric_spaces');
         $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
-            $this->load->view('template/sidebarAdmin');
-            $this->load->view('admin/DataPaket/V_TambahPaket');
-            $this->load->view('template/V_FooterArea');
+
+            // Notifikasi kesalahan input
+            $this->session->set_flashdata('DuplicateName_icon', 'error');
+            $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
+            $this->session->set_flashdata('DuplicateName_text', 'Check kembali data');
+
+            echo "
+            <script>history.go(-1);            
+            </script>
+            ";
         } else {
             if ($nama_paket == $checkDuplicate->nama_paket) {
                 // Notifikasi Duplicate Name 

@@ -38,7 +38,6 @@ class C_EditPaket extends CI_Controller
 
         //memanggil mysql dari model 
         $data['DataPaket']       = $this->M_Paket->EditPaket($id_paket);
-        $checkDuplicate          = $this->M_Paket->CheckDuplicatePaket($nama_paket);
 
         //menyimpan data ke dalam array
         $dataPaket = array(
@@ -53,16 +52,21 @@ class C_EditPaket extends CI_Controller
         );
 
         // Rules form Validation
-        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
-        $this->form_validation->set_rules('harga_paket', 'Nama Paket', 'required');
-        $this->form_validation->set_rules('deskripsi_paket', 'Deskripsi Paket', 'required');
+        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('harga_paket', 'Harga Paket', 'required');
+        $this->form_validation->set_rules('deskripsi_paket', 'Deskripsi Paket', 'trim|required|alpha_numeric_spaces');
         $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/DataPaket/V_EditPaket', $data);
-            $this->load->view('template/V_FooterPaket', $data);
+            // Notifikasi kesalahan input
+            $this->session->set_flashdata('DuplicateName_icon', 'error');
+            $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
+            $this->session->set_flashdata('DuplicateName_text', 'Check kembali data');
+
+            echo "
+            <script>history.go(-1);            
+            </script>
+            ";
         } else {
             $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
 
