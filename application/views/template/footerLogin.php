@@ -1,11 +1,10 @@
-<div id="layoutAuthentication_footer">
-	<footer class="py-4 bg-dark mt-auto text-white">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-center small">
-				<div>Copyright &copy; My Infly Networks 2022</div>
-			</div>
+<footer class="py-4 bg-light mt-auto" id="footer">
+	<div class="container-fluid px-4">
+		<div class="d-flex align-items-center justify-content-center small">
+			<div>Copyright &copy; My Infly Networks 2022 <b>V 1.1</b></div>
 		</div>
-	</footer>
+	</div>
+</footer>
 </div>
 </div>
 
