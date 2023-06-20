@@ -224,30 +224,27 @@ class MikrotikModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $tanggalNow                    = date('d');
 
-            if ($tanggalNow == 11) {
-                // disable secret dan active otomatis 
-                $api = connect();
-                $api->comm('/ppp/secret/set', [
-                    ".id" => $data['id_pppoe'],
-                    "disabled" => 'true',
-                ]);
+            if ($data['transaction_time'] == null && $data['status_code'] == null) {
+                if ($tanggalNow == 11) {
+                    // disable secret dan active otomatis 
+                    $api = connect();
+                    $api->comm('/ppp/secret/set', [
+                        ".id" => $data['id_pppoe'],
+                        "disabled" => 'true',
+                    ]);
 
-                // disable active otomatis
-                $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
-                $api->disconnect();
+                    // disable active otomatis
+                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                    $api->disconnect();
 
-                // Notifikasi Terminasi Auto Berhasil
-                $this->session->set_flashdata('DuplicateName_icon', 'success');
-                $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
-                $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
+                    // Notifikasi Terminasi Auto Berhasil
+                    $this->session->set_flashdata('DuplicateName_icon', 'success');
+                    $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
+                    $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
 
-                return $getData;
-            } else {
-                // Notifikasi Terminasi Auto Gagal
-                $this->session->set_flashdata('DuplicateName_icon', 'error');
-                $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Gagal');
-                $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
+                    return $getData;
+                }
             }
         }
     }

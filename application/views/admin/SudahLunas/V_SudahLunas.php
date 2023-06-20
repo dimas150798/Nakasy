@@ -17,10 +17,10 @@ if (!function_exists('changeDateFormat')) {
                 <div class="col-xl-6">
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Sudah Lunas</b>
                 </div>
-                <!-- <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_TambahPelanggan') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/plus-circle.svg" alt="Bootstrap" ...> Tambah Pelanggan
+                <div class="col-12 col-xl-auto mt-2">
+                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/SudahLunas/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-excel-fill.svg" alt="Bootstrap" ...> Export Excel
                     </a>
-                </div> -->
+                </div>
             </div>
         </div>
 
@@ -109,9 +109,9 @@ if (!function_exists('changeDateFormat')) {
                                 <p class="dataPencarian">:
                                     <?php
                                     if ($tahunGET == NULL && $bulanGET == NULL) {
-                                        echo $bulan . ' / ' . $tahun;
+                                        echo $months[(int)$bulan] . ' / ' . $tahun;
                                     } else {
-                                        echo $bulanGET . ' / ' . $tahunGET;
+                                        echo $months[(int)$bulanGET] . ' / ' . $tahunGET;
                                     }
                                     ?></p>
                             </div>

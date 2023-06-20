@@ -21,6 +21,9 @@ class C_DashboardAdmin extends CI_Controller
         $checkKoneksi = $this->MikrotikModel->jumlahMikrotikAktif();
         $data['JumlahPelanggan']    = $this->M_Pelanggan->JumlahPelanggan();
 
+        // Memanggil data Mikrotik
+        $this->MikrotikModel->index();
+
         if ($checkKoneksi == 0) {
             // Notifikasi gagal login
             $this->session->set_flashdata('CheckMikrotik_icon', 'error');
@@ -33,8 +36,6 @@ class C_DashboardAdmin extends CI_Controller
 
             // redirect('admin/DataPaket/C_DataPaket');
         } elseif ($checkKoneksi == 1) {
-            // Memanggil data Mikrotik
-            // $this->MikrotikModel->index();
 
             // Notifikasi Login Berhasil
             $this->session->set_flashdata('LoginBerhasil_icon', 'success');

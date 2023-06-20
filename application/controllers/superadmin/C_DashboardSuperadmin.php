@@ -18,9 +18,6 @@ class C_DashboardSuperadmin extends CI_Controller
 
     public function index()
     {
-        // Memanggil data Mikrotik
-        // $this->MikrotikModel->index();
-
         // Notifikasi Login Berhasil
         $this->session->set_flashdata('LoginBerhasil_icon', 'success');
         $this->session->set_flashdata('LoginBerhasil_title', 'Selamat Datang <br>' . $this->session->userdata('email'));
