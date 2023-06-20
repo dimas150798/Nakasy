@@ -21,4 +21,11 @@ class M_CRUD extends CI_Model
         $this->db->where($where);
         $this->db->delete($table);
     }
+    function get($tabel, $where)
+    {
+        $this->db->select("*");
+        $this->db->from($tabel);
+        $this->db->where($where);
+        return $this->db->get();
+    }
 }

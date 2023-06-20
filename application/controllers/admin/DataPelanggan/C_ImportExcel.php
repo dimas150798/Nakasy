@@ -3,6 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 require 'vendor/autoload.php';
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 class C_ImportExcel extends CI_Controller
 {
     public function __construct()
@@ -34,6 +38,7 @@ class C_ImportExcel extends CI_Controller
 
     public function  ImportExcel()
     {
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $upload_status = $this->uploadDoc();
@@ -42,98 +47,34 @@ class C_ImportExcel extends CI_Controller
                 $inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
                 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
                 $spreadsheet = $reader->load($inputFileName);
-                $sheet = $spreadsheet->getSheet(0);
-                $count_Rows = 0;
+                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            }
+            for ($i = 1; $i < count($sheetData); $i++) {
+                $kode_customer = $sheetData[$i]['0'];
+                $phone_customer = $sheetData[$i]['1'];
 
-                $counter = 0;
-                foreach ($sheet->getRowIterator(6) as $row) {
-                    if (++$counter == 6) continue;
-                    $Kode_Customer      = $spreadsheet->getActiveSheet()->getCell('B' . $row->getRowIndex());
-                    $Phone_Customer     = $spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex());
-                    $Nama_Customer      = $spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex());
-                    $Nama_Paket         = $spreadsheet->getActiveSheet()->getCell('E' . $row->getRowIndex());
-                    $Name_PPPOE         = $spreadsheet->getActiveSheet()->getCell('F' . $row->getRowIndex());
-                    $Password_PPPOE     = $spreadsheet->getActiveSheet()->getCell('G' . $row->getRowIndex());
-                    $Alamat_Customer    = $spreadsheet->getActiveSheet()->getCell('H' . $row->getRowIndex());
-                    $Email_Customer     = $spreadsheet->getActiveSheet()->getCell('I' . $row->getRowIndex());
-                    $Tanggal_Registrasi = $spreadsheet->getActiveSheet()->getCell('J' . $row->getRowIndex())->getFormattedValue();
-                    $Tanggal_Terminated = $spreadsheet->getActiveSheet()->getCell('K' . $row->getRowIndex())->getFormattedValue();
-                    $Nama_Area          = $spreadsheet->getActiveSheet()->getCell('L' . $row->getRowIndex());
-                    $Nama_Sales         = $spreadsheet->getActiveSheet()->getCell('M' . $row->getRowIndex());
+                $data_customer = array(
+                    'kode_customer' => $kode_customer,
+                    'phone_customer' => $phone_customer
+                );
 
-                    $this->session->set_userdata('name_pppoe', $Name_PPPOE);
+                $a = $this->M_CRUD->get('data_customer', "kode_customer='$kode_customer'")->result_array();
 
-                    $CheckDuplicate     = $this->M_Pelanggan->CheckDuplicatePelanggan($Name_PPPOE);
+                $getData = $this->db->query("SELECT `id_customer`, `kode_customer`, `phone_customer`, `latitude`, `longitude`, `nama_customer`, `nama_paket`, `name_pppoe`, `password_pppoe`, `id_pppoe`, `alamat_customer`, `email_customer`, `start_date`, `stop_date`, `nama_area`, `deskripsi_customer`, `nama_sales`, `created_at`, `updated_at` FROM `data_customer`
+                ")->result_array();
 
-                    // Convert Date
-                    $spreadsheet->getActiveSheet()->getStyle('K' . $row->getRowIndex())
-                        ->getNumberFormat()
-                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-
-                    $spreadsheet->getActiveSheet()->getStyle('L' . $row->getRowIndex())
-                        ->getNumberFormat()
-                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-
-                    if ($CheckDuplicate->name_pppoe == $Name_PPPOE) {
-                        // Notifikasi Gagal Import
-                        $this->session->set_flashdata('ExcelGagal_icon', 'danger');
-                        $this->session->set_flashdata('ExcelGagal_title', 'Terdapat Data Nama Yang Sama');
-
-                        redirect('admin/DataPelanggan/C_ImportExcel');
-                    } else {
-                        if ($Tanggal_Terminated == NULL) {
-                            $data = array(
-                                'kode_customer'     => $Kode_Customer,
-                                'phone_customer'    => $Phone_Customer,
-                                'nama_customer'     => $Nama_Customer,
-                                'nama_paket'        => $Nama_Paket,
-                                'name_pppoe'        => $Name_PPPOE,
-                                'password_pppoe'    => $Password_PPPOE,
-                                'alamat_customer'   => $Alamat_Customer,
-                                'email_customer'    => $Email_Customer,
-                                'start_date'        => $Tanggal_Registrasi,
-                                'nama_area'         => $Nama_Area,
-                                'nama_sales'        => $Nama_Sales
-                            );
-                        } else {
-                            $data = array(
-                                'kode_customer'     => $Kode_Customer,
-                                'phone_customer'    => $Phone_Customer,
-                                'nama_customer'     => $Nama_Customer,
-                                'nama_paket'        => $Nama_Paket,
-                                'name_pppoe'        => $Name_PPPOE,
-                                'password_pppoe'    => $Password_PPPOE,
-                                'alamat_customer'   => $Alamat_Customer,
-                                'email_customer'    => $Email_Customer,
-                                'start_date'        => $Tanggal_Registrasi,
-                                'stop_date'         => $Tanggal_Terminated,
-                                'nama_area'         => $Nama_Area,
-                                'nama_sales'        => $Nama_Sales
-                            );
+                if (count($a) != 0) {
+                    foreach ($getData as $data) {
+                        if ($data['kode_customer'] == $sheetData[$i]['0']) {
+                            $this->db->update("data_customer", ['phone_customer' => $sheetData[$i]['1']], ['kode_customer' => $data['kode_customer']]);
                         }
-                        $this->db->insert('data_customer', $data);
-                        $count_Rows++;
-
-                        // Notifikasi Insert Data Berhasil
-                        $this->session->set_flashdata('ExcelSuccess_icon', 'success');
-                        $this->session->set_flashdata('ExcelSuccess_title', 'Insert Data Berhasil');
-
-                        redirect('admin/DataPelanggan/C_DataPelanggan');
                     }
                 }
-            } else {
-                // Notifikasi Insert Data Gagal
-                $this->session->set_flashdata('ExcelGagal_icon', 'warning');
-                $this->session->set_flashdata('ExcelGagal_title', 'Insert Data Gagal');
 
-                redirect('admin/DataPelanggan/C_ImportExcel');
+                if (count($a) == 0) {
+                    $this->M_CRUD->insertData($data_customer, 'data_customer');
+                }
             }
-        } else {
-            // Notifikasi Insert Data Gagal
-            $this->session->set_flashdata('ExcelGagal_icon', 'warning');
-            $this->session->set_flashdata('ExcelGagal_title', 'Insert Data Gagal');
-
-            redirect('admin/DataPelanggan/C_DataPelanggan');
         }
     }
 

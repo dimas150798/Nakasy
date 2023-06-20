@@ -22,6 +22,8 @@ if (!function_exists('changeDateFormat')) {
                     </a>
                     <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_ImportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Import Excel
                     </a>
+                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Export Excel
+                    </a>
                 </div>
             </div>
         </div>
