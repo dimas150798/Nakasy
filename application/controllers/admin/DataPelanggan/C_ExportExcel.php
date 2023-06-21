@@ -115,13 +115,14 @@ class C_ExportExcel extends CI_Controller
         $sheet->setCellValue('C4', 'Nama Pelanggan');
         $sheet->setCellValue('D4', 'Phone Pelanggan');
         $sheet->setCellValue('E4', 'Nama Paket');
-        $sheet->setCellValue('F4', 'Name PPPOE');
-        $sheet->setCellValue('G4', 'Password PPPOE');
-        $sheet->setCellValue('H4', 'Alamat');
-        $sheet->setCellValue('I4', 'Email');
-        $sheet->setCellValue('J4', 'Tanggal Registrasi');
-        $sheet->setCellValue('K4', 'Nama Area');
-        $sheet->setCellValue('L4', 'Nama Sales');
+        $sheet->setCellValue('F4', 'ID PPPOE');
+        $sheet->setCellValue('G4', 'Name PPPOE');
+        $sheet->setCellValue('H4', 'Password PPPOE');
+        $sheet->setCellValue('I4', 'Alamat');
+        $sheet->setCellValue('J4', 'Email');
+        $sheet->setCellValue('K4', 'Tanggal Registrasi');
+        $sheet->setCellValue('L4', 'Nama Area');
+        $sheet->setCellValue('M4', 'Nama Sales');
 
         // Merubah huruf
         $spreadsheet->getDefaultStyle()->getFont()->setName('Times New Roman');
@@ -139,6 +140,7 @@ class C_ExportExcel extends CI_Controller
         $spreadsheet->getActiveSheet()->getStyle('J4')->applyFromArray($styleHeader);
         $spreadsheet->getActiveSheet()->getStyle('K4')->applyFromArray($styleHeader);
         $spreadsheet->getActiveSheet()->getStyle('L4')->applyFromArray($styleHeader);
+        $spreadsheet->getActiveSheet()->getStyle('M4')->applyFromArray($styleHeader);
 
         // Merubah ukuran font
         $spreadsheet->getActiveSheet()->getStyle('A4')->getFont()->setSize(14);
@@ -153,6 +155,7 @@ class C_ExportExcel extends CI_Controller
         $spreadsheet->getActiveSheet()->getStyle('J4')->getFont()->setSize(14);
         $spreadsheet->getActiveSheet()->getStyle('K4')->getFont()->setSize(14);
         $spreadsheet->getActiveSheet()->getStyle('L4')->getFont()->setSize(14);
+        $spreadsheet->getActiveSheet()->getStyle('M4')->getFont()->setSize(14);
 
         // merubah ukuran border
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
@@ -167,6 +170,7 @@ class C_ExportExcel extends CI_Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
 
         /* Excel Data */
         $row_number = 5;
@@ -176,13 +180,14 @@ class C_ExportExcel extends CI_Controller
             $sheet->setCellValue('C' . $row_number, $row['nama_customer']);
             $sheet->setCellValue('D' . $row_number, $row['phone_customer']);
             $sheet->setCellValue('E' . $row_number, $row['nama_paket']);
-            $sheet->setCellValue('F' . $row_number, $row['name_pppoe']);
-            $sheet->setCellValue('G' . $row_number, $row['password_pppoe']);
-            $sheet->setCellValue('H' . $row_number, $row['alamat_customer']);
-            $sheet->setCellValue('I' . $row_number, $row['email_customer']);
-            $sheet->setCellValue('J' . $row_number, $row['start_date']);
-            $sheet->setCellValue('K' . $row_number, $row['nama_area']);
+            $sheet->setCellValue('F' . $row_number, $row['id_pppoe']);
+            $sheet->setCellValue('G' . $row_number, $row['name_pppoe']);
+            $sheet->setCellValue('H' . $row_number, $row['password_pppoe']);
+            $sheet->setCellValue('I' . $row_number, $row['alamat_customer']);
+            $sheet->setCellValue('J' . $row_number, $row['email_customer']);
+            $sheet->setCellValue('K' . $row_number, $row['start_date']);
             $sheet->setCellValue('L' . $row_number, $row['nama_area']);
+            $sheet->setCellValue('M' . $row_number, $row['nama_sales']);
 
             $spreadsheet->getActiveSheet()->getStyle('A' . $row_number)->applyFromArray($styleTables);
             $spreadsheet->getActiveSheet()->getStyle('B' . $row_number)->applyFromArray($styleTables);
@@ -196,6 +201,7 @@ class C_ExportExcel extends CI_Controller
             $spreadsheet->getActiveSheet()->getStyle('J' . $row_number)->applyFromArray($styleTables);
             $spreadsheet->getActiveSheet()->getStyle('K' . $row_number)->applyFromArray($styleTables);
             $spreadsheet->getActiveSheet()->getStyle('L' . $row_number)->applyFromArray($styleTables);
+            $spreadsheet->getActiveSheet()->getStyle('M' . $row_number)->applyFromArray($styleTables);
 
             // Convert nominal indonesia
             $spreadsheet->getActiveSheet()->getStyle('E' . $row_number)->getNumberFormat()->setFormatCode('#,##0');
@@ -213,6 +219,7 @@ class C_ExportExcel extends CI_Controller
             $spreadsheet->getActiveSheet()->getStyle('J' . $row_number)->getFont()->setSize(12);
             $spreadsheet->getActiveSheet()->getStyle('K' . $row_number)->getFont()->setSize(12);
             $spreadsheet->getActiveSheet()->getStyle('L' . $row_number)->getFont()->setSize(12);
+            $spreadsheet->getActiveSheet()->getStyle('M' . $row_number)->getFont()->setSize(12);
 
             $row_number++;
         }

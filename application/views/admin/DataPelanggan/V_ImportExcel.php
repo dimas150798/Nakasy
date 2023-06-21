@@ -16,7 +16,7 @@ if (!function_exists('changeDateFormat')) {
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Upload Pelanggan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn bg-warning text-white" href="<?php echo base_url() ?>assets/export/Excel_DataPelanggan.xlsx"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Template Excel
+                    <a class="btn bg-warning text-white" href="<?php echo base_url() ?>assets/export/Template_DataPelanggan.xlsx"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Template Excel
                     </a>
                     <a class="btn bg-danger text-white" href="<?php echo base_url('admin/DataPelanggan/C_DataPelanggan') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/backspace-fill.svg" alt="Bootstrap" ...> Kembali
                     </a>

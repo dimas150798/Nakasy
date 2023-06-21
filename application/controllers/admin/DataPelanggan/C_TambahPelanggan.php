@@ -109,15 +109,15 @@ class C_TambahPelanggan extends CI_Controller
                 );
 
                 // Tambah Pelanggan Ke Mikrotik
-                $api = connect();
-                $api->comm('/ppp/secret/add', [
-                    "name" => $name_pppoe,
-                    "password" => $password_pppoe,
-                    "service" => "any",
-                    "profile" => $paket[$nama_paket],
-                    "comment" => "",
-                ]);
-                $api->disconnect();
+                // $api = connect();
+                // $api->comm('/ppp/secret/add', [
+                //     "name" => $name_pppoe,
+                //     "password" => $password_pppoe,
+                //     "service" => "any",
+                //     "profile" => $paket[$nama_paket],
+                //     "comment" => "",
+                // ]);
+                // $api->disconnect();
 
                 // Notifikasi Tambah Data Berhasil
                 $this->session->set_flashdata('Tambah_icon', 'success');

@@ -125,6 +125,32 @@
     <?php } ?>
 </script>
 
+<!-- Alert Tambah Data Pelanggan -->
+<script>
+    <?php if ($this->session->flashdata('Tambah_icon')) { ?>
+        var toastMixin = Swal.mixin({
+            toast: true,
+            icon: '<?php echo $this->session->flashdata('Tambah_icon') ?>',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        toastMixin.fire({
+            animation: true,
+            title: '<?php echo $this->session->flashdata('Tambah_title') ?>'
+        });
+
+    <?php } ?>
+</script>
+
 </body>
 
 </html>

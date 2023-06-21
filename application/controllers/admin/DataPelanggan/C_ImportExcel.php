@@ -38,41 +38,85 @@ class C_ImportExcel extends CI_Controller
 
     public function  ImportExcel()
     {
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $upload_status = $this->uploadDoc();
             if ($upload_status != false) {
-                $inputFileName = 'assets/uploads/imports/' . $upload_status;
-                $inputTileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
-                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
-                $spreadsheet = $reader->load($inputFileName);
-                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+                $inputFileName      = 'assets/uploads/imports/' . $upload_status;
+                $inputTileType      = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+                $reader             = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputTileType);
+                $spreadsheet        = $reader->load($inputFileName);
+                $sheetData          = $spreadsheet->getActiveSheet()->toArray();
             }
-            for ($i = 1; $i < count($sheetData); $i++) {
-                $kode_customer = $sheetData[$i]['0'];
-                $phone_customer = $sheetData[$i]['1'];
 
+            for ($i = 4; $i < count($sheetData); $i++) {
+                $kode_customer      = $sheetData[$i]['1'];
+                $nama_customer      = $sheetData[$i]['2'];
+                $phone_customer     = $sheetData[$i]['3'];
+                $nama_paket         = $sheetData[$i]['4'];
+                $id_pppoe           = $sheetData[$i]['5'];
+                $name_pppoe         = $sheetData[$i]['6'];
+                $password_pppoe     = $sheetData[$i]['7'];
+                $alamat_customer    = $sheetData[$i]['8'];
+                $email_customer     = $sheetData[$i]['9'];
+                $start_date         = $sheetData[$i]['10'];
+                $nama_area          = $sheetData[$i]['11'];
+                $nama_sales         = $sheetData[$i]['12'];
+
+                // Menyimpan data dalam array
                 $data_customer = array(
-                    'kode_customer' => $kode_customer,
-                    'phone_customer' => $phone_customer
+                    'kode_customer'     => $kode_customer,
+                    'phone_customer'    => $phone_customer,
+                    'nama_customer'     => $nama_customer,
+                    'nama_paket'        => $nama_paket,
+                    'name_pppoe'        => $name_pppoe,
+                    'password_pppoe'    => $password_pppoe,
+                    'id_pppoe'          => $id_pppoe,
+                    'alamat_customer'   => $alamat_customer,
+                    'email_customer'    => $email_customer,
+                    'start_date'        => $start_date,
+                    'nama_area'         => $nama_area,
+                    'nama_sales'        => $nama_sales,
                 );
 
-                $a = $this->M_CRUD->get('data_customer', "kode_customer='$kode_customer'")->result_array();
+                // kondisi insert / update
+                $conditionData          = $this->M_CRUD->get('data_customer', "id_pppoe='$id_pppoe'")->result_array();
 
-                $getData = $this->db->query("SELECT `id_customer`, `kode_customer`, `phone_customer`, `latitude`, `longitude`, `nama_customer`, `nama_paket`, `name_pppoe`, `password_pppoe`, `id_pppoe`, `alamat_customer`, `email_customer`, `start_date`, `stop_date`, `nama_area`, `deskripsi_customer`, `nama_sales`, `created_at`, `updated_at` FROM `data_customer`
+                // Get data data_customer
+                $getData                = $this->db->query("SELECT id_customer, kode_customer, phone_customer, latitude, longitude, nama_customer, nama_paket, name_pppoe, password_pppoe, id_pppoe, alamat_customer, email_customer, start_date, stop_date, nama_area, deskripsi_customer, nama_sales, created_at, updated_at FROM data_customer
                 ")->result_array();
 
-                if (count($a) != 0) {
+                // condition update
+                if (count($conditionData) != 0) {
                     foreach ($getData as $data) {
-                        if ($data['kode_customer'] == $sheetData[$i]['0']) {
-                            $this->db->update("data_customer", ['phone_customer' => $sheetData[$i]['1']], ['kode_customer' => $data['kode_customer']]);
+                        if ($data['id_pppoe'] == $sheetData[$i]['5']) {
+                            $this->db->update("data_customer", ['kode_customer' => $sheetData[$i]['1']], ['id_pppoe' => $data['id_pppoe']]);
+                            $this->db->update("data_customer", ['phone_customer' => $sheetData[$i]['3']], ['id_pppoe' => $data['id_pppoe']]);
+
+                            echo "
+                            <script>history.go(-1);            
+                            </script>
+                            ";
+
+                            // Notifikasi Tambah Data Berhasil
+                            $this->session->set_flashdata('Tambah_icon', 'success');
+                            $this->session->set_flashdata('Tambah_title', 'Update Data Berhasil');
                         }
                     }
                 }
 
-                if (count($a) == 0) {
+                // condition insert
+                if (count($conditionData) == 0) {
                     $this->M_CRUD->insertData($data_customer, 'data_customer');
+
+                    echo "
+                    <script>history.go(-1);            
+                    </script>
+                    ";
+
+                    // Notifikasi Tambah Data Berhasil
+                    $this->session->set_flashdata('Tambah_icon', 'success');
+                    $this->session->set_flashdata('Tambah_title', 'Insert Data Berhasil');
                 }
             }
         }
@@ -90,10 +134,14 @@ class C_ImportExcel extends CI_Controller
         $config['max_size'] = 1000000;
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
+
+
         if ($this->upload->do_upload('upload_excel')) {
             $fileData = $this->upload->data();
             $data['file_name'] = $fileData['file_name'];
             $this->db->insert('data_excel', $data);
+
+
             $insert_id = $this->db->insert_id();
             $_SESSION['lastid'] = $insert_id;
 

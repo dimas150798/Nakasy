@@ -22,7 +22,7 @@ class C_DashboardAdmin extends CI_Controller
         $data['JumlahPelanggan']    = $this->M_Pelanggan->JumlahPelanggan();
 
         // Memanggil data Mikrotik
-        // $this->MikrotikModel->index();
+        $this->MikrotikModel->index();
 
         if ($checkKoneksi == 0) {
             // Notifikasi gagal login
