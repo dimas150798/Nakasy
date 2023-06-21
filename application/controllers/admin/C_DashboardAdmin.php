@@ -18,8 +18,31 @@ class C_DashboardAdmin extends CI_Controller
 
     public function index()
     {
+        date_default_timezone_set("Asia/Jakarta");
+        $toDay = date('Y-m-d');
+
+        // Memisahkan Tanggal
+        $pecahDay       = explode("-", $toDay);
+
+        $tahun          = $pecahDay[0];
+        $bulan          = $pecahDay[1];
+        $tanggal        = $pecahDay[2];
+
+        // Menampilkan tanggal pada awal bulan
+        $tanggal_awal     = date("01");
+        // Menampilkan tanggal pada akhir bulan
+        $tanggal_akhir    = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+        // Menggabungkan bulan dan tahun
+        $TanggalAwal      = $tahun . '-' . $bulan . '-' . $tanggal_awal;
+        $TanggalAkhir     = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+
+        // Check Koneksi 
         $checkKoneksi = $this->MikrotikModel->jumlahMikrotikAktif();
-        $data['JumlahPelanggan']    = $this->M_Pelanggan->JumlahPelanggan();
+
+        $data['JumlahPelanggan']            = $this->M_Pelanggan->JumlahPelangganAktif();
+        $data['JumlahPelangganMonth']       = $this->M_Pelanggan->JumlahPelangganAktifMonth();
+        $data['JumlahPelangganLunas']       = $this->M_SudahLunas->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir);
+        $data['JumlahPelangganJatuhTempo']  = $this->M_JatuhTempo->JumlahJatuhTempo($TanggalAwal, $TanggalAkhir, $tanggal);
 
         // Memanggil data Mikrotik
         $this->MikrotikModel->index();
