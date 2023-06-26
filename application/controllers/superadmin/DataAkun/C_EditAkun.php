@@ -25,7 +25,7 @@ class C_EditAkun extends CI_Controller
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarSuperadmin', $data);
         $this->load->view('superadmin/DataAkun/V_EditAkun', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('template/V_FooterAkun', $data);
     }
 
     public function EditAkunSave()
