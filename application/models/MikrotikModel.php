@@ -13,18 +13,18 @@ class MikrotikModel extends CI_Model
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
-        $paket = array(
-            'HOME 5 A' => 'Home 5', 'HOME 5 B' => 'Home 5', 'HOME 10 A' => 'Home 10', 'HOME 10 B' => 'Home 10',
-            'HOME 20 A' => 'Home 20', 'HOME 20 B' => 'Home 20', 'HOME 30 A' => 'Home 30', 'HOME 30 B' => 'Home 30',
-            'HOME 50 A' => 'Home 50', 'HOME 50 B' => 'Home 50', 'HOME 100' => 'Home 100', 'HOME TV 25' => 'Home TV 25',
-            'HOME TV 70' => 'Home TV 70', 'HOME 2' => 'Home 2'
-        );
-
         // $paket = array(
-        //     '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-        //     'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-        //     'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+        //     'HOME 5 A' => 'Home 5', 'HOME 5 B' => 'Home 5', 'HOME 10 A' => 'Home 10', 'HOME 10 B' => 'Home 10',
+        //     'HOME 20 A' => 'Home 20', 'HOME 20 B' => 'Home 20', 'HOME 30 A' => 'Home 30', 'HOME 30 B' => 'Home 30',
+        //     'HOME 50 A' => 'Home 50', 'HOME 50 B' => 'Home 50', 'HOME 100' => 'Home 100', 'HOME TV 25' => 'Home TV 25',
+        //     'HOME TV 70' => 'Home TV 70', 'HOME 2' => 'Home 2'
         // );
+
+        $paket = array(
+            '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
+            'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
+            'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+        );
 
         $getData = $this->db->query("
             SELECT 
