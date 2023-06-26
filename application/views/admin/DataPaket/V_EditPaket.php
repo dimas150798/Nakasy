@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-sm-4 mt-3">
                                         <label for="nama_paket" class="form-label" style="font-weight: bold;"> Nama Paket : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nama_paket" value="<?php echo $data['nama_paket'] ?>" placeholder="Masukkan nama paket...">
+                                        <input type="text" class="form-control" name="nama_paket" value="<?php echo $data['nama_paket'] ?>" placeholder="Masukkan nama paket..." readonly>
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('nama_paket'); ?></small>
                                         </div>

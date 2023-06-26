@@ -17,10 +17,10 @@ if (!function_exists('changeDateFormat')) {
                 <div class="col-xl-6">
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Data Paket</b>
                 </div>
-                <div class="col-12 col-xl-auto mt-2">
+                <!-- <div class="col-12 col-xl-auto mt-2">
                     <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPaket/C_TambahPaket') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/plus-circle.svg" alt="Bootstrap" ...> Tambah Paket
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
 

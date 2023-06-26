@@ -57,24 +57,12 @@ class C_EditPaket extends CI_Controller
         $this->form_validation->set_rules('deskripsi_paket', 'Deskripsi Paket', 'trim|required|alpha_numeric_spaces');
         $this->form_validation->set_message('required', 'Masukan data terlebih dahulu...');
 
-        if ($this->form_validation->run() == false) {
-            // Notifikasi kesalahan input
-            $this->session->set_flashdata('DuplicateName_icon', 'error');
-            $this->session->set_flashdata('DuplicateName_title', 'Gagal Tambah Paket');
-            $this->session->set_flashdata('DuplicateName_text', 'Check kembali data');
+        $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
 
-            echo "
-            <script>history.go(-1);            
-            </script>
-            ";
-        } else {
-            $this->M_CRUD->updateData('data_paket', $dataPaket, $idPaket);
+        // Notifikasi Edit Berhasil
+        $this->session->set_flashdata('Edit_icon', 'success');
+        $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
 
-            // Notifikasi Edit Berhasil
-            $this->session->set_flashdata('Edit_icon', 'success');
-            $this->session->set_flashdata('Edit_title', 'Edit Data Berhasil');
-
-            redirect('admin/DataPaket/C_DataPaket');
-        }
+        redirect('admin/DataPaket/C_DataPaket');
     }
 }
