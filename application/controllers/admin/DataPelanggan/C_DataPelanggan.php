@@ -32,6 +32,9 @@ class C_DataPelanggan extends CI_Controller
         $this->session->unset_userdata('bulanGET');
         $this->session->unset_userdata('TanggalAkhirGET');
 
+        // Memanggil data Mikrotik
+        $this->MikrotikModel->index();
+
         // Memanggil mysql dari model
         $data['DataPelanggan'] = $this->M_Pelanggan->DataPelanggan();
         $data['JumlahPelanggan'] = $this->M_Pelanggan->JumlahPelanggan();
