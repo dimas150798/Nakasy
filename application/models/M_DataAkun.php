@@ -42,4 +42,21 @@ class M_DataAkun extends CI_Model
             return false;
         }
     }
+
+    // Check data akun User
+    public function CheckDuplicateAkunUser($email_login)
+    {
+        $this->db->select('email_login');
+        $this->db->where('email_login', $email_login);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_penagih');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

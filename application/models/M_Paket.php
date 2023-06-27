@@ -27,7 +27,7 @@ class M_Paket extends CI_Model
     // Check data paket
     public function CheckDuplicatePaket($nama_paket)
     {
-        $this->db->select('nama_paket, id_paket');
+        $this->db->select('nama_paket, id_paket, harga_paket');
         $this->db->where('nama_paket', $nama_paket);
 
         $this->db->limit(1);

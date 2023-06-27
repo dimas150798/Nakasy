@@ -25,6 +25,10 @@
                         <form method="POST" action="<?php echo base_url('admin/DataPelanggan/C_TambahPelanggan/TambahPelangganSave') ?>">
 
                             <div class="row">
+                                <input type="hidden" class="form-control" name="order_id" id="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>" readonly>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-4 mt-3">
                                     <label for="nama_customer" class="form-label" style="font-weight: bold;"> Nama : <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nama_customer" id="nama_customer" value="" placeholder="Masukkan nama pelanggan...">

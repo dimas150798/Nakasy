@@ -177,7 +177,7 @@
             "autoFill": true,
             "pagingType": 'numbers',
             "ajax": {
-                "url": "<?= base_url('superadmin/DataAkun/C_DataAkun/GetDataAjax'); ?>",
+                "url": "<?= base_url('superadmin/AkunUser/C_DataAkunUser/GetDataAjax'); ?>",
             },
         })
     })

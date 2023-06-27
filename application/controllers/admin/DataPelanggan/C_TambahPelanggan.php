@@ -33,6 +33,7 @@ class C_TambahPelanggan extends CI_Controller
     public function TambahPelangganSave()
     {
         // Mengambil data post pada view
+        $order_id               = $this->input->post('order_id');
         $id_customer            = $this->input->post('id_customer');
         $kode_customer          = $this->input->post('kode_customer');
         $phone_customer         = $this->input->post('phone_customer');
@@ -46,6 +47,15 @@ class C_TambahPelanggan extends CI_Controller
         $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
         $nama_sales               = $this->input->post('nama_sales');
+
+        // Profile Mikrotik
+        $paket = array(
+            '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
+            'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
+            'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+        );
+
+        $checkPaket = $this->M_Paket->CheckDuplicatePaket($nama_paket);
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -63,6 +73,18 @@ class C_TambahPelanggan extends CI_Controller
             'deskripsi_customer' => $deskripsi_customer,
             'nama_sales'          => $nama_sales,
             'created_at'        => date('Y-m-d H:i:s', time())
+        );
+
+        $dataPembayaran = array(
+            'order_id'              => $order_id,
+            'gross_amount'          => $checkPaket->harga_paket,
+            'biaya_admin'           => '0',
+            'name_pppoe'            => $name_pppoe,
+            'nama_paket'            => $nama_paket,
+            'nama_admin'            => 'Registrasi Baru',
+            'keterangan'            => 'Registrasi Baru',
+            'transaction_time'      => date('Y-m-d H:i:s', time()),
+            'status_code'           => '200'
         );
 
         // Memanggil mysql dari model
@@ -100,13 +122,8 @@ class C_TambahPelanggan extends CI_Controller
                 redirect('admin/DataPelanggan/C_TambahPelanggan');
             } else {
                 $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
-
-                // Profile Mikrotik
-                $paket = array(
-                    '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-                    'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-                    'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
-                );
+                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran');
+                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran_history');
 
                 // Tambah Pelanggan Ke Mikrotik
                 $api = connect();
@@ -115,7 +132,7 @@ class C_TambahPelanggan extends CI_Controller
                     "password" => $password_pppoe,
                     "service" => "any",
                     "profile" => $paket[$nama_paket],
-                    "comment" => "",
+                    "comment" => $deskripsi_customer,
                 ]);
                 $api->disconnect();
 

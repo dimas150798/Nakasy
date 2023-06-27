@@ -61,3 +61,46 @@ $('#nama_sales').each(function() {
         dropdownParent: $(this).parent(),
     });
 });
+$('#email_login').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Email :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+
+$('#area_1').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#area_2').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#area_3').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#area_4').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
+$('#area_5').each(function() {
+    $(this).select2({
+        placeholder: 'Pilih Area :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});
