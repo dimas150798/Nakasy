@@ -27,7 +27,7 @@ if (!function_exists('changeDateFormat')) {
         <div class="container-fluid">
 
             <div class="row mt-3 mb-2">
-                <form class="form-inline" action="<?php echo base_url('admin/BelumLunas/C_BelumLunas') ?>" method=" get">
+                <form class="form-inline" action="<?php echo base_url('user/BelumLunas/C_BelumLunas') ?>" method=" get">
                     <div class="row">
                         <div class="col-md-2">
                             <label for="tahun">Tahun : </label>

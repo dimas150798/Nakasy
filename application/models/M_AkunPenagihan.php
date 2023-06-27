@@ -45,15 +45,13 @@ class M_AkunPenagihan extends CI_Model
     }
 
     // Check akses login
-    public function CheckLogin($email_login, $password_login)
+    public function CheckLogin($email_login)
     {
-        $this->db->select('data_login.email_login, data_login.password_login, data_login.id_akses');
-        $this->db->join('data_akses', 'data_login.id_akses=data_akses.id_akses', 'left');
-        $this->db->where('data_login.email_login', $email_login);
-        $this->db->where('data_login.password_login', $password_login);
+        $this->db->select('id_penagih, email_login, area_1, area_2, area_3, area_4, area_5');
+        $this->db->where('email_login', $email_login);
 
         $this->db->limit(1);
-        $result = $this->db->get('data_login');
+        $result = $this->db->get('data_penagih');
 
         return $result->row();
         if ($result->num_rows() > 0) {

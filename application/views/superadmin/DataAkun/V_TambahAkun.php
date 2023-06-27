@@ -27,7 +27,7 @@
                             <div class="row mt-3">
                                 <div class="col-sm-4">
                                     <label for="email_login" class="form-label" style="font-weight: bold;"> Email : <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" name="email_login" id="email_login" value="" placeholder="Masukkan email...">
+                                    <input type="email" class="form-control" name="email_login" value="" placeholder="Masukkan email...">
                                     <div class="bg-danger">
                                         <small class="text-white"><?php echo form_error('email_login'); ?></small>
                                     </div>
