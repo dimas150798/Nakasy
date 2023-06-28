@@ -17,10 +17,6 @@ if (!function_exists('changeDateFormat')) {
                 <div class="col-xl-6">
                     <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Belum Lunas</b>
                 </div>
-                <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/BelumLunas/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-excel-fill.svg" alt="Bootstrap" ...> Export Excel
-                    </a>
-                </div>
             </div>
         </div>
 
@@ -124,18 +120,6 @@ if (!function_exists('changeDateFormat')) {
                                     <?php echo $JumlahBelumLunas; ?></p>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="dataPencarian">Nominal</p>
-                            </div>
-                            <div class="col-6">
-
-                                <p class="dataPencarian">: Rp.
-                                    <?php echo number_format($NominalBelumLunas, 0, ',', '.') ?></p>
-                            </div>
-                        </div>
-
 
                     </div>
                 </div>

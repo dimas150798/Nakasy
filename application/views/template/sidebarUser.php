@@ -29,7 +29,7 @@
 
                         <!-- Dashboard Menu -->
                         <div class="sb-sidenav-menu-heading">Home page</div>
-                        <a class="nav-link" href="<?php echo base_url('admin/C_DashboardAdmin') ?>">
+                        <a class="nav-link" href="<?php echo base_url('user/C_DashboardUser') ?>">
                             <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/houses.svg" alt="Bootstrap" ...></div>
                             Dashboard
                         </a>
@@ -49,10 +49,6 @@
                                 <a class="nav-link" href="<?php echo base_url('user/BelumLunas/C_BelumLunas') ?>">
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/hourglass.svg" alt="Bootstrap" ...></div>
                                     Belum Lunas
-                                </a>
-                                <a class="nav-link" href="<?php echo base_url('admin/JatuhTempo/C_DataJatuhTempo') ?>">
-                                    <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/calendar-check-fill.svg" alt="Bootstrap" ...></div>
-                                    Jatuh Tempo
                                 </a>
                             </nav>
                         </div>
