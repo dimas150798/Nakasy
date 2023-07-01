@@ -113,8 +113,8 @@ class C_BelumLunas extends CI_Controller
 
                 $row = array();
                 $row[] = ++$no;
+                $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
-                $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
                 $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
@@ -148,8 +148,8 @@ class C_BelumLunas extends CI_Controller
 
                 $row = array();
                 $row[] = ++$no;
+                $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
-                $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
                 $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
