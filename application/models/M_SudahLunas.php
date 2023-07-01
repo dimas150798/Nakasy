@@ -24,7 +24,7 @@ class M_SudahLunas extends CI_Model
         data_pembayaran.transaction_time IS NOT NULL
 
         GROUP BY data_customer.name_pppoe
-        ORDER BY DAY(data_customer.start_date) ASC");
+        ORDER BY data_pembayaran.order_id DESC");
 
         return $query->result_array();
     }

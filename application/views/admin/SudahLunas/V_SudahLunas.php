@@ -163,11 +163,12 @@ if (!function_exists('changeDateFormat')) {
                                 <thead>
                                     <tr>
                                         <th width="10%">No</th>
-                                        <th width="20%">Nama</th>
+                                        <th width="10%">Nama Customer</th>
+                                        <th width="10%">Name PPPOE</th>
                                         <th width="20%" class="text-center">Tanggal</th>
                                         <th width="20%" class="text-center">Paket</th>
                                         <th width="20%" class="text-center">Tarif</th>
-                                        <th width="20%" class="text-center">Status</th>
+                                        <th width="20%" class="text-center">Melalui</th>
                                         <th width="20%" class="text-center">Action</th>
                                     </tr>
                                 </thead>

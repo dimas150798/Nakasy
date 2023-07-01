@@ -72,10 +72,10 @@
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/hourglass.svg" alt="Bootstrap" ...></div>
                                     Belum Lunas
                                 </a>
-                                <a class="nav-link" href="<?php echo base_url('admin/JatuhTempo/C_DataJatuhTempo') ?>">
+                                <!-- <a class="nav-link" href="<?php echo base_url('admin/JatuhTempo/C_DataJatuhTempo') ?>">
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/calendar-check-fill.svg" alt="Bootstrap" ...></div>
                                     Jatuh Tempo
-                                </a>
+                                </a> -->
                             </nav>
                         </div>
 

@@ -58,7 +58,7 @@
                                         <select id="biaya_admin" name="biaya_admin" class="form-control" required>
                                             <option value="">--- Pilih Biaya Admin ---</optxion>
                                             <option value="0">Rp. 0</option>
-                                            <option value="5000">RP. 5000</option>
+                                            <option value="3000">RP. 3000</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-3 mt-3">

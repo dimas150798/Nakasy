@@ -24,7 +24,7 @@ class M_BelumLunas extends CI_Model
         data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
 
         GROUP BY data_customer.name_pppoe
-        ORDER BY DAY(data_customer.start_date) ASC");
+        ORDER BY data_customer.nama_customer ASC");
 
         return $query->result_array();
     }
