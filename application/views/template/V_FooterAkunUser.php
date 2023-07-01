@@ -215,7 +215,7 @@
             confirmButtonText: 'Ya, Edit Data!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo site_url('superadmin/DataAkun/C_EditAkun/EditAkun') ?>/" + parameter_id;
+                window.location.href = "<?php echo site_url('superadmin/AkunUser/C_EditAkunUser/EditAkun') ?>/" + parameter_id;
             }
         })
     }

@@ -7,7 +7,7 @@
                     <i class="fa fa-list"></i> <b class="textmenuatas">Akun Penagihan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url(); ?>superadmin/AkunUser/C_TambahAkunUser"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/plus-circle.svg" alt="Bootstrap" ...> Tambah Data Akses
+                    <a class="btn buttonmenuatas" href="<?php echo base_url(); ?>superadmin/AkunUser/C_TambahAkunUser"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/plus-circle.svg" alt="Bootstrap" ...> Tambah Penagih
                     </a>
                 </div>
             </div>
@@ -28,9 +28,9 @@
                     <div class="card mb-3">
                         <div class="card-header">
 
-                            <h3><i class="fas fa-table me-1"></i>
-                                Data Akses
-                            </h3>
+                            <i class="fas fa-table me-1"></i>
+                            Data Penagih
+
                         </div>
                         <div class="card-body">
                             <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">

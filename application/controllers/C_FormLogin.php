@@ -50,10 +50,24 @@ class C_FormLogin extends CI_Controller
                 redirect('admin/C_DashboardAdmin');
             } elseif ($email_login == $checkDataLogin->email_login && $checkDataLogin->id_akses == 3) {
 
-                // Setting session login email
-                $this->session->set_userdata('email', $checkDataLogin->email_login);
+                // check akun daerah penagih
+                $checkDaerah = $this->M_AkunPenagihan->CheckLogin($email_login);
 
-                redirect('user/C_DashboardUser');
+                if ($checkDaerah == null) {
+                    // Notifikasi Daerah Tidak Ada
+                    $this->session->set_flashdata('Daerah_icon', 'error');
+                    $this->session->set_flashdata('Daerah_title', 'Daerah Penagih Kosong');
+                    $this->session->set_flashdata('Daerah_text', 'Tambah Nama Daerah Penagih Dahulu');
+
+                    $this->load->view('template/headerLogin');
+                    $this->load->view('V_FormLogin');
+                    $this->load->view('template/footerLogin');
+                } else {
+                    // Setting session login email
+                    $this->session->set_userdata('email', $checkDataLogin->email_login);
+
+                    redirect('user/C_DashboardUser');
+                }
             } else {
                 // Notifikasi gagal login
                 $this->session->set_flashdata('LoginGagal_icon', 'error');

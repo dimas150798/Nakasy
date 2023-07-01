@@ -30,16 +30,14 @@ class M_AkunPenagihan extends CI_Model
     }
 
     // Edit Data Login
-    public function EditLogin($id_login)
+    public function EditPenagihan($id_penagih)
     {
-        $query   = $this->db->query("SELECT data_login.id_login, data_login.email_login, data_login.password_login, 
-        data_login.id_akses, data_akses.nama_akses
-        FROM data_login
+        $query   = $this->db->query("SELECT id_penagih, email_login, area_1, area_2, area_3, area_4, area_5
+        FROM data_penagih
 
-        LEFT JOIN data_akses ON data_login.id_akses = data_akses.id_akses
+        WHERE id_penagih = '$id_penagih'
 
-        WHERE id_login = '$id_login'
-        ORDER BY data_login.id_login ASC");
+        ORDER BY email_login ASC");
 
         return $query->result_array();
     }

@@ -123,14 +123,14 @@
 <!-- Payment Pelanggan -->
 <script>
 	function Payment(parameter_id) {
-		window.location.href = "<?php echo site_url('admin/BelumLunas/C_PayBelumLunas/Payment') ?>/" + parameter_id;
+		window.location.href = "<?php echo site_url('user/BelumLunas/C_PayBelumLunas/Payment') ?>/" + parameter_id;
 	}
 </script>
 
 <!-- Kirim Tagihan-->
 <script>
 	function KirimWA(parameter_id) {
-		window.location.href = "<?php echo site_url('admin/BelumLunas/C_WA_Tagihan/KirimWA') ?>/" + parameter_id;
+		window.location.href = "<?php echo site_url('user/BelumLunas/C_WA_Tagihan/KirimWA') ?>/" + parameter_id;
 	}
 </script>
 

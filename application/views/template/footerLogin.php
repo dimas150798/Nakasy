@@ -71,6 +71,16 @@
 	<?php } ?>
 </script>
 
+<!-- Alert Duplicate Name (Tambah Data) -->
+<script>
+	<?php if ($this->session->flashdata('Daerah_icon')) { ?>
+		Swal.fire(
+			"<?php echo $this->session->flashdata('Daerah_title') ?>",
+			"<?php echo $this->session->flashdata('Daerah_text') ?>",
+			"<?php echo $this->session->flashdata('Daerah_icon') ?>");
+	<?php } ?>
+</script>
+
 </body>
 
 </html>

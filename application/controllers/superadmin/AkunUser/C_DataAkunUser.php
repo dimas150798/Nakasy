@@ -58,8 +58,8 @@ class C_DataAkunUser extends CI_Controller
                         Opsi
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
-                        <a onclick="EditAkun(' . $dataAkun['id_login'] . ')"class="dropdown-item text-black"></i> Edit</a>
-                        <a onclick="DeleteAkun(' . $dataAkun['id_login'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
+                        <a onclick="EditAkun(' . $dataAkun['id_penagih'] . ')"class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="DeleteAkun(' . $dataAkun['id_penagih'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Hapus</a>
                     </div>
                 </div>
                 </div>';

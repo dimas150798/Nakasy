@@ -16,14 +16,14 @@ class C_DeleteAkunUser extends CI_Controller
         }
     }
 
-    public function DeleteAkun($id_login)
+    public function DeleteAkun($id_penagih)
     {
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
 
         // Kondisi delete menggunakan id_customer
         $idPenagih = array(
-            'id_login'       => $id_login
+            'id_penagih'       => $id_penagih
         );
 
         $this->M_CRUD->deleteData($idPenagih, 'data_penagih');
