@@ -25,7 +25,7 @@ class M_BelumLunasUser extends CI_Model
         data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')
 
         GROUP BY data_customer.name_pppoe
-        ORDER BY DAY(data_customer.start_date) ASC");
+        ORDER BY data_customer.nama_customer ASC");
 
         return $query->result_array();
     }
