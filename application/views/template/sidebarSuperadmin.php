@@ -29,7 +29,7 @@
 
                         <!-- Dashboard Menu -->
                         <div class="sb-sidenav-menu-heading">Home page</div>
-                        <a class="nav-link" href="<?php echo base_url() ?>superadmin/C_DashboardSuperAdmin">
+                        <a class="nav-link" href="<?php echo base_url() ?>superadmin/C_DashboardSuperadmin">
                             <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/houses.svg" alt="Bootstrap" ...></div>
                             Dashboard
                         </a>
