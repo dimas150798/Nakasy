@@ -8,48 +8,6 @@
 </div>
 </div>
 
-<div id="preloader">
-	<div id="ctn-preloader" class="ctn-preloader">
-		<div class="animation-preloader">
-			<div class="txt-loading">
-				<div class="lingkaran">
-					<img src="<?php echo base_url(); ?>assets/img/GIFloading.gif" alt="">
-				</div>
-
-				<span data-text-preloader="#" class="letters-loading">
-					#
-				</span>
-				<span data-text-preloader="I" class="letters-loading">
-					I
-				</span>
-				<span data-text-preloader="N" class="letters-loading">
-					N
-				</span>
-				<span data-text-preloader="F" class="letters-loading">
-					F
-				</span>
-				<span data-text-preloader="L" class="letters-loading">
-					L
-				</span>
-				<span data-text-preloader="Y" class="letters-loading">
-					Y
-				</span>
-				<span data-text-preloader="A" class="letters-loading">
-					A
-				</span>
-				<span data-text-preloader="J" class="letters-loading">
-					J
-				</span>
-				<span data-text-preloader="A" class="letters-loading">
-					A
-				</span>
-			</div>
-		</div>
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div>
-</div>
-
 <!-- JS dataTables -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/af-2.5.1/r-2.4.0/datatables.min.js">
 </script>
@@ -66,7 +24,7 @@
 <script src="<?php echo base_url(); ?>assets/js/buttonPencarian.js"></script>
 
 <!-- Loading Infly -->
-<script src="<?php echo base_url(); ?>assets/js/loadingInfly.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/js/loadingInfly.js"></script> -->
 
 <!-- DataTables -->
 <script src="<?php echo base_url(); ?>assets/js/desaignTables.js"></script>
