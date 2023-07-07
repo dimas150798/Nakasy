@@ -106,7 +106,7 @@
             "autoFill": true,
             "pagingType": 'numbers',
             "ajax": {
-                "url": "<?= base_url('admin/SudahLunas/C_SudahLunas/GetSudahLunas'); ?>",
+                "url": "<?= base_url('user/SudahLunas/C_SudahLunas/GetSudahLunas'); ?>",
             },
 
         })

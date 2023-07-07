@@ -39,15 +39,24 @@ class C_SudahLunas extends CI_Controller
             // Menggabungkan tanggal, bulan, tahun
             $TanggalAkhirGET            = $tahunGET . '-' . $bulanGET . '-' . $tanggal_akhir_GET;
 
+            // Mengambil data area
+            $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
+
+            $area_1                     = $checkLogin->area_1;
+            $area_2                     = $checkLogin->area_2;
+            $area_3                     = $checkLogin->area_3;
+            $area_4                     = $checkLogin->area_4;
+            $area_5                     = $checkLogin->area_5;
+
             // Menyimpan Dalam Session
             $this->session->set_userdata('bulanGET', $bulanGET);
             $this->session->set_userdata('tahunGET', $tahunGET);
             $this->session->set_userdata('TanggalAkhirGET', $TanggalAkhirGET);
 
             // Memanggil mysql dari model
-            $data['SudahLunas']         = $this->M_SudahLunas->SudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
-            $data['JumlahSudahLunas']   = $this->M_SudahLunas->JumlahSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
-            $NominalSudahLunas          = $this->M_SudahLunas->NominalSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
+            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
 
             // Menyimpan query di dalam data
             $data['bulanGET']           = $bulanGET;
@@ -55,7 +64,7 @@ class C_SudahLunas extends CI_Controller
             $data['NominalSudahLunas']  = $NominalSudahLunas->hargaPaket;
 
             $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('template/sidebarUser', $data);
             $this->load->view('user/SudahLunas/V_SudahLunas', $data);
             $this->load->view('template/V_FooterSudahLunasUser', $data);
         } else {
@@ -69,15 +78,24 @@ class C_SudahLunas extends CI_Controller
             // Menggabungkan tanggal, bulan, tahun
             $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
+            // Mengambil data area
+            $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
+
+            $area_1                     = $checkLogin->area_1;
+            $area_2                     = $checkLogin->area_2;
+            $area_3                     = $checkLogin->area_3;
+            $area_4                     = $checkLogin->area_4;
+            $area_5                     = $checkLogin->area_5;
+
             // Menyimpan Dalam Session
             $this->session->set_userdata('bulan', $bulan);
             $this->session->set_userdata('tahun', $tahun);
             $this->session->set_userdata('TanggalAkhir', $TanggalAkhir);
 
             // Memanggil mysql dari model
-            $data['SudahLunas']         = $this->M_SudahLunas->SudahLunas($bulan, $tahun, $TanggalAkhir);
-            $data['JumlahSudahLunas']   = $this->M_SudahLunas->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir);
-            $NominalSudahLunas          = $this->M_SudahLunas->NominalSudahLunas($bulan, $tahun, $TanggalAkhir);
+            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
 
             // Menyimpan query di dalam data
             $data['bulan']              = $bulan;
@@ -85,7 +103,7 @@ class C_SudahLunas extends CI_Controller
             $data['NominalSudahLunas']  = $NominalSudahLunas->hargaPaket;
 
             $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('template/sidebarUser', $data);
             $this->load->view('user/SudahLunas/V_SudahLunas', $data);
             $this->load->view('template/V_FooterSudahLunasUser', $data);
         }
@@ -103,8 +121,17 @@ class C_SudahLunas extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
+        // Mengambil data area
+        $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
+
+        $area_1                     = $checkLogin->area_1;
+        $area_2                     = $checkLogin->area_2;
+        $area_3                     = $checkLogin->area_3;
+        $area_4                     = $checkLogin->area_4;
+        $area_5                     = $checkLogin->area_5;
+
         if ($this->session->userdata('tahunGET') == NULL && $this->session->userdata('bulanGET') == NULL) {
-            $result        = $this->M_SudahLunas->SudahLunas($bulan, $tahun, $TanggalAkhir);
+            $result        = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
 
             $no = 0;
 
@@ -113,11 +140,12 @@ class C_SudahLunas extends CI_Controller
 
                 $row = array();
                 $row[] = ++$no;
+                $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">Sudah Lunas</span>') . '</div>';
+                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin'] . '</span>')) . '</div>';
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">
@@ -140,7 +168,7 @@ class C_SudahLunas extends CI_Controller
 
             $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
         } else {
-            $result        = $this->M_SudahLunas->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'));
+            $result        = $this->M_SudahLunas->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'), $area_1, $area_2, $area_3, $area_4, $area_5);
 
             $no = 0;
 
@@ -149,11 +177,12 @@ class C_SudahLunas extends CI_Controller
 
                 $row = array();
                 $row[] = ++$no;
+                $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">Sudah Lunas</span>') . '</div>';
+                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin'] . '</span>')) . '</div>';
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">

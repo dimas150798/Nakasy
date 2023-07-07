@@ -46,16 +46,10 @@ class C_TambahPelanggan extends CI_Controller
         $start_date             = $this->input->post('start_date');
         $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
-        $nama_sales               = $this->input->post('nama_sales');
+        $nama_sales             = $this->input->post('nama_sales');
 
-        // Profile Mikrotik
-        $paket = array(
-            '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-            'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-            'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
-        );
-
-        $checkPaket = $this->M_Paket->CheckDuplicatePaket($nama_paket);
+        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($nama_paket);
+        $price_paket            = $GetDataPaket->harga_paket;
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -71,13 +65,13 @@ class C_TambahPelanggan extends CI_Controller
             'start_date'        => $start_date,
             'nama_area'         => $nama_area,
             'deskripsi_customer' => $deskripsi_customer,
-            'nama_sales'          => $nama_sales,
+            'nama_sales'        => $nama_sales,
             'created_at'        => date('Y-m-d H:i:s', time())
         );
 
         $dataPembayaran = array(
             'order_id'              => $order_id,
-            'gross_amount'          => $checkPaket->harga_paket,
+            'gross_amount'          => $price_paket,
             'biaya_admin'           => '0',
             'name_pppoe'            => $name_pppoe,
             'nama_paket'            => $nama_paket,
@@ -131,10 +125,13 @@ class C_TambahPelanggan extends CI_Controller
                     "name" => $name_pppoe,
                     "password" => $password_pppoe,
                     "service" => "any",
-                    "profile" => $paket[$nama_paket],
+                    "profile" => $nama_paket,
                     "comment" => $deskripsi_customer,
                 ]);
                 $api->disconnect();
+
+                // Memanggil data Mikrotik
+                $this->MikrotikModel->index();
 
                 // Notifikasi Tambah Data Berhasil
                 $this->session->set_flashdata('Tambah_icon', 'success');

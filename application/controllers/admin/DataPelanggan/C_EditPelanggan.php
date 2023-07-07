@@ -97,14 +97,6 @@ class C_EditPelanggan extends CI_Controller
             $this->load->view('admin/DataPelanggan/V_EditPelanggan', $data);
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
-            // Profile Mikrotik
-
-            $paket = array(
-                '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-                'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-                'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
-            );
-
             // Edit Pelanggan Ke Mikrotik
             $api = connect();
             $api->comm('/ppp/secret/set', [
@@ -112,8 +104,8 @@ class C_EditPelanggan extends CI_Controller
                 "name" => $name_pppoe,
                 "password" => $password_pppoe,
                 "service" => "any",
-                "profile" => $paket[$nama_paket],
-                "comment" => "",
+                "profile" => $nama_paket,
+                "comment" => $deskripsi_customer,
             ]);
             $api->disconnect();
 

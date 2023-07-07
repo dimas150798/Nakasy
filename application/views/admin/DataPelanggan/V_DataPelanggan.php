@@ -68,7 +68,8 @@ if (!function_exists('changeDateFormat')) {
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
+                                        <th>Nama Customer</th>
+                                        <th>Name PPPOE</th>
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">Nama Paket</th>
                                         <th class="text-center">Date Registrasi</th>

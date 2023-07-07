@@ -42,7 +42,7 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url('admin/SudahLunas/C_SudahLunas') ?>">
+                                <a class="nav-link" href="<?php echo base_url('user/SudahLunas/C_SudahLunas') ?>">
                                     <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/check-all.svg" alt="Bootstrap" ...></div>
                                     Sudah Lunas
                                 </a>
