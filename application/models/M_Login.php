@@ -64,4 +64,21 @@ class M_Login extends CI_Model
             return false;
         }
     }
+
+    // Check akun login
+    public function CheckAkunLogin($id_login)
+    {
+        $this->db->select('id_login, email_login, password_login');
+        $this->db->where('id_login', $id_login);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_login');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

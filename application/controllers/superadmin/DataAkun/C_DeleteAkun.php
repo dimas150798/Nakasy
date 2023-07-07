@@ -21,12 +21,20 @@ class C_DeleteAkun extends CI_Controller
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
 
+        $check_penagih      = $this->M_Login->CheckAkunLogin($id_login);
+        $email_login        = $check_penagih->email_login;
+
         // Kondisi delete menggunakan id_customer
         $idLogin = array(
-            'id_login'       => $id_login
+            'id_login'      => $id_login
+        );
+
+        $idPenagih = array(
+            'email_login'   => $email_login
         );
 
         $this->M_CRUD->deleteData($idLogin, 'data_login');
+        $this->M_CRUD->deleteData($idPenagih, 'data_penagih');
 
         // Notifikasi Delete Berhasil
         $this->session->set_flashdata('Delete_icon', 'success');

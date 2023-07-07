@@ -196,7 +196,7 @@
             confirmButtonText: 'Ya, Hapus Data!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "<?php echo site_url('superadmin/AkunUser/C_DeleteAkunUser/DeleteAkun') ?>/" + parameter_id;
+                window.location.href = "<?php echo site_url('superadmin/DataAkun/C_DeleteAkun/DeleteAkun') ?>/" + parameter_id;
             }
         })
     }
