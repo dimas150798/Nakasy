@@ -57,7 +57,6 @@
                                         <label for="biaya_admin" class="form-label" style="font-weight: bold;"> Biaya Admin : <span class="text-danger">*</span></label>
                                         <select id="biaya_admin" name="biaya_admin" class="form-control" required>
                                             <option value="">--- Pilih Biaya Admin ---</optxion>
-                                            <option value="0">Rp. 0</option>
                                             <option value="3000">RP. 3000</option>
                                         </select>
                                     </div>
@@ -70,7 +69,7 @@
                                     </div>
                                     <div class="col-sm-3 mt-3">
                                         <label for="nama_admin" class="form-label" style="font-weight: bold;"> Pembayaran Melalui : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nama_admin" id="nama_admin" value="" placeholder="Masukkan melalui...">
+                                        <input type="text" class="form-control" name="nama_admin" id="nama_admin" value="<?php echo $nama_penagih; ?>" placeholder="Masukkan melalui..." readonly>
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('nama_admin'); ?></small>
                                         </div>

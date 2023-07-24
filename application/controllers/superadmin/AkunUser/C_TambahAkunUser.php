@@ -34,6 +34,7 @@ class C_TambahAkunUser extends CI_Controller
     public function TambahAkunSave()
     {
         //mengambil data post pada view 
+        $nama_penagih       = $this->input->post('nama_penagih');
         $email_login        = $this->input->post('email_login');
         $are_1              = $this->input->post('area_1');
         $are_2              = $this->input->post('area_2');
@@ -44,6 +45,7 @@ class C_TambahAkunUser extends CI_Controller
         //menyimpan data akun ke dalam array
         $dataAkun = array(
             'email_login'       => $email_login,
+            'nama_penagih'      => $nama_penagih,
             'area_1'            => $are_1,
             'area_2'            => $are_2,
             'area_3'            => $are_3,

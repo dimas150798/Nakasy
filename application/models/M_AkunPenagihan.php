@@ -6,7 +6,7 @@ class M_AkunPenagihan extends CI_Model
     // Menampilkan Data Penagih
     public function DataPenagih()
     {
-        $query   = $this->db->query("SELECT id_penagih, email_login, area_1, area_2, area_3, area_4, area_5
+        $query   = $this->db->query("SELECT id_penagih, email_login, nama_penagih, area_1, area_2, area_3, area_4, area_5
             FROM data_penagih
 
             ORDER BY email_login ASC");
@@ -32,7 +32,7 @@ class M_AkunPenagihan extends CI_Model
     // Edit Data Login
     public function EditPenagihan($id_penagih)
     {
-        $query   = $this->db->query("SELECT id_penagih, email_login, area_1, area_2, area_3, area_4, area_5
+        $query   = $this->db->query("SELECT id_penagih, email_login, nama_penagih, area_1, area_2, area_3, area_4, area_5
         FROM data_penagih
 
         WHERE id_penagih = '$id_penagih'
@@ -45,7 +45,7 @@ class M_AkunPenagihan extends CI_Model
     // Check akses login
     public function CheckLogin($email_login)
     {
-        $this->db->select('id_penagih, email_login, area_1, area_2, area_3, area_4, area_5');
+        $this->db->select('id_penagih, nama_penagih, email_login, area_1, area_2, area_3, area_4, area_5');
         $this->db->where('email_login', $email_login);
 
         $this->db->limit(1);

@@ -37,6 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
+                                        <th width="30%">Nama</th>
                                         <th width="30%">Email</th>
                                         <th width="30%">Area 1</th>
                                         <th width="30%">Area 2</th>

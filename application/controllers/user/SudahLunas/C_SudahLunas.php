@@ -121,7 +121,6 @@ class C_SudahLunas extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        // Mengambil data area
         $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
 
         $area_1                     = $checkLogin->area_1;
@@ -145,7 +144,7 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin'] . '</span>')) . '</div>';
+                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>') . '</div>';
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">
@@ -168,7 +167,7 @@ class C_SudahLunas extends CI_Controller
 
             $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
         } else {
-            $result        = $this->M_SudahLunas->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'), $area_1, $area_2, $area_3, $area_4, $area_5);
+            $result        = $this->M_SudahLunasUser->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'), $area_1, $area_2, $area_3, $area_4, $area_5);
 
             $no = 0;
 
@@ -182,7 +181,7 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin'] . '</span>')) . '</div>';
+                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>') . '</div>';
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">

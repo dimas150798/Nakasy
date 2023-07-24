@@ -104,3 +104,10 @@ $('#area_5').each(function() {
         dropdownParent: $(this).parent(),
     });
 });
+$('#daerah_rekening').each(function() {
+    $(this).select2({
+        placeholder: 'Daerah Rekening :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});

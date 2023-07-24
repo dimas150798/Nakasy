@@ -52,13 +52,6 @@ if (!function_exists('changeDateFormat')) {
                                         <input type="text" class="form-control" name="name_pppoe" value="<?php echo $data['name_pppoe'] ?>" placeholder="Data Kosong" readonly>
                                     </div>
                                     <div class="col-sm-4 mt-3">
-                                        <label for="kode_pelanggan" class="form-label" style="font-weight: bold;"> Kode Pelanggan : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="kode_pelanggan" value="<?php echo $data['kode_pelanggan'] ?>" placeholder="Data Kosong" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 mt-3">
                                         <label for="bulan_penagihan" class="form-label" style="font-weight: bold;"> Penagihan Bulan : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="bulan_penagihan" value="<?php if ($this->session->userdata('bulanGET') == NULL) {
                                                                                                                     echo $months[(int)$this->session->userdata('bulan')];
@@ -66,6 +59,9 @@ if (!function_exists('changeDateFormat')) {
                                                                                                                     echo $months[(int)$this->session->userdata('bulanGET')];
                                                                                                                 } ?>" placeholder="Data Kosong" readonly>
                                     </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-sm-4 mt-3">
                                         <label for="phone_customer" class="form-label" style="font-weight: bold;"> No Telephon : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="phone_customer" value="<?php echo $data['phone_customer'] ?>" placeholder="Data Kosong" readonly>
@@ -73,6 +69,17 @@ if (!function_exists('changeDateFormat')) {
                                     <div class="col-sm-4 mt-3">
                                         <label for="" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="" value="<?php echo $data['nama_paket'] ?> / Rp.  <?php echo number_format($data['harga_paket'], 0, ',', '.') ?>" placeholder="Data Kosong" readonly>
+                                    </div>
+                                    <div class="col-sm-4 mt-3">
+                                        <label for="daerah_rekening" class="form-label" style="font-weight: bold;"> Daerah Rekening : <span class="text-danger">*</span></label>
+                                        <select id="daerah_rekening" name="daerah_rekening" class="form-control" required>
+                                            <option value="">Daerah Rekening :</option>
+                                            <?php foreach ($DataRekening as $dataRekening) : ?>
+                                                <option value="<?php echo $dataRekening['daerah_rekening']; ?>">
+                                                    <?php echo $dataRekening['daerah_rekening']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                 </div>
 

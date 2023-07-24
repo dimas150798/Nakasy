@@ -28,6 +28,10 @@ class C_PayBelumLunas extends CI_Controller
     {
         $data['DataPelanggan']  = $this->M_BelumLunas->Payment($id_customer);
 
+        // Mengambil data area
+        $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
+        $data['nama_penagih']       = $checkLogin->nama_penagih;
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarUser', $data);
         $this->load->view('user/BelumLunas/V_PayBelumLunas', $data);

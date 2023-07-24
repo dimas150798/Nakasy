@@ -45,6 +45,7 @@ class C_DataAkunUser extends CI_Controller
 
             $row = array();
             $row[] = ++$no;
+            $row[] = $dataAkun['nama_penagih'];
             $row[] = $dataAkun['email_login'];
             $row[] = '<div>' . ($area_1 ? '<span class="badge bg-danger">Data Kosong</span>' : $dataAkun['area_1']) . '</div>';
             $row[] = '<div>' . ($area_2 ? '<span class="badge bg-danger">Data Kosong</span>' : $dataAkun['area_2']) . '</div>';

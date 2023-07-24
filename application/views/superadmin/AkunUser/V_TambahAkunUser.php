@@ -25,10 +25,14 @@
                         <form method="POST" action="<?php echo base_url('superadmin/AkunUser/C_TambahAkunUser/TambahAkunSave') ?>">
                             <!-- Nama Akun  -->
                             <div class="row mt-3">
-                                <div class="col-sm-12">
-                                    <label for="email_login" class="form-label" style="font-weight: bold;"> Nama Akun : <span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <label for="nama_penagih" class="form-label" style="font-weight: bold;"> Nama Penagih : <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nama_penagih" id="nama_penagih" value="" placeholder="Masukkan nama..." required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="email_login" class="form-label" style="font-weight: bold;"> Pilih Email : <span class="text-danger">*</span></label>
                                     <select id="email_login" name="email_login" class="form-control" required>
-                                        <option value="">Pilih Akun :</option>
+                                        <option value="">Pilih Email :</option>
                                         <?php foreach ($DataAkun as $dataAkun) : ?>
                                             <option value="<?php echo $dataAkun['email_login']; ?>">
                                                 <?php echo $dataAkun['email_login']; ?>
@@ -39,6 +43,7 @@
                                         <small class="text-white"><?php echo form_error('id_akses'); ?></small>
                                     </div>
                                 </div>
+
                             </div>
 
                             <!-- Nama Area -->

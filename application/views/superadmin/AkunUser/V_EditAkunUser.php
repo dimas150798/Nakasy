@@ -28,7 +28,11 @@
                                 </div>
                                 <!-- Email Login -->
                                 <div class="row mt-3">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <label for="nama_penagih" class="form-label" style="font-weight: bold;"> Nama Penagih : <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="nama_penagih" id="nama_penagih" value="<?php echo $data['nama_penagih'] ?>" placeholder="Masukkan nama..." required>
+                                    </div>
+                                    <div class="col-sm-6">
                                         <label for="email_login" class="form-label" style="font-weight: bold;"> Email_login : <span class="text-danger">*</span></label>
                                         <select name="email_login" id="email_login" class="form-control" required>
                                             <?php foreach ($DataLogin as $dataLogin) : ?>
