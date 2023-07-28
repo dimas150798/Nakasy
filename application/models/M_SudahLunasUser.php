@@ -61,7 +61,7 @@ class M_SudahLunasUser extends CI_Model
     public function NominalSudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
     {
         $result   = $this->db->query("SELECT 
-        SUM(data_paket.harga_paket) AS hargaPaket
+        SUM(data_pembayaran.gross_amount) AS hargaPaket
 
         FROM data_customer 
         LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
@@ -71,6 +71,29 @@ class M_SudahLunasUser extends CI_Model
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
         AND data_pembayaran.transaction_time IS NOT NULL AND  data_customer.stop_date IS NULL AND
         data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')");
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Menampilkan Jumlah Biaya Admin
+    public function NominalBiayaAdmin($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
+    {
+        $result   = $this->db->query("SELECT 
+            SUM(data_pembayaran.biaya_admin) AS biayaAdmin
+    
+            FROM data_customer 
+            LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+            LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+            AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+            
+            WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
+            AND data_pembayaran.transaction_time IS NOT NULL AND  data_customer.stop_date IS NULL AND
+            data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')");
 
         return $result->row();
         if ($result->num_rows() > 0) {

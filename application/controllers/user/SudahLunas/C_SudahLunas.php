@@ -57,11 +57,14 @@ class C_SudahLunas extends CI_Controller
             $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
             $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
             $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
 
             // Menyimpan query di dalam data
             $data['bulanGET']           = $bulanGET;
             $data['tahunGET']           = $tahunGET;
             $data['NominalSudahLunas']  = $NominalSudahLunas->hargaPaket;
+            $data['NominalBiayaAdmin']  = $NominalBiayaAdmin->biayaAdmin;
+            $data['TotalAkhir']         = $NominalSudahLunas->hargaPaket - $NominalBiayaAdmin->biayaAdmin;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebarUser', $data);
@@ -85,6 +88,7 @@ class C_SudahLunas extends CI_Controller
             $area_2                     = $checkLogin->area_2;
             $area_3                     = $checkLogin->area_3;
             $area_4                     = $checkLogin->area_4;
+
             $area_5                     = $checkLogin->area_5;
 
             // Menyimpan Dalam Session
@@ -96,11 +100,14 @@ class C_SudahLunas extends CI_Controller
             $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
             $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
             $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
 
             // Menyimpan query di dalam data
             $data['bulan']              = $bulan;
             $data['tahun']              = $tahun;
             $data['NominalSudahLunas']  = $NominalSudahLunas->hargaPaket;
+            $data['NominalBiayaAdmin']  = $NominalBiayaAdmin->biayaAdmin;
+            $data['TotalAkhir']         = $NominalSudahLunas->hargaPaket - $NominalBiayaAdmin->biayaAdmin;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebarUser', $data);
