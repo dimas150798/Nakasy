@@ -95,32 +95,81 @@ if (!function_exists('changeDateFormat')) {
 
             <div class="row">
                 <div class="col-12 mt-3">
-                    <div class="textPencarian">
-
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-6">
-                                <p class="dataPencarian">Data</p>
-                            </div>
-                            <div class="col-6">
-                                <p class="dataPencarian">:
-                                    <?php if ($tahunGET == NULL) {
-                                        echo $months[(int)$bulan] . ' / ' . $tahun;
-                                    } else {
-                                        echo $months[(int)$bulanGET] . ' / ' . $tahunGET;
-                                    } ?></p>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="dataPencarian">Belum Lunas</p>
+                            <!-- Date Penagih-->
+                            <div class="col-12 col-lg-4">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card-body">
+                                                <h4> Data</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">
+                                            <p id="jumlahpelanggan"><?php
+                                                                    if ($tahunGET == NULL && $bulanGET == NULL) {
+                                                                        echo $months[(int)$bulan] . ' / ' . $tahun;
+                                                                    } else {
+                                                                        echo $months[(int)$bulanGET] . ' / ' . $tahunGET;
+                                                                    }
+                                                                    ?>
+                                            </p>
+                                        </a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <p class="dataPencarian">:
-                                    <?php echo $JumlahBelumLunas; ?></p>
-                            </div>
-                        </div>
+                            <!-- End Date Penagih-->
 
+
+                            <!-- Total Data  -->
+                            <div class="col-6 col-lg-4">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card-body">
+                                                <h4> Total Pelanggan</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">
+                                            <p id="jumlahpelanggan"><?php echo $JumlahBelumLunas ?>
+                                            </p>
+                                        </a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Total Data -->
+
+
+                            <!-- Total Tagihan  -->
+                            <div class="col-6 col-lg-4">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card-body">
+                                                <h4> Total Tagihan</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">
+                                            <p id="jumlahpelanggan"><?php echo 'Rp. ' . number_format($NominalBelumLunas, 0, ',', '.') ?>
+                                            </p>
+                                        </a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Total Tagihan -->
+
+                        </div>
                     </div>
                 </div>
             </div>
