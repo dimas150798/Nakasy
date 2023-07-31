@@ -13,29 +13,24 @@ class MikrotikModel extends CI_Model
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
-        // $paket = array(
-        //     'HOME 5 A' => 'Home 5', 'HOME 5 B' => 'Home 5', 'HOME 10 A' => 'Home 10', 'HOME 10 B' => 'Home 10',
-        //     'HOME 20 A' => 'Home 20', 'HOME 20 B' => 'Home 20', 'HOME 30 A' => 'Home 30', 'HOME 30 B' => 'Home 30',
-        //     'HOME 50 A' => 'Home 50', 'HOME 50 B' => 'Home 50', 'HOME 100' => 'Home 100', 'HOME TV 25' => 'Home TV 25',
-        //     'HOME TV 70' => 'Home TV 70', 'HOME 2' => 'Home 2'
-        // );
-
         $paket = array(
             '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
             'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
             'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
         );
 
-        $getData = $this->db->query("SELECT data_customer.*,
-            data_area.nama_area as area_name, 
-            data_paket.id_paket as id_paket, 
-            data_paket.harga_paket as paket_price, 
-            data_sales.nama_sales as sales_name
+        $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.nama_customer, 
+            data_customer.nama_paket, data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer,
+            data_customer.email_customer, data_customer.start_date, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer,
+            data_customer.nama_sales, data_area.nama_area, data_paket.nama_paket, data_paket.harga_paket, data_sales.nama_sales
+            
             FROM data_customer
-            left join data_area on data_area.nama_area = data_customer.nama_area
-            left join data_paket on data_paket.nama_paket = data_customer.nama_paket
-            left join data_sales on data_sales.nama_sales = data_customer.nama_sales
-            order by data_customer.id_customer desc
+
+            LEFT JOIN data_area ON data_area.nama_area = data_customer.nama_area
+            LEFT JOIN data_paket ON data_paket.nama_paket = data_customer.nama_paket
+            LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
+            ORDER BY data_customer.id_customer
+
             ")->result_array();
 
         foreach ($pppSecret as $keySecret => $valueSecret) {
@@ -67,7 +62,6 @@ class MikrotikModel extends CI_Model
                         'nama_sales'          => $value['nama_sales'],
                         'created_at'        => $value['created_at'],
                         'updated_at'        => $value['updated_at'],
-                        'disabled'          => $valueSecret['disabled'],
                     ];
                 }
             }
@@ -93,9 +87,6 @@ class MikrotikModel extends CI_Model
                     "updated_at"        => date('Y-m-d H:i:s', time()),
                 ]);
 
-                $lastPay = date("Y-m-d", strtotime("+1 months"));
-                $payStatus = [];
-
                 $response[$keySecret] = [
                     'id_customer'       => $this->db->insert_id(),
                     'kode_customer'     => '0',
@@ -116,7 +107,6 @@ class MikrotikModel extends CI_Model
                     'nama_sales'        => '0',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
-                    'disabled'          => $valueSecret['disabled'],
                 ];
             }
         }
@@ -197,8 +187,7 @@ class MikrotikModel extends CI_Model
 
     public function TerminasiAuto($bulan, $tahun, $tanggalAkhir)
     {
-        $getData = $this->db->query("
-        SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
+        $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
         DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
         data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
