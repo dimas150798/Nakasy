@@ -45,7 +45,7 @@ class C_DashboardUser extends CI_Controller
         $data['JumlahPelangganJatuhTempo']  = $this->M_JatuhTempo->JumlahJatuhTempo($TanggalAwal, $TanggalAkhir, $tanggal);
 
         // Memanggil data Mikrotik
-        $this->MikrotikModel->index();
+        // $this->MikrotikModel->index();
 
         if ($checkKoneksi == 0) {
             // Notifikasi gagal login
