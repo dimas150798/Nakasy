@@ -26,9 +26,7 @@ class MikrotikModel extends CI_Model
             'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
         );
 
-        $getData = $this->db->query("
-            SELECT 
-            data_customer.*,
+        $getData = $this->db->query("SELECT data_customer.*,
             data_area.nama_area as area_name, 
             data_paket.id_paket as id_paket, 
             data_paket.harga_paket as paket_price, 
