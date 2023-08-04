@@ -30,51 +30,39 @@
                                     <input type="hidden" class="form-control" name="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="nama_paket" value="<?php echo $data['namaPaket'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="gross_amount" value="<?php echo $data['harga_paket'] ?>">
+                                    <input type="hidden" class="form-control" name="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>">
+                                    <input type="hidden" class="form-control" name="biaya_admin" value="3000">
+
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-3 mt-3">
-                                        <label for="order_id" class="form-label" style="font-weight: bold;"> Order ID : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="order_id" id="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>" readonly>
-                                    </div>
-                                    <div class="col-sm-3 mt-3">
+                                    <div class="col-12 col-lg-4 mt-3">
                                         <label for="nama_customer" class="form-label" style="font-weight: bold;"> Nama Customer : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nama_customer" id="nama_customer" value="<?php echo $data['nama_customer'] ?>" readonly>
-
                                     </div>
-                                    <div class="col-sm-3 mt-3">
+                                    <div class="col-12 col-lg-4 mt-3">
                                         <label for="name_pppoe" class="form-label" style="font-weight: bold;"> Name PPPOE : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="name_pppoe" id="name_pppoe" value="<?php echo $data['name_pppoe'] ?>" readonly>
                                     </div>
-                                    <div class="col-sm-3 mt-3">
+                                    <div class="col-12 col-lg-4 mt-3">
                                         <label for="" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="" id="" value="<?php echo $data['namaPaket'] ?> / Rp. <?php echo number_format($data['harga_paket'], 0, ',', '.') ?> + PPN" readonly>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-3 mt-3">
-                                        <label for="biaya_admin" class="form-label" style="font-weight: bold;"> Biaya Admin : <span class="text-danger">*</span></label>
-                                        <select id="biaya_admin" name="biaya_admin" class="form-control" required>
-                                            <option value="">--- Pilih Biaya Admin ---</optxion>
-                                            <option value="3000">RP. 3000</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3 mt-3">
-                                        <label for="transaction_time" class="form-label" style="font-weight: bold;"> Tanggal Pembayaran : <span class="text-danger">*</span></label>
+                                    <div class="col-12 col-lg-4 mt-3">
+                                        <label for="transaction_time" class="form-label" style="font-weight: bold;"> Tanggal : <span class="text-danger">*</span></label>
                                         <input type="datetime-local" class="form-control" name="transaction_time" id="transaction_time" value="">
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('transaction_time'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 mt-3">
-                                        <label for="nama_admin" class="form-label" style="font-weight: bold;"> Pembayaran Melalui : <span class="text-danger">*</span></label>
+                                    <div class="col-12 col-lg-4 mt-3">
+                                        <label for="nama_admin" class="form-label" style="font-weight: bold;"> Penagih : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nama_admin" id="nama_admin" value="<?php echo $nama_penagih; ?>" placeholder="Masukkan melalui..." readonly>
                                         <div class="bg-danger">
                                             <small class="text-white"><?php echo form_error('nama_admin'); ?></small>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 mt-3">
+                                    <div class="col-12 col-lg-4 mt-3">
                                         <label for="keterangan" class="form-label" style="font-weight: bold;"> Keterangan : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="keterangan" id="keterangan" value="" placeholder="Masukkan keterangan...">
                                         <div class="bg-danger">

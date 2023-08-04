@@ -48,13 +48,6 @@ class C_PayBelumLunas extends CI_Controller
         $nama_admin             = $this->input->post('nama_admin');
         $keterangan             = $this->input->post('keterangan');
 
-        $api = connect();
-        $api->comm('/ppp/secret/set', [
-            ".id" => $id_pppoe,
-            "disabled" => 'false',
-        ]);
-        $api->disconnect();
-
         $explode = explode("-", $transaction_time);
         echo $explode[0]; //untuk tahun
         echo $explode[1]; //untuk bulan
@@ -74,9 +67,26 @@ class C_PayBelumLunas extends CI_Controller
             'status_code'       => 200,
         );
 
+        // Menyimpan data payment duplicate ke dalam array
+        $dataPaymentDuplicate = array(
+            'order_id'          => $this->M_BelumLunas->invoice(),
+            'gross_amount'      => $gross_amount,
+            'biaya_admin'       => $biaya_admin,
+            'name_pppoe'        => $name_pppoe,
+            'nama_paket'        => $nama_paket,
+            'nama_admin'        => $nama_admin,
+            'keterangan'        => $keterangan,
+            'transaction_time'  => $transaction_time,
+            'expired_date'      => $transaction_time,
+            'status_code'       => 200,
+        );
+
         // Memanggil mysql dari model
         $data['DataPelanggan']  = $this->M_BelumLunas->Payment($id_customer);
         $checkDuplicatePay      = $this->M_BelumLunas->CheckDuplicatePayment($explode[1], $explode[0], $name_pppoe);
+
+        // Check Order Id
+        $checkDuplicateCode = $this->M_BelumLunasUser->CheckDuplicateCode($order_id);
 
         // Rules form validation
         $this->form_validation->set_rules('biaya_admin', 'Biaya Admin', 'required');
@@ -101,13 +111,39 @@ class C_PayBelumLunas extends CI_Controller
                 </script>
                 ";
             } else {
-                // Notifikasi Login Berhasil
-                $this->session->set_flashdata('payment_icon', 'success');
-                $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
+                if($order_id != $checkDuplicateCode->order_id){
+                    // Notifikasi Login Berhasil
+                    $this->session->set_flashdata('payment_icon', 'success');
+                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
+    
+                    $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
+                    $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
 
-                $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
-                $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
-                redirect('admin/BelumLunas/C_BelumLunas');
+                    $api = connect();
+                    $api->comm('/ppp/secret/set', [
+                        ".id" => $id_pppoe,
+                        "disabled" => 'false',
+                    ]);
+                    $api->disconnect();
+
+                    redirect('admin/BelumLunas/C_BelumLunas');
+                }else{
+                    // Notifikasi Login Berhasil
+                    $this->session->set_flashdata('payment_icon', 'success');
+                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
+    
+                    $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
+                    $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
+
+                    $api = connect();
+                    $api->comm('/ppp/secret/set', [
+                        ".id" => $id_pppoe,
+                        "disabled" => 'false',
+                    ]);
+                    $api->disconnect();
+
+                    redirect('admin/BelumLunas/C_BelumLunas');
+                }
             }
         }
     }
