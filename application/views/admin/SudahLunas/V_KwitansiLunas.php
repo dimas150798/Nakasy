@@ -33,12 +33,11 @@ if (!function_exists('changeDateFormat')) {
                         <?php foreach ($DataPelanggan as $data) : ?>
                             <div class="row">
                                 <div class="col-12 .col-md-8">
-                                    <h2 class="kwitansiJudul">INFLY NETWORKS</h2>
+                                    <h2 class="kwitansiJudul">NAKASY</h2>
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <p class="kwitansiAlamat">Jl. Raya Bromo No.86 A, RT 10 / RW 03, <br>
-                                        Triwung Lor, Kec. Kademangan, Kota Probolinggo,
-                                        Jawa Timur - 67223, Indonesia
+                                    <p class="kwitansiAlamat">Jl. Kampung Melayu, No 63, <br>
+                                        Kraksaan - Probolinggo
                                     </p>
                                 </div>
                                 <div class="col-sm-12 mt-3">
