@@ -29,6 +29,18 @@ class C_SudahLunas extends CI_Controller
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
 
+        // Mengambil data area
+        $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
+
+        $area_1                     = $checkLogin->area_1;
+        $area_2                     = $checkLogin->area_2;
+        $area_3                     = $checkLogin->area_3;
+        $area_4                     = $checkLogin->area_4;
+        $area_5                     = $checkLogin->area_5;
+
+        // nama penagih
+        $nama_penagih               = $checkLogin->nama_penagih;
+
         if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
             $bulanGET                   = $_GET['bulan'];
             $tahunGET                   = $_GET['tahun'];
@@ -39,25 +51,16 @@ class C_SudahLunas extends CI_Controller
             // Menggabungkan tanggal, bulan, tahun
             $TanggalAkhirGET            = $tahunGET . '-' . $bulanGET . '-' . $tanggal_akhir_GET;
 
-            // Mengambil data area
-            $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
-
-            $area_1                     = $checkLogin->area_1;
-            $area_2                     = $checkLogin->area_2;
-            $area_3                     = $checkLogin->area_3;
-            $area_4                     = $checkLogin->area_4;
-            $area_5                     = $checkLogin->area_5;
-
             // Menyimpan Dalam Session
             $this->session->set_userdata('bulanGET', $bulanGET);
             $this->session->set_userdata('tahunGET', $tahunGET);
             $this->session->set_userdata('TanggalAkhirGET', $TanggalAkhirGET);
 
             // Memanggil mysql dari model
-            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulanGET, $tahunGET, $TanggalAkhirGET, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
 
             // Menyimpan query di dalam data
             $data['bulanGET']           = $bulanGET;
@@ -81,26 +84,16 @@ class C_SudahLunas extends CI_Controller
             // Menggabungkan tanggal, bulan, tahun
             $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-            // Mengambil data area
-            $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
-
-            $area_1                     = $checkLogin->area_1;
-            $area_2                     = $checkLogin->area_2;
-            $area_3                     = $checkLogin->area_3;
-            $area_4                     = $checkLogin->area_4;
-
-            $area_5                     = $checkLogin->area_5;
-
             // Menyimpan Dalam Session
             $this->session->set_userdata('bulan', $bulan);
             $this->session->set_userdata('tahun', $tahun);
             $this->session->set_userdata('TanggalAkhir', $TanggalAkhir);
 
             // Memanggil mysql dari model
-            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
-            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $data['SudahLunas']         = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $data['JumlahSudahLunas']   = $this->M_SudahLunasUser->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $NominalSudahLunas          = $this->M_SudahLunasUser->NominalSudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
+            $NominalBiayaAdmin          = $this->M_SudahLunasUser->NominalBiayaAdmin($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
 
             // Menyimpan query di dalam data
             $data['bulan']              = $bulan;
@@ -128,6 +121,7 @@ class C_SudahLunas extends CI_Controller
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
+        // Mengambil data area
         $checkLogin                 = $this->M_AkunPenagihan->CheckLogin($this->session->userdata('email'));
 
         $area_1                     = $checkLogin->area_1;
@@ -136,8 +130,11 @@ class C_SudahLunas extends CI_Controller
         $area_4                     = $checkLogin->area_4;
         $area_5                     = $checkLogin->area_5;
 
+        // nama penagih
+        $nama_penagih               = $checkLogin->nama_penagih;
+
         if ($this->session->userdata('tahunGET') == NULL && $this->session->userdata('bulanGET') == NULL) {
-            $result        = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5);
+            $result        = $this->M_SudahLunasUser->SudahLunas($bulan, $tahun, $TanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
 
             $no = 0;
 
@@ -174,7 +171,7 @@ class C_SudahLunas extends CI_Controller
 
             $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
         } else {
-            $result        = $this->M_SudahLunasUser->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'), $area_1, $area_2, $area_3, $area_4, $area_5);
+            $result        = $this->M_SudahLunasUser->SudahLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'), $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih);
 
             $no = 0;
 

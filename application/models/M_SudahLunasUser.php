@@ -4,7 +4,7 @@ class M_SudahLunasUser extends CI_Model
 {
 
     // Menampilkan Data Sudah Lunas
-    public function SudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
+    public function SudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih)
     {
         $query   = $this->db->query("SELECT 
         data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
@@ -18,11 +18,13 @@ class M_SudahLunasUser extends CI_Model
         FROM data_customer
         LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
         LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+
         AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
 
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
         data_pembayaran.transaction_time IS NOT NULL AND
-        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')
+        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5') AND
+        data_pembayaran.nama_admin = '$nama_penagih'
 
         GROUP BY data_customer.name_pppoe
         ORDER BY data_pembayaran.order_id DESC");
@@ -31,7 +33,7 @@ class M_SudahLunasUser extends CI_Model
     }
 
     // Menampilkan Jumlah Belum Lunas
-    public function JumlahSudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
+    public function JumlahSudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih)
     {
         $query   = $this->db->query("SELECT 
         data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
@@ -49,7 +51,8 @@ class M_SudahLunasUser extends CI_Model
 
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
         data_pembayaran.transaction_time IS NOT NULL AND
-        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')
+        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5') AND
+        data_pembayaran.nama_admin = '$nama_penagih'
 
         GROUP BY data_customer.name_pppoe
         ORDER BY DAY(data_customer.start_date) ASC");
@@ -58,7 +61,7 @@ class M_SudahLunasUser extends CI_Model
     }
 
     // Menampilkan Jumlah Nominal Belum Lunas
-    public function NominalSudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
+    public function NominalSudahLunas($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih)
     {
         $result   = $this->db->query("SELECT 
         SUM(data_pembayaran.gross_amount) AS hargaPaket
@@ -70,7 +73,10 @@ class M_SudahLunasUser extends CI_Model
         
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
         AND data_pembayaran.transaction_time IS NOT NULL AND  data_customer.stop_date IS NULL AND
-        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')");
+        data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5') AND
+        data_pembayaran.nama_admin = '$nama_penagih'
+        
+        ");
 
         return $result->row();
         if ($result->num_rows() > 0) {
@@ -81,7 +87,7 @@ class M_SudahLunasUser extends CI_Model
     }
 
     // Menampilkan Jumlah Biaya Admin
-    public function NominalBiayaAdmin($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5)
+    public function NominalBiayaAdmin($bulan, $tahun, $tanggalAkhir, $area_1, $area_2, $area_3, $area_4, $area_5, $nama_penagih)
     {
         $result   = $this->db->query("SELECT 
             SUM(data_pembayaran.biaya_admin) AS biayaAdmin
@@ -93,7 +99,10 @@ class M_SudahLunasUser extends CI_Model
             
             WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir'
             AND data_pembayaran.transaction_time IS NOT NULL AND  data_customer.stop_date IS NULL AND
-            data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5')");
+            data_customer.nama_area in ('$area_1', '$area_2', '$area_3', '$area_4', '$area_5') AND
+            data_pembayaran.nama_admin = '$nama_penagih'
+        
+        ");
 
         return $result->row();
         if ($result->num_rows() > 0) {
