@@ -213,6 +213,7 @@ class MikrotikModel extends CI_Model
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
                 if ($tanggalNow == 11) {
+
                     // disable secret dan active otomatis 
                     $api = connect();
                     $api->comm('/ppp/secret/set', [
@@ -228,6 +229,13 @@ class MikrotikModel extends CI_Model
                     // Notifikasi Terminasi Auto Berhasil
                     $this->session->set_flashdata('DuplicateName_icon', 'success');
                     $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
+                    $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
+
+                    return $getData;
+                } else {
+                    // Notifikasi Terminasi Auto Berhasil
+                    $this->session->set_flashdata('DuplicateName_icon', 'warning');
+                    $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Tidak Berhasil');
                     $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
 
                     return $getData;

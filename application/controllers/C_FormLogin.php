@@ -80,73 +80,74 @@ class C_FormLogin extends CI_Controller
         }
     }
 
-    // public function TerminasiAuto()
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $bulan                      = date("m", strtotime("-1 months"));
-    //     $tahun                      = date("Y");
+    public function TerminasiAuto()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        // $bulan                      = date("m", strtotime("-1 months"));
+        $bulan                      = date("m");
+        $tahun                      = date("Y");
 
-    //     // Menampilkan tanggal pada akhir bulan
-    //     $tanggal_akhir              = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+        // Menampilkan tanggal pada akhir bulan
+        $tanggal_akhir              = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
 
-    //     // Menggabungkan tanggal, bulan, tahun
-    //     $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+        // Menggabungkan tanggal, bulan, tahun
+        $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-    //     $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
+        $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
 
-    //     // $data['tanggal']            = $tanggal;
-    //     $data['bulan']              = $bulan;
-    //     $data['tahun']              = $tahun;
+        // $data['tanggal']            = $tanggal;
+        $data['bulan']              = $bulan;
+        $data['tahun']              = $tahun;
 
-    //     $this->load->view('template/header', $data);
-    //     $this->load->view('V_TerminasiAuto', $data);
-    //     $this->load->view('template/V_FooterTerminasiAuto', $data);
-    // }
+        $this->load->view('template/header', $data);
+        $this->load->view('V_TerminasiAuto', $data);
+        $this->load->view('template/V_FooterTerminasiAuto', $data);
+    }
 
-    // public function GetTerminasiAuto()
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $toDay = date('Y-m-d', strtotime("-1 months"));
+    public function GetTerminasiAuto()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $toDay = date('Y-m-d');
 
-    //     // Memisahkan Tanggal
-    //     $pecahDay       = explode("-", $toDay);
+        // Memisahkan Tanggal
+        $pecahDay       = explode("-", $toDay);
 
-    //     $tahun          = $pecahDay[0];
-    //     $bulan          = $pecahDay[1];
-    //     $tanggal        = $pecahDay[2];
+        $tahun          = $pecahDay[0];
+        $bulan          = $pecahDay[1];
+        $tanggal        = $pecahDay[2];
 
-    //     // Menampilkan tanggal pada awal bulan
-    //     $tanggal_awal     = date("01");
-    //     // Menampilkan tanggal pada akhir bulan
-    //     $tanggal_akhir    = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
-    //     // Menggabungkan bulan dan tahun
-    //     $TanggalAwal      = $tahun . '-' . $bulan . '-' . $tanggal_awal;
-    //     $TanggalAkhir     = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+        // Menampilkan tanggal pada awal bulan
+        $tanggal_awal     = date("01");
+        // Menampilkan tanggal pada akhir bulan
+        $tanggal_akhir    = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+        // Menggabungkan bulan dan tahun
+        $TanggalAwal      = $tahun . '-' . $bulan . '-' . $tanggal_awal;
+        $TanggalAkhir     = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-    //     $result        = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
+        $result        = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
 
-    //     $no = 0;
+        $no = 0;
 
-    //     foreach ($result as $dataCustomer) {
-    //         $GrossAmount = $dataCustomer['gross_amount'] == NULL;
+        foreach ($result as $dataCustomer) {
+            $GrossAmount = $dataCustomer['gross_amount'] == NULL;
 
-    //         $row = array();
-    //         $row[] = ++$no;
-    //         $row[] = $dataCustomer['name_pppoe'];
-    //         $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
-    //         $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
-    //         $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-    //         $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $dataCustomer['name_pppoe'];
+            $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
+            $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
+            $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
+            $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
 
-    //         $data[] = $row;
-    //     }
+            $data[] = $row;
+        }
 
-    //     $ouput = array(
-    //         'data' => $data
-    //     );
+        $ouput = array(
+            'data' => $data
+        );
 
-    //     $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
-    // }
+        $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
+    }
 
     public function insertCustomer()
     {
