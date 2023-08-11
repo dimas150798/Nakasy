@@ -41,6 +41,7 @@ class MikrotikModel extends CI_Model
                     $status = true;
 
                     $this->db->update("data_customer", ['id_pppoe' => $valueSecret['.id']], ['id_customer' => $value['id_customer']]);
+                    $this->db->update("data_customer", ['disabled' => $valueSecret['disabled']], ['id_customer' => $value['id_customer']]);
 
                     $response[$keySecret] = [
                         'id_customer'       => $value['id_customer'],
@@ -189,7 +190,7 @@ class MikrotikModel extends CI_Model
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
-        DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
+        DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales, data_customer.disabled,
         data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
         data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
         data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
@@ -201,45 +202,31 @@ class MikrotikModel extends CI_Model
         AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
 
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
-        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
+        data_customer.disabled = 'false'
+
 
         GROUP BY data_customer.name_pppoe
-        ORDER BY DAY(data_customer.start_date) ASC
+        ORDER BY data_customer.nama_customer ASC
         ")->result_array();
 
         foreach ($getData as $data) {
-            date_default_timezone_set("Asia/Jakarta");
-            $tanggalNow                    = date('d');
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                if ($tanggalNow == 11) {
 
-                    // disable secret dan active otomatis 
-                    $api = connect();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
-                        "disabled" => 'true',
-                    ]);
+                $this->db->update("data_customer", ['disabled' => 'true'], ['id_pppoe' => $data['id_pppoe']]);
 
-                    // disable active otomatis
-                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
-                    $api->disconnect();
+                // disable secret dan active otomatis 
+                $api = connect();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $data['id_pppoe'],
+                    "disabled" => 'true',
+                ]);
 
-                    // Notifikasi Terminasi Auto Berhasil
-                    // $this->session->set_flashdata('DuplicateName_icon', 'success');
-                    // $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
-                    // $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
-
-                    return $getData;
-                } else {
-                    // Notifikasi Terminasi Auto Berhasil
-                    // $this->session->set_flashdata('DuplicateName_icon', 'warning');
-                    // $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Tidak Berhasil');
-                    // $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
-
-                    return $getData;
-                }
+                // disable active otomatis
+                $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                $api->disconnect();
             }
         }
     }
