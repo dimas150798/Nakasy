@@ -93,8 +93,6 @@ class C_FormLogin extends CI_Controller
         $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
         $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
-
-        $this->MikrotikModel->index();
     }
 
     public function insertCustomer()
