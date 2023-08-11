@@ -205,7 +205,6 @@ class MikrotikModel extends CI_Model
         data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
         data_customer.disabled = 'false'
 
-
         GROUP BY data_customer.name_pppoe
         ORDER BY data_customer.nama_customer ASC
         ")->result_array();
@@ -213,8 +212,6 @@ class MikrotikModel extends CI_Model
         foreach ($getData as $data) {
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
-
-                $this->db->update("data_customer", ['disabled' => 'true'], ['id_pppoe' => $data['id_pppoe']]);
 
                 // disable secret dan active otomatis 
                 $api = connect();
