@@ -109,7 +109,9 @@ class C_BelumLunas extends CI_Controller
             $no = 0;
 
             foreach ($result as $dataCustomer) {
-                $GrossAmount = $dataCustomer['gross_amount'] == NULL;
+                // $GrossAmount = $dataCustomer['gross_amount'] == NULL;
+                $StatusMikrotik = $dataCustomer['disabled'] == 'true';
+
 
                 $row = array();
                 $row[] = ++$no;
@@ -117,7 +119,8 @@ class C_BelumLunas extends CI_Controller
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
+                $row[] = '<div class="text-center">' . ($StatusMikrotik ? '<span class="badge bg-danger">DISABLED</span>' : '<span class="badge bg-success">ENABLE</span>') . '</div>';
+
                 $row[] =
                     '<div class="text-center">
                 <div class="btn-group">
@@ -152,7 +155,7 @@ class C_BelumLunas extends CI_Controller
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
+                $row[] = '<div class="text-center">' . ($StatusMikrotik ? '<span class="badge bg-danger">DISABLED</span>' : '<span class="badge bg-success">ENABLE</span>') . '</div>';
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">
