@@ -214,7 +214,7 @@ class MikrotikModel extends CI_Model
             $day = date("d");
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                if ($day == 12) {
+                if ($day == 11) {
 
                     // disable secret dan active otomatis 
                     $api = connect();
