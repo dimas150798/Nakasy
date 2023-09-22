@@ -36,6 +36,9 @@ class C_DataPelanggan extends CI_Controller
         $data['DataPelanggan'] = $this->M_Pelanggan->DataPelanggan();
         $data['JumlahPelanggan'] = $this->M_Pelanggan->JumlahPelanggan();
 
+        // Memanggil data Mikrotik
+        $this->MikrotikModel->index();
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);
         $this->load->view('admin/DataPelanggan/V_DataPelanggan', $data);
