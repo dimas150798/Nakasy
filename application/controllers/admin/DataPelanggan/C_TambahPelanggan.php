@@ -51,6 +51,9 @@ class C_TambahPelanggan extends CI_Controller
         $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($nama_paket);
         $price_paket            = $GetDataPaket->harga_paket;
 
+        $DeleteSpasi_Name_PPPOE     = rtrim($name_pppoe);
+        $DeleteSpasi_Password_PPPOE = rtrim($password_pppoe);
+
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
             'id_customer'       => $id_customer,
@@ -58,8 +61,8 @@ class C_TambahPelanggan extends CI_Controller
             'phone_customer'    => $phone_customer,
             'nama_customer'     => $nama_customer,
             'nama_paket'        => $nama_paket,
-            'name_pppoe'        => $name_pppoe,
-            'password_pppoe'    => $password_pppoe,
+            'name_pppoe'        => $DeleteSpasi_Name_PPPOE,
+            'password_pppoe'    => $DeleteSpasi_Password_PPPOE,
             'alamat_customer'   => $alamat_customer,
             'email_customer'    => $email_customer,
             'start_date'        => $start_date,
@@ -73,7 +76,7 @@ class C_TambahPelanggan extends CI_Controller
             'order_id'              => $order_id,
             'gross_amount'          => $price_paket,
             'biaya_admin'           => '0',
-            'name_pppoe'            => $name_pppoe,
+            'name_pppoe'            => $DeleteSpasi_Name_PPPOE,
             'nama_paket'            => $nama_paket,
             'nama_admin'            => 'Registrasi Baru',
             'keterangan'            => 'Registrasi Baru',
@@ -85,7 +88,7 @@ class C_TambahPelanggan extends CI_Controller
             'order_id'              => $this->M_BelumLunas->invoice(),
             'gross_amount'          => $price_paket,
             'biaya_admin'           => '0',
-            'name_pppoe'            => $name_pppoe,
+            'name_pppoe'            => $DeleteSpasi_Name_PPPOE,
             'nama_paket'            => $nama_paket,
             'nama_admin'            => 'Registrasi Baru',
             'keterangan'            => 'Registrasi Baru',
@@ -147,9 +150,6 @@ class C_TambahPelanggan extends CI_Controller
                     ]);
                     $api->disconnect();
 
-                    // Memanggil data Mikrotik
-                    $this->MikrotikModel->index();
-
                     // Notifikasi Tambah Data Berhasil
                     $this->session->set_flashdata('Tambah_icon', 'success');
                     $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
@@ -170,9 +170,6 @@ class C_TambahPelanggan extends CI_Controller
                         "comment" => $deskripsi_customer,
                     ]);
                     $api->disconnect();
-
-                    // Memanggil data Mikrotik
-                    $this->MikrotikModel->index();
 
                     // Notifikasi Tambah Data Berhasil
                     $this->session->set_flashdata('Tambah_icon', 'success');
