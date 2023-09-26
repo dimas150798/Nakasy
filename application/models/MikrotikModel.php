@@ -31,43 +31,47 @@ class MikrotikModel extends CI_Model
             LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
             ORDER BY data_customer.id_customer")->result_array();
 
+        // Create an associative array to store customer data by name_pppoe
+        $customerDataByName = [];
+
+        foreach ($getData as $key => $value) {
+            $customerDataByName[$value['name_pppoe']] = [
+                'id_customer'       => $value['id_customer'],
+                'kode_customer'     => $value['kode_customer'],
+                'nama_customer'     => $value['nama_customer'],
+                'nama_paket'        => isset($paket[$valueSecret['profile']]) ? $paket[$valueSecret['profile']] : '',
+                'name_pppoe'        => $value['name_pppoe'],
+                'password_pppoe'    => $value['password_pppoe'],
+                'id_pppoe'          => $value['id_pppoe'],
+                'alamat_customer'   => $value['alamat_customer'],
+                'email_customer'    => $value['email_customer'],
+                'start_date'        => $value['start_date'],
+                'stop_date'         => $value['stop_date'],
+                'nama_area'         => $value['nama_area'],
+                'deskripsi_customer' => $value['deskripsi_customer'],
+                'nama_sales'        => $value['nama_sales'],
+                'created_at'        => $value['created_at'],
+                'updated_at'        => $value['updated_at'],
+            ];
+        }
+
         // Iterate through $pppSecret
         foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
 
-            // Search for a matching PPPoE secret in $getData
-            foreach ($getData as $key => $value) {
-                if ($valueSecret['name'] == $value['name_pppoe']) {
-                    $status = true;
+            // Check if the name_pppoe exists in customer data
+            if (isset($customerDataByName[$valueSecret['name']])) {
+                $status = true;
 
-                    // Update existing data_customer record
-                    $this->db->where('id_customer', $value['id_customer']);
-                    $this->db->update("data_customer", [
-                        'id_pppoe' => $valueSecret['.id'],
-                        'disabled' => $valueSecret['disabled']
-                    ]);
+                // Update existing data_customer record
+                $this->db->where('id_customer', $customerDataByName[$valueSecret['name']]['id_customer']);
+                $this->db->update("data_customer", [
+                    'id_pppoe' => $valueSecret['.id'],
+                    'disabled' => $valueSecret['disabled']
+                ]);
 
-                    // Add data to $response array
-                    $response[$keySecret] = [
-                        'id_customer'       => $value['id_customer'],
-                        'kode_customer'     => $value['kode_customer'],
-                        'nama_customer'     => $value['nama_customer'],
-                        'nama_paket'        => isset($paket[$valueSecret['profile']]) ? $paket[$valueSecret['profile']] : '',
-                        'name_pppoe'        => $valueSecret['name'],
-                        'password_pppoe'    => $valueSecret['password'],
-                        'id_pppoe'          => $valueSecret['.id'],
-                        'alamat_customer'   => $value['alamat_customer'],
-                        'email_customer'    => $value['email_customer'],
-                        'start_date'        => $value['start_date'],
-                        'stop_date'         => $value['stop_date'],
-                        'nama_area'         => $value['nama_area'],
-                        'deskripsi_customer' => $value['deskripsi_customer'],
-                        'nama_sales'        => $value['nama_sales'],
-                        'created_at'        => $value['created_at'],
-                        'updated_at'        => $value['updated_at'],
-                    ];
-                    break; // Exit the inner loop since we found a match
-                }
+                // Add data to $response array
+                $response[$keySecret] = $customerDataByName[$valueSecret['name']];
             }
 
             // If no match was found, insert a new data_customer record
@@ -98,27 +102,7 @@ class MikrotikModel extends CI_Model
                 $this->db->insert("data_customer", $insertData);
 
                 // Add data to $response array
-                $response[$keySecret] = [
-                    'id_customer'       => $this->db->insert_id(),
-                    'kode_customer'     => '0',
-                    'phone_customer'    => '0',
-                    'latitude'          => '0',
-                    'longitude'         => '0',
-                    'nama_customer'     => $valueSecret['name'],
-                    'nama_paket'        => isset($paket[$valueSecret['profile']]) ? $paket[$valueSecret['profile']] : '',
-                    'name_pppoe'        => $valueSecret['name'],
-                    'password_pppoe'    => $valueSecret['password'],
-                    'id_pppoe'          => $valueSecret['.id'],
-                    'alamat_customer'   => '0',
-                    'email_customer'    => '0',
-                    'start_date'        => NULL,
-                    'stop_date'         => null,
-                    'nama_area'         => '0',
-                    'deskripsi_customer' => '0',
-                    'nama_sales'        => '0',
-                    'created_at'        => date('Y-m-d H:i:s', time()),
-                    'updated_at'        => date('Y-m-d H:i:s', time()),
-                ];
+                $response[$keySecret] = $insertData;
             }
         }
 
