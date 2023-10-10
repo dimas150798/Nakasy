@@ -80,22 +80,26 @@ class C_FormLogin extends CI_Controller
         }
     }
 
-    public function TerminasiAuto()
+    public function TerminasiAutoNakasy()
     {
         date_default_timezone_set("Asia/Jakarta");
-        $bulan                      = date("m");
-        $tahun                      = date("Y");
+        $bulan = date("m");
+        $tahun = date("Y");
+
+        // Menghitung bulan sebelumnya
+        $bulan_sebelumnya = ($bulan == 1) ? 12 : $bulan - 1;
+        $tahun_sebelumnya = ($bulan == 1) ? $tahun - 1 : $tahun;
 
         // Menampilkan tanggal pada akhir bulan
-        $tanggal_akhir              = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+        $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan_sebelumnya, $tahun_sebelumnya);
 
         // Menggabungkan tanggal, bulan, tahun
-        $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+        $TanggalAkhir = $tahun_sebelumnya . '-' . $bulan_sebelumnya . '-' . $tanggal_akhir;
 
-        $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
+        $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan_sebelumnya, $tahun_sebelumnya, $TanggalAkhir);
     }
 
-    public function insertCustomer()
+    public function InsertCustomerNakasy()
     {
         $this->MikrotikModel->index();
     }
