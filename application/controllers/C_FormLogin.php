@@ -104,6 +104,11 @@ class C_FormLogin extends CI_Controller
         $this->MikrotikModel->index();
     }
 
+    public function enableAuto()
+    {
+        $this->MikrotikModel->EnableAuto();
+    }
+
 
     public function logout()
     {
