@@ -208,20 +208,17 @@ class MikrotikModel extends CI_Model
             $day = date("d");
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                if ($day == 11) {
+                // disable secret dan active otomatis 
+                $api = connect();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $data['id_pppoe'],
+                    "disabled" => 'true',
+                ]);
 
-                    // disable secret dan active otomatis 
-                    $api = connect();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
-                        "disabled" => 'true',
-                    ]);
-
-                    // disable active otomatis
-                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
-                    $api->disconnect();
-                }
+                // disable active otomatis
+                $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                $api->disconnect();
             }
         }
     }

@@ -94,9 +94,9 @@ class C_FormLogin extends CI_Controller
         $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan_sebelumnya, $tahun_sebelumnya);
 
         // Menggabungkan tanggal, bulan, tahun
-        $TanggalAkhir = $tahun_sebelumnya . '-' . $bulan_sebelumnya . '-' . $tanggal_akhir;
+        $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        $data['dataTerminasi']      = $this->MikrotikModel->TerminasiAuto($bulan_sebelumnya, $tahun_sebelumnya, $TanggalAkhir);
+        $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir);
     }
 
     public function InsertCustomerNakasy()
