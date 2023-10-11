@@ -31,21 +31,16 @@ class MikrotikModel extends CI_Model
             LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
             ORDER BY data_customer.id_customer")->result_array();
 
-        // Iterate through $pppSecret
         foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
 
-            // Search for a matching PPPoE secret in $getData
             foreach ($getData as $key => $value) {
                 if ($valueSecret['name'] == $value['name_pppoe']) {
                     $status = true;
 
-                    // Update existing data_customer record
-                    $this->db->where('id_customer', $value['id_customer']);
-                    $this->db->update("data_customer", [
-                        'id_pppoe' => $valueSecret['.id'],
-                        'disabled' => $valueSecret['disabled']
-                    ]);
+                    $this->db->update("data_customer", ['id_pppoe' => $valueSecret['.id']], ['id_customer' => $value['id_customer']]);
+                    $this->db->update("data_customer", ['disabled' => $valueSecret['disabled']], ['id_customer' => $value['id_customer']]);
+
 
                     // Add data to $response array
                     $response[$keySecret] = [
@@ -66,14 +61,10 @@ class MikrotikModel extends CI_Model
                         'created_at'        => $value['created_at'],
                         'updated_at'        => $value['updated_at'],
                     ];
-
-                    break; // Exit the inner loop since we found a match
                 }
             }
-
-            // If no match was found, insert a new data_customer record
-            if (!$status) {
-                $insertData = [
+            if ($status == false) {
+                $this->db->insert("data_customer", [
                     "kode_customer"     => '0',
                     "phone_customer"    => '0',
                     "latitude"          => '0',
@@ -93,12 +84,8 @@ class MikrotikModel extends CI_Model
                     "created_at"        => date('Y-m-d H:i:s', time()),
                     "updated_at"        => date('Y-m-d H:i:s', time()),
                     "deskripsi_customer" => $valueSecret['comment'],
-                ];
+                ]);
 
-                // Insert new data_customer record
-                $this->db->insert("data_customer", $insertData);
-
-                // Add data to $response array
                 $response[$keySecret] = [
                     'id_customer'       => $this->db->insert_id(),
                     'kode_customer'     => '0',
@@ -123,6 +110,8 @@ class MikrotikModel extends CI_Model
                 ];
             }
         }
+
+        return $response;
     }
 
     // Menampilkan Data Login
