@@ -63,8 +63,8 @@ class MikrotikModel extends CI_Model
             if (isset($customerDataByName[$valueSecret['name']])) {
                 $status = true;
 
-                $this->db->update("client", ['id_pppoe' => $valueSecret['.id']], ['id' => $value['id']]);
-                $this->db->update("client", ['disabled' => $valueSecret['disabled']], ['id' => $value['id']]);
+                $this->db->update("data_customer", ['id_pppoe' => $valueSecret['.id']], ['id' => $value['id']]);
+                $this->db->update("data_customer", ['disabled' => $valueSecret['disabled']], ['id' => $value['id']]);
 
                 // Add data to $response array
                 $response[$keySecret] = $customerDataByName[$valueSecret['name']];
