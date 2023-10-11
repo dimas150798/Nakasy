@@ -244,7 +244,8 @@ class MikrotikModel extends CI_Model
         AND MONTH(data_pembayaran.transaction_time) = '10' AND YEAR(data_pembayaran.transaction_time) = '2023'
 
         WHERE data_customer.start_date BETWEEN '2020-10-01' AND '2023-10-31' AND 
-        data_customer.stop_date IS NULL AND data_pembayaran.transaction_time IS NOT NULL
+        data_customer.stop_date IS NULL AND data_customer.disabled = 'true' AND 
+        data_pembayaran.transaction_time IS NOT NULL
 
         GROUP BY data_customer.name_pppoe
         ORDER BY data_customer.nama_customer ASC
