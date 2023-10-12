@@ -253,14 +253,17 @@ class MikrotikModel extends CI_Model
 
         foreach ($getData as $data) {
             date_default_timezone_set("Asia/Jakarta");
+            $currentDate = date('d');
 
-            if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                // disable secret dan active otomatis 
-                $api = connect();
-                $api->comm('/ppp/secret/set', [
-                    ".id" => $data['id_pppoe'],
-                    "disabled" => 'false',
-                ]);
+            if ($currentDate == '11') {
+                if ($data['transaction_time'] == null && $data['status_code'] == null) {
+                    // disable secret dan active otomatis 
+                    $api = connect();
+                    $api->comm('/ppp/secret/set', [
+                        ".id" => $data['id_pppoe'],
+                        "disabled" => 'false',
+                    ]);
+                }
             }
         }
     }

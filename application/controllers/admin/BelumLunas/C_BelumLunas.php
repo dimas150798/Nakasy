@@ -112,7 +112,6 @@ class C_BelumLunas extends CI_Controller
                 // $GrossAmount = $dataCustomer['gross_amount'] == NULL;
                 $StatusMikrotik = $dataCustomer['disabled'] == 'true';
 
-
                 $row = array();
                 $row[] = ++$no;
                 $row[] = $dataCustomer['nama_customer'];
@@ -148,6 +147,8 @@ class C_BelumLunas extends CI_Controller
 
             foreach ($result as $dataCustomer) {
                 $GrossAmount = $dataCustomer['gross_amount'] == NULL;
+
+                $StatusMikrotik = $dataCustomer['disabled'] == 'true';
 
                 $row = array();
                 $row[] = ++$no;

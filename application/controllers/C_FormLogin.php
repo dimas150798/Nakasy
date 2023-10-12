@@ -86,12 +86,8 @@ class C_FormLogin extends CI_Controller
         $bulan = date("m");
         $tahun = date("Y");
 
-        // Menghitung bulan sebelumnya
-        $bulan_sebelumnya = ($bulan == 1) ? 12 : $bulan - 1;
-        $tahun_sebelumnya = ($bulan == 1) ? $tahun - 1 : $tahun;
-
         // Menampilkan tanggal pada akhir bulan
-        $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan_sebelumnya, $tahun_sebelumnya);
+        $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
 
         // Menggabungkan tanggal, bulan, tahun
         $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
