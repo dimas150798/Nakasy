@@ -23,6 +23,7 @@ class C_TambahPelanggan extends CI_Controller
         $data['DataPaket']      = $this->M_Paket->DataPaket();
         $data['DataArea']       = $this->M_Area->DataArea();
         $data['DataSales']      = $this->M_Sales->DataSales();
+        $data['DaerahMikrotik'] = $this->M_DaerahMikrotik->DaerahMikrotik();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);
@@ -47,6 +48,7 @@ class C_TambahPelanggan extends CI_Controller
         $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
         $nama_sales             = $this->input->post('nama_sales');
+        $nama_DaerahMikrotik    = $this->input->post('nama_DaerahMikrotik');
 
         $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($nama_paket);
         $price_paket            = $GetDataPaket->harga_paket;
@@ -69,6 +71,7 @@ class C_TambahPelanggan extends CI_Controller
             'nama_area'         => $nama_area,
             'deskripsi_customer' => $deskripsi_customer,
             'nama_sales'        => $nama_sales,
+            'kode_mikrotik'     => $nama_DaerahMikrotik,
             'created_at'        => date('Y-m-d H:i:s', time())
         );
 
@@ -100,6 +103,7 @@ class C_TambahPelanggan extends CI_Controller
         $data['DataPaket']      = $this->M_Paket->DataPaket();
         $data['DataArea']       = $this->M_Area->DataArea();
         $data['DataSales']      = $this->M_Sales->DataSales();
+        $data['DaerahMikrotik'] = $this->M_DaerahMikrotik->DaerahMikrotik();
 
         $checkDuplicate         = $this->M_Pelanggan->CheckDuplicatePelanggan($name_pppoe);
 
@@ -135,45 +139,81 @@ class C_TambahPelanggan extends CI_Controller
                 redirect('admin/DataPelanggan/C_TambahPelanggan');
             } else {
                 if ($order_id != $checkDuplicateCode->order_id) {
+                    if ($nama_DaerahMikrotik == 'Kraksaan') {
+                        // Tambah Pelanggan Ke Mikrotik
+                        $api = connectKraksaaan();
+                        $api->comm('/ppp/secret/add', [
+                            "name" => $name_pppoe,
+                            "password" => $password_pppoe,
+                            "service" => "any",
+                            "profile" => $nama_paket,
+                            "comment" => $deskripsi_customer,
+                        ]);
+                        $api->disconnect();
+                    }
+
+                    if ($nama_DaerahMikrotik == 'Paiton') {
+                        // Tambah Pelanggan Ke Mikrotik
+                        $api = connectPaiton();
+                        $api->comm('/ppp/secret/add', [
+                            "name" => $name_pppoe,
+                            "password" => $password_pppoe,
+                            "service" => "any",
+                            "profile" => $nama_paket,
+                            "comment" => $deskripsi_customer,
+                        ]);
+                        $api->disconnect();
+                    }
+
                     $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
                     $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran_history');
 
-                    // Tambah Pelanggan Ke Mikrotik
-                    $api = connect();
-                    $api->comm('/ppp/secret/add', [
-                        "name" => $name_pppoe,
-                        "password" => $password_pppoe,
-                        "service" => "any",
-                        "profile" => $nama_paket,
-                        "comment" => $deskripsi_customer,
-                    ]);
-                    $api->disconnect();
-
                     // Notifikasi Tambah Data Berhasil
                     $this->session->set_flashdata('Tambah_icon', 'success');
                     $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
 
+                    $this->MikrotikKraksaanModel->index();
+                    $this->MikrotikPaitonModel->index();
+
                     redirect('admin/DataPelanggan/C_DataPelanggan');
                 } else {
+                    if ($nama_DaerahMikrotik == 'Kraksaan') {
+                        // Tambah Pelanggan Ke Mikrotik
+                        $api = connectKraksaaan();
+                        $api->comm('/ppp/secret/add', [
+                            "name" => $name_pppoe,
+                            "password" => $password_pppoe,
+                            "service" => "any",
+                            "profile" => $nama_paket,
+                            "comment" => $deskripsi_customer,
+                        ]);
+                        $api->disconnect();
+                    }
+
+                    if ($nama_DaerahMikrotik == 'Paiton') {
+                        // Tambah Pelanggan Ke Mikrotik
+                        $api = connectPaiton();
+                        $api->comm('/ppp/secret/add', [
+                            "name" => $name_pppoe,
+                            "password" => $password_pppoe,
+                            "service" => "any",
+                            "profile" => $nama_paket,
+                            "comment" => $deskripsi_customer,
+                        ]);
+                        $api->disconnect();
+                    }
+
                     $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
                     $this->M_CRUD->insertData($dataPembayaranDuplicate, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPembayaranDuplicate, 'data_pembayaran_history');
 
-                    // Tambah Pelanggan Ke Mikrotik
-                    $api = connect();
-                    $api->comm('/ppp/secret/add', [
-                        "name" => $name_pppoe,
-                        "password" => $password_pppoe,
-                        "service" => "any",
-                        "profile" => $nama_paket,
-                        "comment" => $deskripsi_customer,
-                    ]);
-                    $api->disconnect();
-
                     // Notifikasi Tambah Data Berhasil
                     $this->session->set_flashdata('Tambah_icon', 'success');
                     $this->session->set_flashdata('Tambah_title', 'Tambah Data Berhasil');
+
+                    $this->MikrotikKraksaanModel->index();
+                    $this->MikrotikPaitonModel->index();
 
                     redirect('admin/DataPelanggan/C_DataPelanggan');
                 }

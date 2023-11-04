@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="<?php echo base_url('admin/DataPelanggan/C_DataPelanggan') ?>">
+                            <a class="small text-white stretched-link" href="#">
                                 <!-- <h3 id="jumlahpelanggan"><?php echo $JumlahPelangganMonth ?></h3> -->
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="<?php echo base_url('admin/DataPelanggan/C_DataPelanggan') ?>">
+                            <a class="small text-white stretched-link" href="#">
                                 <!-- <h3 id="jumlahpelanggan"><?php echo $JumlahPelanggan ?></h3> -->
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="<?php echo base_url('admin/SudahLunas/C_SudahLunas') ?>">
+                            <a class="small text-white stretched-link" href="#">
                                 <!-- <h3 id="jumlahpelanggan"><?php echo $JumlahPelangganLunas ?></h3> -->
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="<?php echo base_url('admin/JatuhTempo/C_DataJatuhTempo') ?>">
+                            <a class="small text-white stretched-link" href="#">
                                 <!-- <h3 id="jumlahpelanggan"><?php echo $JumlahPelangganJatuhTempo ?></h3> -->
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>

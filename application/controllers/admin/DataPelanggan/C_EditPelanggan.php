@@ -47,6 +47,7 @@ class C_EditPelanggan extends CI_Controller
         $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
         $nama_sales             = $this->input->post('nama_sales');
+        $kode_mikrotik          = $this->input->post('kode_mikrotik');
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -98,16 +99,32 @@ class C_EditPelanggan extends CI_Controller
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
             // Edit Pelanggan Ke Mikrotik
-            $api = connect();
-            $api->comm('/ppp/secret/set', [
-                ".id" => $id_pppoe,
-                "name" => $name_pppoe,
-                "password" => $password_pppoe,
-                "service" => "any",
-                "profile" => $nama_paket,
-                "comment" => $deskripsi_customer,
-            ]);
-            $api->disconnect();
+
+            if ($kode_mikrotik == 'Kraksaan') {
+                $api = connectKraksaaan();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $id_pppoe,
+                    "name" => $name_pppoe,
+                    "password" => $password_pppoe,
+                    "service" => "any",
+                    "profile" => $nama_paket,
+                    "comment" => $deskripsi_customer,
+                ]);
+                $api->disconnect();
+            }
+
+            if ($kode_mikrotik == 'Paiton') {
+                $api = connectPaiton();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $id_pppoe,
+                    "name" => $name_pppoe,
+                    "password" => $password_pppoe,
+                    "service" => "any",
+                    "profile" => $nama_paket,
+                    "comment" => $deskripsi_customer,
+                ]);
+                $api->disconnect();
+            }
 
             $this->M_CRUD->updateData('data_customer', $dataPelanggan, $idCustomer);
 

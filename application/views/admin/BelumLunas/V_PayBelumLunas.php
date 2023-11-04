@@ -31,6 +31,7 @@
                                     <input type="hidden" class="form-control" name="nama_paket" value="<?php echo $data['namaPaket'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="gross_amount" value="<?php echo $data['harga_paket'] ?>">
                                     <input type="hidden" class="form-control" name="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>">
+                                    <input type="hidden" class="form-control" name="kode_mikrotik" value="<?php echo $data['kode_mikrotik'] ?>">
                                 </div>
 
                                 <div class="row">

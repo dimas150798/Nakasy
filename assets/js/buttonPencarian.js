@@ -111,3 +111,10 @@ $('#daerah_rekening').each(function() {
         dropdownParent: $(this).parent(),
     });
 });
+$('#nama_DaerahMikrotik').each(function() {
+    $(this).select2({
+        placeholder: 'Area Mikrotik :',
+        theme: 'bootstrap-5',
+        dropdownParent: $(this).parent(),
+    });
+});

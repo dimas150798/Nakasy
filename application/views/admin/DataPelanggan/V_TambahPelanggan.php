@@ -122,21 +122,38 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-4 mt-3">
+                                <div class="col-sm-6 mt-3">
                                     <label for="email_customer" class="form-label" style="font-weight: bold;"> Email : <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="email_customer" id="email_customer" value="" placeholder="Masukkan email pelanggan...">
                                     <div class="bg-danger">
                                         <small class="text-white"><?php echo form_error('email_customer'); ?></small>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mt-3">
+                                <div class="col-sm-6 mt-3">
+                                    <label for="" class="form-label" style="font-weight: bold;"> Area Mikrotik : <span class="text-danger">*</span></label>
+                                    <select id="nama_DaerahMikrotik" name="nama_DaerahMikrotik" class="form-control" required>
+                                        <option value="">Pilih Sales :</option>
+                                        <?php foreach ($DaerahMikrotik as $daerahMikrotik) : ?>
+                                            <option value="<?php echo $daerahMikrotik['nama_DaerahMikrotik']; ?>">
+                                                <?php echo $daerahMikrotik['nama_DaerahMikrotik']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div class="bg-danger">
+                                        <small class="text-white"><?php echo form_error('id_sales'); ?></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 mt-3">
                                     <label for="alamat_customer" class="form-label" style="font-weight: bold;">Alamat : <span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="alamat_customer" id="alamat_customer" cols="10" rows="4"></textarea>
                                     <div class="bg-danger">
                                         <small class="text-white"><?php echo form_error('alamat_customer'); ?></small>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mt-3">
+                                <div class="col-sm-6 mt-3">
                                     <label for="deskripsi_customer" class="form-label" style="font-weight: bold;">Keterangan : <span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="deskripsi_customer" id="deskripsi_customer" cols="10" rows="4"></textarea>
                                     <div class="bg-danger">

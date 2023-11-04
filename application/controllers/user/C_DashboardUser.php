@@ -36,9 +36,6 @@ class C_DashboardUser extends CI_Controller
         $TanggalAwal      = $tahun . '-' . $bulan . '-' . $tanggal_awal;
         $TanggalAkhir     = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
-        // Check Koneksi 
-        $checkKoneksi = $this->MikrotikModel->jumlahMikrotikAktif();
-
         $data['JumlahPelanggan']            = $this->M_Pelanggan->JumlahPelangganAktif();
         $data['JumlahPelangganMonth']       = $this->M_Pelanggan->JumlahPelangganAktifMonth();
         $data['JumlahPelangganLunas']       = $this->M_SudahLunas->JumlahSudahLunas($bulan, $tahun, $TanggalAkhir);
@@ -47,27 +44,9 @@ class C_DashboardUser extends CI_Controller
         // Memanggil data Mikrotik
         // $this->MikrotikModel->index();
 
-        if ($checkKoneksi == 0) {
-            // Notifikasi gagal login
-            $this->session->set_flashdata('CheckMikrotik_icon', 'error');
-            $this->session->set_flashdata('CheckMikrotik_title', 'Koneksi Gagal');
-            $this->session->set_flashdata('CheckMikrotik_text', 'Check Kembali Lagi Koneksi <br> Mikrotik Anda');
-
-            $this->load->view('template/headerLogin', $data);
-            $this->load->view('V_FormLogin', $data);
-            $this->load->view('template/footerLogin', $data);
-
-            // redirect('admin/DataPaket/C_DataPaket');
-        } elseif ($checkKoneksi == 1) {
-
-            // Notifikasi Login Berhasil
-            $this->session->set_flashdata('LoginBerhasil_icon', 'success');
-            $this->session->set_flashdata('LoginBerhasil_title', 'Selamat Datang <br>' . $this->session->userdata('email'));
-
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarUser', $data);
-            $this->load->view('user/V_DashboardUser', $data);
-            $this->load->view('template/footer', $data);
-        }
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebarUser', $data);
+        $this->load->view('user/V_DashboardUser', $data);
+        $this->load->view('template/footer', $data);
     }
 }

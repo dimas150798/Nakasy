@@ -37,7 +37,6 @@ class C_DashboardAdmin extends CI_Controller
         $TanggalAkhir     = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
         // Check Koneksi 
-        $checkKoneksi = $this->MikrotikModel->jumlahMikrotikAktif();
 
         $data['JumlahPelanggan']            = $this->M_Pelanggan->JumlahPelangganAktif();
         $data['JumlahPelangganMonth']       = $this->M_Pelanggan->JumlahPelangganAktifMonth();
@@ -45,29 +44,13 @@ class C_DashboardAdmin extends CI_Controller
         $data['JumlahPelangganJatuhTempo']  = $this->M_JatuhTempo->JumlahJatuhTempo($TanggalAwal, $TanggalAkhir, $tanggal);
 
         // Memanggil data Mikrotik
-        // $this->MikrotikModel->index();
 
-        if ($checkKoneksi == 0) {
-            // Notifikasi gagal login
-            $this->session->set_flashdata('CheckMikrotik_icon', 'error');
-            $this->session->set_flashdata('CheckMikrotik_title', 'Koneksi Gagal');
-            $this->session->set_flashdata('CheckMikrotik_text', 'Check Kembali Lagi Koneksi <br> Mikrotik Anda');
+        $this->MikrotikKraksaanModel->index();
+        $this->MikrotikPaitonModel->index();
 
-            $this->load->view('template/headerLogin', $data);
-            $this->load->view('V_FormLogin', $data);
-            $this->load->view('template/footerLogin', $data);
-
-            // redirect('admin/DataPaket/C_DataPaket');
-        } elseif ($checkKoneksi == 1) {
-
-            // Notifikasi Login Berhasil
-            $this->session->set_flashdata('LoginBerhasil_icon', 'success');
-            $this->session->set_flashdata('LoginBerhasil_title', 'Selamat Datang <br>' . $this->session->userdata('email'));
-
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/V_DashboardAdmin', $data);
-            $this->load->view('template/footer', $data);
-        }
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebarAdmin', $data);
+        $this->load->view('admin/V_DashboardAdmin', $data);
+        $this->load->view('template/footer', $data);
     }
 }

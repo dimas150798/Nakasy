@@ -3,13 +3,14 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL && ~E_NOTICE);
 
-class MikrotikModel extends CI_Model
+class MikrotikKraksaanModel extends CI_Model
 {
     public function index()
     {
         $response = [];
 
-        $api = connect();
+        // Connect to MikroTik API
+        $api = connectKraksaaan();
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
@@ -19,17 +20,21 @@ class MikrotikModel extends CI_Model
             'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
         );
 
+        // Fetch data from the database
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.nama_customer, 
-            data_customer.nama_paket, data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer,
-            data_customer.email_customer, data_customer.start_date, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer,
-            data_customer.nama_sales, data_area.nama_area, data_paket.nama_paket, data_paket.harga_paket, data_sales.nama_sales
-                    
-            FROM data_customer
-        
-            LEFT JOIN data_area ON data_area.nama_area = data_customer.nama_area
-            LEFT JOIN data_paket ON data_paket.nama_paket = data_customer.nama_paket
-            LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
-            ORDER BY data_customer.id_customer")->result_array();
+                                    data_customer.nama_paket, data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer,
+                                    data_customer.email_customer, data_customer.start_date, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer,
+                                    data_customer.kode_mikrotik,
+                                    data_customer.nama_sales, data_area.nama_area, data_paket.nama_paket, data_paket.harga_paket, data_sales.nama_sales
+                                    FROM data_customer
+                                    LEFT JOIN data_area ON data_area.nama_area = data_customer.nama_area
+                                    LEFT JOIN data_paket ON data_paket.nama_paket = data_customer.nama_paket
+                                    LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
+                                    ORDER BY data_customer.id_customer")->result_array();
+
+        // Use prepared statements for more efficiency
+        $insertData = [];
+        $updateData = [];
 
         foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
@@ -38,60 +43,47 @@ class MikrotikModel extends CI_Model
                 if ($valueSecret['name'] == $value['name_pppoe']) {
                     $status = true;
 
-                    $this->db->update("data_customer", ['id_pppoe' => $valueSecret['.id']], ['id_customer' => $value['id_customer']]);
-                    $this->db->update("data_customer", ['disabled' => $valueSecret['disabled']], ['id_customer' => $value['id_customer']]);
+                    if ($value['kode_mikrotik'] == NULL) {
+                        $updateData[] = [
+                            'id_customer'   => $value['id_customer'],
+                            'id_pppoe'      => $valueSecret['.id'],
+                            'disabled'      => $valueSecret['disabled'],
+                            'kode_mikrotik' => 'Kraksaan'
+                        ];
 
+                        // Add data to $response array
+                        $response[$keySecret] = [
+                            'id_customer'   => $value['id_customer'],
+                            'kode_customer' => $value['kode_customer'],
+                            'nama_customer' => $value['nama_customer'],
+                            'nama_paket'    => $paket[$valueSecret['profile']],
+                            // Add other fields as needed
+                        ];
+                    }
 
-                    // Add data to $response array
-                    $response[$keySecret] = [
-                        'id_customer'       => $value['id_customer'],
-                        'kode_customer'     => $value['kode_customer'],
-                        'nama_customer'     => $value['nama_customer'],
-                        'nama_paket'        => $paket[$valueSecret['profile']],
-                        'name_pppoe'        => $valueSecret['name'],
-                        'password_pppoe'    => $valueSecret['password'],
-                        'id_pppoe'          => $valueSecret['.id'],
-                        'alamat_customer'   => $value['alamat_customer'],
-                        'email_customer'    => $value['email_customer'],
-                        'start_date'        => $value['start_date'],
-                        'stop_date'         => $value['stop_date'],
-                        'nama_area'         => $value['nama_area'],
-                        'deskripsi_customer' => $value['deskripsi_customer'],
-                        'nama_sales'        => $value['nama_sales'],
-                        'created_at'        => $value['created_at'],
-                        'updated_at'        => $value['updated_at'],
-                    ];
+                    if ($value['kode_mikrotik'] != NULL) {
+                        $updateData[] = [
+                            'id_customer'   => $value['id_customer'],
+                            'id_pppoe'      => $valueSecret['.id'],
+                            'disabled'      => $valueSecret['disabled'],
+                        ];
+
+                        // Add data to $response array
+                        $response[$keySecret] = [
+                            'id_customer'   => $value['id_customer'],
+                            'kode_customer' => $value['kode_customer'],
+                            'nama_customer' => $value['nama_customer'],
+                            'nama_paket'    => $paket[$valueSecret['profile']],
+                            // Add other fields as needed
+                        ];
+                    }
                 }
             }
-            if ($status == false) {
-                $this->db->insert("data_customer", [
-                    "kode_customer"     => '0',
-                    "phone_customer"    => '0',
-                    "latitude"          => '0',
-                    "longitude"         => '0',
-                    "nama_customer"     => $valueSecret['name'],
-                    "nama_paket"        => $paket[$valueSecret['profile']],
-                    'name_pppoe'        => $valueSecret['name'],
-                    'password_pppoe'    => $valueSecret['password'],
-                    'id_pppoe'          => $valueSecret['.id'],
-                    'alamat_customer'   => '0',
-                    'email_customer'    => '0',
-                    "start_date"        => NULL,
-                    "stop_date"         => NULL,
-                    "nama_area"         => 0,
-                    "deskripsi_customer" => '0',
-                    "nama_sales"        => 0,
-                    "created_at"        => date('Y-m-d H:i:s', time()),
-                    "updated_at"        => date('Y-m-d H:i:s', time()),
-                    "deskripsi_customer" => $valueSecret['comment'],
-                ]);
 
-                $response[$keySecret] = [
-                    'id_customer'       => $this->db->insert_id(),
+            if ($status == false) {
+                $insertData[] = [
                     'kode_customer'     => '0',
                     'phone_customer'    => '0',
-                    'latitude'          => '0',
-                    'longitude'         => '0',
                     'nama_customer'     => $valueSecret['name'],
                     'nama_paket'        => $paket[$valueSecret['profile']],
                     'name_pppoe'        => $valueSecret['name'],
@@ -99,16 +91,22 @@ class MikrotikModel extends CI_Model
                     'id_pppoe'          => $valueSecret['.id'],
                     'alamat_customer'   => '0',
                     'email_customer'    => '0',
-                    'start_date'        => NULL,
-                    'stop_date'         => null,
-                    'nama_area'         => '0',
-                    'deskripsi_customer' => '0',
-                    'nama_sales'        => '0',
+                    'disabled'          => $valueSecret['disabled'],
+                    'kode_mikrotik'     => 'Kraksaan',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
-                    "deskripsi_customer" => $valueSecret['comment'],
+                    // Add other fields as needed
                 ];
             }
+        }
+
+        // Use batch insert and update for database operations
+        if (!empty($updateData)) {
+            $this->db->update_batch("data_customer", $updateData, 'id_customer');
+        }
+
+        if (!empty($insertData)) {
+            $this->db->insert_batch("data_customer", $insertData);
         }
 
         return $response;
@@ -171,19 +169,19 @@ class MikrotikModel extends CI_Model
     // Check status mikrotik
     public function CheckStatusMikrotik()
     {
-        $this->db->select('ip_mikrotik, username_mikrotik, password_mikrotik', 'status_mikrotik');
-        $this->db->where('status_mikrotik', 'enable');
+        $this->db->select('ip_mikrotik, username_mikrotik, password_mikrotik, status_mikrotik, daerah_mikrotik');
+        $this->db->where('daerah_mikrotik', 'Kraksaan');
 
         $this->db->limit(1);
         $result = $this->db->get('data_mikrotik');
 
-        return $result->row();
         if ($result->num_rows() > 0) {
             return $result->row();
         } else {
             return false;
         }
     }
+
 
     public function TerminasiAuto($bulan, $tahun, $tanggalAkhir)
     {

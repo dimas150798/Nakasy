@@ -51,6 +51,7 @@ class C_PayBelumLunas extends CI_Controller
         $transaction_time       = $this->input->post('transaction_time');
         $nama_admin             = $this->input->post('nama_admin');
         $keterangan             = $this->input->post('keterangan');
+        $kode_mikrotik          = $this->input->post('kode_mikrotik');
 
         $explode = explode("-", $transaction_time);
         echo $explode[0]; //untuk tahun
@@ -120,15 +121,26 @@ class C_PayBelumLunas extends CI_Controller
                     $this->session->set_flashdata('payment_icon', 'success');
                     $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
 
+                    if ($kode_mikrotik = 'Kraksaan') {
+                        $api = connectKraksaaan();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
+
+                    if ($kode_mikrotik = 'Paiton') {
+                        $api = connectPaiton();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
+
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
-
-                    $api = connect();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $id_pppoe,
-                        "disabled" => 'false',
-                    ]);
-                    $api->disconnect();
 
                     echo "
                     <script>history.go(-2);            
@@ -139,15 +151,26 @@ class C_PayBelumLunas extends CI_Controller
                     $this->session->set_flashdata('payment_icon', 'success');
                     $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
 
+                    if ($kode_mikrotik = 'Kraksaan') {
+                        $api = connectKraksaaan();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
+
+                    if ($kode_mikrotik = 'Paiton') {
+                        $api = connectPaiton();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
+
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
-
-                    $api = connect();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $id_pppoe,
-                        "disabled" => 'false',
-                    ]);
-                    $api->disconnect();
 
                     echo "
                     <script>history.go(-2);            

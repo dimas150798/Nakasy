@@ -15,15 +15,33 @@ function formatBytes($bytes, $decimal = null)
     return round($bytes, $decimal) . " " . $satuan[$i];
 }
 
-function connect()
+function connectKraksaaan()
 {
     $CI = &get_instance();
-    $CI->load->model('MikrotikModel');
-    $result = $CI->MikrotikModel->CheckStatusMikrotik();
 
-    $ipMikrotik         = $result->ip_mikrotik;
-    $usernameMikrotik   = $result->username_mikrotik;
-    $passwordMikrotik   = $result->password_mikrotik;
+    $ipMikrotik         = '103.189.60.31:8003';
+    $usernameMikrotik   = 'infly';
+    $passwordMikrotik   = 'infly2023';
+
+
+    $api = new RouterosAPI();
+    $api->connect($ipMikrotik, $usernameMikrotik, $passwordMikrotik);
+
+    if (count($api->comm('/ppp/secret/print')) == 0) {
+        echo json_encode("Connection Failed");
+        exit;
+    }
+
+    return $api;
+}
+
+function connectPaiton()
+{
+    $CI = &get_instance();
+
+    $ipMikrotik         = '103.189.60.33:8003';
+    $usernameMikrotik   = 'infly';
+    $passwordMikrotik   = 'infly2023';
 
 
     $api = new RouterosAPI();

@@ -35,12 +35,11 @@ class RouterosAPI
     public function isIterable($var)
     {
         return $var !== null
-                && (
-                    is_array($var)
+            && (is_array($var)
                 || $var instanceof Traversable
                 || $var instanceof Iterator
                 || $var instanceof IteratorAggregate
-                );
+            );
     }
 
     /**
@@ -102,7 +101,7 @@ class RouterosAPI
             $PROTOCOL = ($this->ssl ? 'ssl://' : '');
             $context = stream_context_create(array('ssl' => array('ciphers' => 'ADH:ALL', 'verify_peer' => false, 'verify_peer_name' => false)));
             $this->debug('Connection attempt #' . $ATTEMPT . ' to ' . $PROTOCOL . $ip . ':' . $this->port . '...');
-            $this->socket = @stream_socket_client($PROTOCOL . $ip.':'. $this->port, $this->error_no, $this->error_str, $this->timeout, STREAM_CLIENT_CONNECT, $context);
+            $this->socket = @stream_socket_client($PROTOCOL . $ip . ':' . $this->port, $this->error_no, $this->error_str, $this->timeout, STREAM_CLIENT_CONNECT, $context);
             if ($this->socket) {
                 socket_set_timeout($this->socket, $this->timeout);
                 $this->write('/login', false);
@@ -177,11 +176,11 @@ class RouterosAPI
             $CURRENT     = null;
             $singlevalue = null;
             foreach ($response as $x) {
-                if (in_array($x, array('!fatal','!re','!trap'))) {
+                if (in_array($x, array('!fatal', '!re', '!trap'))) {
                     if ($x == '!re') {
-                        $CURRENT =& $PARSED[];
+                        $CURRENT = &$PARSED[];
                     } else {
-                        $CURRENT =& $PARSED[$x][];
+                        $CURRENT = &$PARSED[$x][];
                     }
                 } elseif ($x != '!done') {
                     $MATCHES = array();
@@ -219,11 +218,11 @@ class RouterosAPI
             $CURRENT     = null;
             $singlevalue = null;
             foreach ($response as $x) {
-                if (in_array($x, array('!fatal','!re','!trap'))) {
+                if (in_array($x, array('!fatal', '!re', '!trap'))) {
                     if ($x == '!re') {
-                        $CURRENT =& $PARSED[];
+                        $CURRENT = &$PARSED[];
                     } else {
-                        $CURRENT =& $PARSED[$x][];
+                        $CURRENT = &$PARSED[$x][];
                     }
                 } elseif ($x != '!done') {
                     $MATCHES = array();

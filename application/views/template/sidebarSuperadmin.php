@@ -46,10 +46,10 @@
                             Akun Penagihan
                         </a>
 
-                        <a class="nav-link" href="<?php echo base_url() ?>superadmin/DataMikrotik/C_DataMikrotik">
+                        <!-- <a class="nav-link" href="<?php echo base_url() ?>superadmin/DataMikrotik/C_DataMikrotik">
                             <div class="sb-nav-link-icon"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/router.svg" alt="Bootstrap" ...></div>
                             Data Mikrotik
-                        </a>
+                        </a> -->
 
                         <!-- Logout Menu -->
                         <a onclick="LogOut()" class="nav-link" href="#">
