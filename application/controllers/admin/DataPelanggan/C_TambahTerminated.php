@@ -65,6 +65,24 @@ class C_TambahTerminated extends CI_Controller
             $this->load->view('admin/DataPelanggan/V_TambahTerminated', $data);
             $this->load->view('template/V_FooterPelanggan', $data);
         } else {
+            if ($kode_mikrotik = 'Kraksaan') {
+                $api = connectKraksaaan();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $id_pppoe,
+                    "disabled" => 'true',
+                ]);
+                $api->disconnect();
+            }
+
+            if ($kode_mikrotik = 'Paiton') {
+                $api = connectPaiton();
+                $api->comm('/ppp/secret/set', [
+                    ".id" => $id_pppoe,
+                    "disabled" => 'true',
+                ]);
+                $api->disconnect();
+            }
+
             $this->M_CRUD->updateData('data_customer', $dataPelanggan, $idCustomer);
 
             // Notifikasi Login Berhasil
