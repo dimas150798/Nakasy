@@ -49,6 +49,16 @@ class C_EditPelanggan extends CI_Controller
         $nama_sales             = $this->input->post('nama_sales');
         $kode_mikrotik          = $this->input->post('kode_mikrotik');
 
+        $name_pppoe_session     = $this->input->post('name_pppoe_session');
+
+        $updateDataPayment = array(
+            'name_pppoe'    => $name_pppoe,
+        );
+
+        $namePPPOE_session = array(
+            'name_pppoe'       => $name_pppoe_session
+        );
+
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
             'id_customer'       => $id_customer,
@@ -127,6 +137,10 @@ class C_EditPelanggan extends CI_Controller
             }
 
             $this->M_CRUD->updateData('data_customer', $dataPelanggan, $idCustomer);
+
+            // Update data pembayaran apabila name pppoe update
+            $this->M_CRUD->updateData('data_pembayaran', $updateDataPayment, $namePPPOE_session);
+            $this->M_CRUD->updateData('data_pembayaran_history', $updateDataPayment, $namePPPOE_session);
 
             // Notifikasi Login Berhasil
             $this->session->set_flashdata('Edit_icon', 'success');

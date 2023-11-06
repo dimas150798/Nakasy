@@ -29,6 +29,7 @@
                                     <input type="hidden" class="form-control" name="id_customer" id="id_customer" value="<?php echo $data['id_customer'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="id_pppoe" id="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="kode_mikrotik" value="<?php echo $data['kode_mikrotik'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="name_pppoe_session" value="<?php echo $data['name_pppoe'] ?>" readonly>
                                 </div>
 
                                 <div class="row">
