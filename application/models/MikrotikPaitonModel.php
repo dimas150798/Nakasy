@@ -185,7 +185,7 @@ class MikrotikPaitonModel extends CI_Model
     }
 
     // Terminasi Dari Atas
-    public function TerminasiAuto_PaitonUP($bulan, $tahun, $tanggalAkhir)
+    public function Terminasi_Paiton_ASC($bulan, $tahun, $tanggalAkhir)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -234,7 +234,7 @@ class MikrotikPaitonModel extends CI_Model
     }
 
     // Terminasi Dari Atas
-    public function TerminasiAuto_PaitonDown($bulan, $tahun, $tanggalAkhir)
+    public function Terminasi_Paiton_DESC($bulan, $tahun, $tanggalAkhir)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
             data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
