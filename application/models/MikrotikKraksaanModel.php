@@ -213,7 +213,7 @@ class MikrotikKraksaanModel extends CI_Model
             if ($day == '11') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
-                    $api = connect();
+                    $api = connectKraksaaan();
                     $api->comm('/ppp/secret/set', [
                         ".id" => $data['id_pppoe'],
                         "disabled" => 'true',
@@ -261,7 +261,7 @@ class MikrotikKraksaanModel extends CI_Model
             if ($day == '11') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
-                    $api = connect();
+                    $api = connectKraksaaan();
                     $api->comm('/ppp/secret/set', [
                         ".id" => $data['id_pppoe'],
                         "disabled" => 'true',
