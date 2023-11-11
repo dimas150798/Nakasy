@@ -301,8 +301,7 @@ class MikrotikPaitonModel extends CI_Model
                 AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
         
                 WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
-                data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
-                data_customer.disabled = 'false' AND data_customer.kode_mikrotik = 'Kraksaan'
+                data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND data_customer.kode_mikrotik = 'Kraksaan'
         
                 GROUP BY data_customer.name_pppoe
                 ORDER BY data_customer.nama_customer DESC
@@ -349,8 +348,7 @@ class MikrotikPaitonModel extends CI_Model
                 AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
         
                 WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
-                data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
-                data_customer.disabled = 'false' AND data_customer.kode_mikrotik = 'Kraksaan'
+                data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND data_customer.kode_mikrotik = 'Kraksaan'
         
                 GROUP BY data_customer.name_pppoe
                 ORDER BY data_customer.nama_customer ASC
