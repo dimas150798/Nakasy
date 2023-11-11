@@ -162,6 +162,21 @@ class C_FormLogin extends CI_Controller
         $this->MikrotikPaitonModel->Terminasi_KraksaanPaiton_DESC($bulan, $tahun, $TanggalAkhir);
     }
 
+    public function Terminasi_KraksaanPaiton_ASC()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $bulan = date("m");
+        $tahun = date("Y");
+
+        // Menampilkan tanggal pada akhir bulan
+        $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+
+        // Menggabungkan tanggal, bulan, tahun
+        $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+
+        $this->MikrotikPaitonModel->Terminasi_KraksaanPaiton_ASC($bulan, $tahun, $TanggalAkhir);
+    }
+
     public function enableAuto()
     {
         $this->MikrotikModel->EnableAuto();
