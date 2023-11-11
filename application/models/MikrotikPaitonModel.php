@@ -35,6 +35,7 @@ class MikrotikPaitonModel extends CI_Model
         // Use prepared statements for more efficiency
         $insertData = [];
         $updateData = [];
+        $updateDataMikrotik = [];
 
         foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;

@@ -35,6 +35,7 @@ class MikrotikKraksaanModel extends CI_Model
         // Use prepared statements for more efficiency
         $insertData = [];
         $updateData = [];
+        $updateDataMikrotik = [];
 
         foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
@@ -42,6 +43,12 @@ class MikrotikKraksaanModel extends CI_Model
             foreach ($getData as $key => $value) {
                 if ($valueSecret['name'] == $value['name_pppoe']) {
                     $status = true;
+
+                    $updateDataMikrotik[] = [
+                        'id_customer'   => $value['id_customer'],
+                        'id_pppoe'      => $valueSecret['.id'],
+                        'disabled'      => $valueSecret['disabled'],
+                    ];
 
                     if ($value['kode_mikrotik'] == NULL) {
                         $updateData[] = [
@@ -103,6 +110,10 @@ class MikrotikKraksaanModel extends CI_Model
         // Use batch insert and update for database operations
         if (!empty($updateData)) {
             $this->db->update_batch("data_customer", $updateData, 'id_customer');
+        }
+
+        if (!empty($updateDataMikrotik)) {
+            $this->db->update_batch("data_customer", $updateDataMikrotik, 'id_customer');
         }
 
         if (!empty($insertData)) {
