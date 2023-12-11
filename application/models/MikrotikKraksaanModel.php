@@ -14,6 +14,8 @@ class MikrotikKraksaanModel extends CI_Model
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
+        $pppSecretJson = json_encode($pppSecret);
+
         $paket = array(
             '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
             'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-30M', 'INET-100M' => 'INET-100M',
@@ -21,23 +23,14 @@ class MikrotikKraksaanModel extends CI_Model
         );
 
         // Fetch data from the database
-        $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.nama_customer, 
-                                    data_customer.nama_paket, data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer,
-                                    data_customer.email_customer, data_customer.start_date, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer,
-                                    data_customer.kode_mikrotik,
-                                    data_customer.nama_sales, data_area.nama_area, data_paket.nama_paket, data_paket.harga_paket, data_sales.nama_sales
-                                    FROM data_customer
-                                    LEFT JOIN data_area ON data_area.nama_area = data_customer.nama_area
-                                    LEFT JOIN data_paket ON data_paket.nama_paket = data_customer.nama_paket
-                                    LEFT JOIN data_sales ON data_sales.nama_sales = data_customer.nama_sales
-                                    ORDER BY data_customer.id_customer")->result_array();
+        $getData = $this->db->query("SELECT id_customer, nama_customer, name_pppoe, password_pppoe, id_pppoe, kode_mikrotik, disabled 
+        FROM data_customer")->result_array();
 
-        // Use prepared statements for more efficiency
         $insertData = [];
         $updateData = [];
         $updateDataMikrotik = [];
 
-        foreach ($pppSecret as $keySecret => $valueSecret) {
+        foreach ($pppSecretJson as $keySecret => $valueSecret) {
             $status = false;
 
             foreach ($getData as $key => $value) {
@@ -58,13 +51,11 @@ class MikrotikKraksaanModel extends CI_Model
                             'kode_mikrotik' => 'Kraksaan'
                         ];
 
-                        // Add data to $response array
                         $response[$keySecret] = [
                             'id_customer'   => $value['id_customer'],
                             'kode_customer' => $value['kode_customer'],
                             'nama_customer' => $value['nama_customer'],
                             'nama_paket'    => $paket[$valueSecret['profile']],
-                            // Add other fields as needed
                         ];
                     }
 
@@ -75,13 +66,11 @@ class MikrotikKraksaanModel extends CI_Model
                             'disabled'      => $valueSecret['disabled'],
                         ];
 
-                        // Add data to $response array
                         $response[$keySecret] = [
                             'id_customer'   => $value['id_customer'],
                             'kode_customer' => $value['kode_customer'],
                             'nama_customer' => $value['nama_customer'],
                             'nama_paket'    => $paket[$valueSecret['profile']],
-                            // Add other fields as needed
                         ];
                     }
                 }
@@ -102,12 +91,10 @@ class MikrotikKraksaanModel extends CI_Model
                     'kode_mikrotik'     => 'Kraksaan',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
-                    // Add other fields as needed
                 ];
             }
         }
 
-        // Use batch insert and update for database operations
         if (!empty($updateData)) {
             $this->db->update_batch("data_customer", $updateData, 'id_customer');
         }
