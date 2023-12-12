@@ -207,7 +207,7 @@ class MikrotikKraksaanModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
-            if ($day == '11') {
+            if ($day == '12') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
                     $api = connectKraksaaan();
@@ -255,7 +255,7 @@ class MikrotikKraksaanModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
-            if ($day == '11') {
+            if ($day == '12') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
                     $api = connectKraksaaan();
