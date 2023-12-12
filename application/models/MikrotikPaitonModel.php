@@ -36,7 +36,7 @@ class MikrotikPaitonModel extends CI_Model
                 if ($valueSecret['name'] == $value['name_pppoe']) {
                     $status = true;
 
-                    if ($value['kode_mikrotik'] == NULL) {
+                    if ($value['kode_mikrotik_paiton'] == NULL) {
                         $updateData[] = [
                             'id_customer'   => $value['id_customer'],
                             'id_pppoe_paiton'      => $valueSecret['.id'],
@@ -52,7 +52,7 @@ class MikrotikPaitonModel extends CI_Model
                         ];
                     }
 
-                    if ($value['kode_mikrotik'] != NULL) {
+                    if ($value['kode_mikrotik_paiton'] != NULL) {
                         $updateData[] = [
                             'id_customer'   => $value['id_customer'],
                             'id_pppoe_paiton'      => $valueSecret['.id'],
