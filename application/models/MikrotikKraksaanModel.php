@@ -73,9 +73,8 @@ class MikrotikKraksaanModel extends CI_Model
                         ];
                     }
 
-                    if ($value['kode_mikrotik'] != "Kraksaan") {
+                    if ($value['kode_mikrotik'] != 'Kraksaan') {
                         $updateData[] = [
-                            'id_customer'   => $value['id_customer'],
                             'id_pppoe'      => NULL,
                             'disabled'      => NULL,
                             'kode_mikrotik' => NULL
