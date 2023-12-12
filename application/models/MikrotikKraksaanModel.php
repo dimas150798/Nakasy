@@ -35,12 +35,6 @@ class MikrotikKraksaanModel extends CI_Model
                 if ($valueSecret['name'] == $value['name_pppoe']) {
                     $status = true;
 
-                    $updateDataMikrotik[] = [
-                        'id_customer'   => $value['id_customer'],
-                        'id_pppoe'      => $valueSecret['.id'],
-                        'disabled'      => $valueSecret['disabled'],
-                    ];
-
                     if ($value['kode_mikrotik'] == NULL) {
                         $updateData[] = [
                             'id_customer'   => $value['id_customer'],
@@ -111,10 +105,6 @@ class MikrotikKraksaanModel extends CI_Model
 
         if (!empty($updateData)) {
             $this->db->update_batch("data_customer", $updateData, 'id_customer');
-        }
-
-        if (!empty($updateDataMikrotik)) {
-            $this->db->update_batch("data_customer", $updateDataMikrotik, 'id_customer');
         }
 
         if (!empty($insertData)) {
