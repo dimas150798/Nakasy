@@ -28,10 +28,12 @@
                                 <div class="row">
                                     <input type="hidden" class="form-control" name="id_customer" value="<?php echo $data['id_customer'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="id_pppoe" value="<?php echo $data['id_pppoe'] ?>" readonly>
+                                    <input type="hidden" class="form-control" name="id_pppoe_paiton" value="<?php echo $data['id_pppoe_paiton'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="nama_paket" value="<?php echo $data['namaPaket'] ?>" readonly>
                                     <input type="hidden" class="form-control" name="gross_amount" value="<?php echo $data['harga_paket'] ?>">
                                     <input type="hidden" class="form-control" name="order_id" value="<?php echo $this->M_BelumLunas->invoice() ?>">
                                     <input type="hidden" class="form-control" name="kode_mikrotik" value="<?php echo $data['kode_mikrotik'] ?>">
+                                    <input type="hidden" class="form-control" name="kode_mikrotik_paiton" value="<?php echo $data['kode_mikrotik_paiton'] ?>">
                                 </div>
 
                                 <div class="row">

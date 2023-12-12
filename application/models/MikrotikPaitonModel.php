@@ -14,8 +14,6 @@ class MikrotikPaitonModel extends CI_Model
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
-        $pppSecretJson = json_encode($pppSecret);
-
         $paket = array(
             '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
             'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-30M', 'INET-100M' => 'INET-100M',
@@ -23,7 +21,7 @@ class MikrotikPaitonModel extends CI_Model
         );
 
         // Fetch data from the database
-        $getData = $this->db->query("SELECT id_customer, nama_customer, name_pppoe, password_pppoe, id_pppoe, kode_mikrotik, disabled 
+        $getData = $this->db->query("SELECT id_customer, nama_customer, name_pppoe, password_pppoe, id_pppoe, id_pppoe_paiton, kode_mikrotik, kode_mikrotik_paiton, disabled, disabled_paiton
         FROM data_customer")->result_array();
 
         // Use prepared statements for more efficiency
@@ -31,7 +29,7 @@ class MikrotikPaitonModel extends CI_Model
         $updateData = [];
         $updateDataMikrotik = [];
 
-        foreach ($pppSecretJson as $keySecret => $valueSecret) {
+        foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
 
             foreach ($getData as $key => $value) {
@@ -41,9 +39,9 @@ class MikrotikPaitonModel extends CI_Model
                     if ($value['kode_mikrotik'] == NULL) {
                         $updateData[] = [
                             'id_customer'   => $value['id_customer'],
-                            'id_pppoe'      => $valueSecret['.id'],
-                            'disabled'      => $valueSecret['disabled'],
-                            'kode_mikrotik' => 'Paiton'
+                            'id_pppoe_paiton'      => $valueSecret['.id'],
+                            'disabled_paiton'      => $valueSecret['disabled'],
+                            'kode_mikrotik_paiton' => 'Paiton'
                         ];
 
                         $response[$keySecret] = [
@@ -57,8 +55,9 @@ class MikrotikPaitonModel extends CI_Model
                     if ($value['kode_mikrotik'] != NULL) {
                         $updateData[] = [
                             'id_customer'   => $value['id_customer'],
-                            'id_pppoe'      => $valueSecret['.id'],
-                            'disabled'      => $valueSecret['disabled'],
+                            'id_pppoe_paiton'      => $valueSecret['.id'],
+                            'disabled_paiton'      => $valueSecret['disabled'],
+                            'kode_mikrotik_paiton' => 'Paiton'
                         ];
 
                         $response[$keySecret] = [
@@ -79,11 +78,11 @@ class MikrotikPaitonModel extends CI_Model
                     'nama_paket'        => $paket[$valueSecret['profile']],
                     'name_pppoe'        => $valueSecret['name'],
                     'password_pppoe'    => $valueSecret['password'],
-                    'id_pppoe'          => $valueSecret['.id'],
+                    'id_pppoe_paiton'          => $valueSecret['.id'],
                     'alamat_customer'   => '0',
                     'email_customer'    => '0',
-                    'disabled'          => $valueSecret['disabled'],
-                    'kode_mikrotik'     => 'Paiton',
+                    'disabled_paiton'          => $valueSecret['disabled'],
+                    'kode_mikrotik_paiton'     => 'Paiton',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
                 ];
@@ -181,9 +180,8 @@ class MikrotikPaitonModel extends CI_Model
         DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales, data_customer.disabled, 
         data_customer.kode_mikrotik,
         data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
-        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
-        data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
-        data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
+        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+        data_paket.nama_paket as namaPaket, data_paket.harga_paket, data_customer.disabled_paiton, data_customer.kode_mikrotik_paiton, data_customer.id_pppoe_paiton
 
         FROM data_customer
         LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
@@ -192,7 +190,7 @@ class MikrotikPaitonModel extends CI_Model
 
         WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
         data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
-        data_customer.disabled = 'false' AND data_customer.kode_mikrotik = 'Paiton'
+        data_customer.disabled_paiton = 'false' AND data_customer.kode_mikrotik_paiton = 'Paiton'
 
         GROUP BY data_customer.name_pppoe
         ORDER BY data_customer.nama_customer ASC
@@ -202,12 +200,12 @@ class MikrotikPaitonModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
-            if ($day == '11') {
+            if ($day == '12') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
                     $api = connectPaiton();
                     $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
+                        ".id" => $data['id_pppoe_paiton'],
                         "disabled" => 'true',
                     ]);
 
@@ -232,7 +230,7 @@ class MikrotikPaitonModel extends CI_Model
             data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
             data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
             data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
-            data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
+            data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket, data_customer.disabled_paiton, data_customer.kode_mikrotik_paiton, data_customer.id_pppoe_paiton
     
             FROM data_customer
             LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
@@ -241,7 +239,7 @@ class MikrotikPaitonModel extends CI_Model
     
             WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
             data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL AND
-            data_customer.disabled = 'false' AND data_customer.kode_mikrotik = 'Paiton'
+            data_customer.disabled_paiton = 'false' AND data_customer.kode_mikrotik_paiton = 'Paiton'
     
             GROUP BY data_customer.name_pppoe
             ORDER BY data_customer.nama_customer DESC
@@ -256,7 +254,7 @@ class MikrotikPaitonModel extends CI_Model
                     // disable secret dan active otomatis 
                     $api = connectPaiton();
                     $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
+                        ".id" => $data['id_pppoe_paiton'],
                         "disabled" => 'true',
                     ]);
 
@@ -272,7 +270,7 @@ class MikrotikPaitonModel extends CI_Model
     }
 
     // Terminasi Dari Atas
-    public function Terminasi_KraksaanPaiton_DESC($bulan, $tahun, $tanggalAkhir)
+    public function Terminasi_PaitonAll_DESC($bulan, $tahun, $tanggalAkhir)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
                 data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -299,7 +297,7 @@ class MikrotikPaitonModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
-            if ($day == '11') {
+            if ($day == '12') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
                     $api = connectPaiton();
@@ -319,7 +317,7 @@ class MikrotikPaitonModel extends CI_Model
         }
     }
 
-    public function Terminasi_KraksaanPaiton_ASC($bulan, $tahun, $tanggalAkhir)
+    public function Terminasi_PaitonAll_ASC($bulan, $tahun, $tanggalAkhir)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
                 data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -346,7 +344,7 @@ class MikrotikPaitonModel extends CI_Model
             date_default_timezone_set("Asia/Jakarta");
             $day = date("d");
 
-            if ($day == '11') {
+            if ($day == '12') {
                 if ($data['transaction_time'] == null && $data['status_code'] == null) {
                     // disable secret dan active otomatis 
                     $api = connectPaiton();

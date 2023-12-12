@@ -14,8 +14,6 @@ class MikrotikKraksaanModel extends CI_Model
         $pppSecret = $api->comm('/ppp/secret/print');
         $api->disconnect();
 
-        $pppSecretJson = json_encode($pppSecret);
-
         $paket = array(
             '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
             'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-30M', 'INET-100M' => 'INET-100M',
@@ -30,7 +28,7 @@ class MikrotikKraksaanModel extends CI_Model
         $updateData = [];
         $updateDataMikrotik = [];
 
-        foreach ($pppSecretJson as $keySecret => $valueSecret) {
+        foreach ($pppSecret as $keySecret => $valueSecret) {
             $status = false;
 
             foreach ($getData as $key => $value) {
@@ -64,6 +62,7 @@ class MikrotikKraksaanModel extends CI_Model
                             'id_customer'   => $value['id_customer'],
                             'id_pppoe'      => $valueSecret['.id'],
                             'disabled'      => $valueSecret['disabled'],
+                            'kode_mikrotik' => 'Kraksaan'
                         ];
 
                         $response[$keySecret] = [
