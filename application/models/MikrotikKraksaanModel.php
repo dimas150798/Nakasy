@@ -66,21 +66,6 @@ class MikrotikKraksaanModel extends CI_Model
                             'nama_paket'    => $paket[$valueSecret['profile']],
                         ];
                     }
-
-                    if ($value['kode_mikrotik'] != 'Kraksaan') {
-                        $updateData[] = [
-                            'id_pppoe'      => NULL,
-                            'disabled'      => NULL,
-                            'kode_mikrotik' => NULL
-                        ];
-
-                        $response[$keySecret] = [
-                            'id_customer'   => $value['id_customer'],
-                            'kode_customer' => $value['kode_customer'],
-                            'nama_customer' => $value['nama_customer'],
-                            'nama_paket'    => $paket[$valueSecret['profile']],
-                        ];
-                    }
                 }
             }
 

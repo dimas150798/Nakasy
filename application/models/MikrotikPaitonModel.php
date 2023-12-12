@@ -67,21 +67,6 @@ class MikrotikPaitonModel extends CI_Model
                             'nama_paket'    => $paket[$valueSecret['profile']],
                         ];
                     }
-
-                    if ($value['kode_mikrotik_paiton'] != 'Paiton') {
-                        $updateData[] = [
-                            'id_pppoe_paiton'      => NULL,
-                            'disabled_paiton'      => NULL,
-                            'kode_mikrotik_paiton' => NULL
-                        ];
-
-                        $response[$keySecret] = [
-                            'id_customer'   => $value['id_customer'],
-                            'kode_customer' => $value['kode_customer'],
-                            'nama_customer' => $value['nama_customer'],
-                            'nama_paket'    => $paket[$valueSecret['profile']],
-                        ];
-                    }
                 }
             }
 
