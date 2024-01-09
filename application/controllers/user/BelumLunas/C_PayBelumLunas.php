@@ -42,6 +42,7 @@ class C_PayBelumLunas extends CI_Controller
     {
         // Mengambil data post pada view
         $id_pppoe               = $this->input->post('id_pppoe');
+        $id_pppoe_paiton        = $this->input->post('id_pppoe_paiton');
         $id_customer            = $this->input->post('id_customer');
         $nama_paket             = $this->input->post('nama_paket');
         $gross_amount           = $this->input->post('gross_amount');
@@ -52,6 +53,7 @@ class C_PayBelumLunas extends CI_Controller
         $nama_admin             = $this->input->post('nama_admin');
         $keterangan             = $this->input->post('keterangan');
         $kode_mikrotik          = $this->input->post('kode_mikrotik');
+        $kode_mikrotik_paiton   = $this->input->post('kode_mikrotik_paiton');
 
         $explode = explode("-", $transaction_time);
         echo $explode[0]; //untuk tahun
@@ -130,10 +132,10 @@ class C_PayBelumLunas extends CI_Controller
                         $api->disconnect();
                     }
 
-                    if ($kode_mikrotik = 'Paiton') {
+                    if ($kode_mikrotik_paiton = 'Paiton') {
                         $api = connectPaiton();
                         $api->comm('/ppp/secret/set', [
-                            ".id" => $id_pppoe,
+                            ".id" => $id_pppoe_paiton,
                             "disabled" => 'false',
                         ]);
                         $api->disconnect();
@@ -160,10 +162,10 @@ class C_PayBelumLunas extends CI_Controller
                         $api->disconnect();
                     }
 
-                    if ($kode_mikrotik = 'Paiton') {
+                    if ($kode_mikrotik_paiton = 'Paiton') {
                         $api = connectPaiton();
                         $api->comm('/ppp/secret/set', [
-                            ".id" => $id_pppoe,
+                            ".id" => $id_pppoe_paiton,
                             "disabled" => 'false',
                         ]);
                         $api->disconnect();
