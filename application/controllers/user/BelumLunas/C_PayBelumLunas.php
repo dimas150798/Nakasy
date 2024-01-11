@@ -119,10 +119,6 @@ class C_PayBelumLunas extends CI_Controller
                 ";
             } else {
                 if ($order_id != $checkDuplicateCode->order_id) {
-                    // Notifikasi Login Berhasil
-                    $this->session->set_flashdata('payment_icon', 'success');
-                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-
                     if ($kode_mikrotik = 'Kraksaan') {
                         $api = connectKraksaaan();
                         $api->comm('/ppp/secret/set', [
@@ -144,15 +140,15 @@ class C_PayBelumLunas extends CI_Controller
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
 
+                    // Notifikasi Login Berhasil
+                    $this->session->set_flashdata('payment_icon', 'success');
+                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
+
                     echo "
                     <script>history.go(-2);            
                     </script>
                     ";
                 } else {
-                    // Notifikasi Login Berhasil
-                    $this->session->set_flashdata('payment_icon', 'success');
-                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-
                     if ($kode_mikrotik = 'Kraksaan') {
                         $api = connectKraksaaan();
                         $api->comm('/ppp/secret/set', [
@@ -173,6 +169,10 @@ class C_PayBelumLunas extends CI_Controller
 
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
+
+                    // Notifikasi Login Berhasil
+                    $this->session->set_flashdata('payment_icon', 'success');
+                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
 
                     echo "
                     <script>history.go(-2);            

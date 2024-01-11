@@ -12,6 +12,7 @@
 
 	<!-- Icon bootstrap -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootsrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 	<!-- Style CSS -->
 	<link href="<?php echo base_url(); ?>assets/css/styles.css" rel="stylesheet" />

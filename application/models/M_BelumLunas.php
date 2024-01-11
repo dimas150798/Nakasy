@@ -7,23 +7,75 @@ class M_BelumLunas extends CI_Model
     public function BelumLunas($bulan, $tahun, $tanggalAkhir)
     {
         $query   = $this->db->query("SELECT 
-        data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
-        data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
-        DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales, data_customer.disabled,
-        data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
-        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.transaction_time, data_pembayaran.expired_date,
-        data_paket.nama_paket as namaPaket, data_paket.harga_paket
-
-        FROM data_customer
-        LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
-        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
-        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
-
-        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
-        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
-
-        GROUP BY data_customer.name_pppoe
-        ORDER BY data_customer.nama_customer ASC");
+        data_customer.id_customer, 
+        data_customer.kode_customer, 
+        data_customer.phone_customer, 
+        data_customer.nama_customer, 
+        data_customer.nama_paket, 
+        data_customer.name_pppoe, 
+        data_customer.password_pppoe, 
+        data_customer.id_pppoe, 
+        data_customer.id_pppoe_paiton, 
+        data_customer.alamat_customer, 
+        data_customer.email_customer, 
+        DAY(data_customer.start_date) as tanggal, 
+        data_customer.stop_date, 
+        data_customer.nama_area, 
+        data_customer.deskripsi_customer, 
+        data_customer.nama_sales, 
+        data_customer.disabled,
+        data_customer.disabled_paiton,
+        data_customer.kode_mikrotik,
+        data_customer.kode_mikrotik_paiton,
+        data_pembayaran.order_id, 
+        data_pembayaran.gross_amount, 
+        data_pembayaran.biaya_admin, 
+        data_pembayaran.nama_admin, 
+        data_pembayaran.keterangan, 
+        data_pembayaran.transaction_time, 
+        data_pembayaran.expired_date,
+        data_paket.nama_paket as namaPaket, 
+        data_paket.harga_paket
+    FROM 
+        data_customer
+    LEFT JOIN 
+        data_paket ON data_customer.nama_paket = data_paket.nama_paket
+    LEFT JOIN 
+        data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+        AND MONTH(data_pembayaran.transaction_time) = '$bulan' 
+        AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+    WHERE 
+        data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' 
+        AND data_pembayaran.transaction_time IS NULL 
+        AND data_customer.stop_date IS NULL
+    GROUP BY 
+        data_customer.name_pppoe, 
+        data_customer.id_customer, 
+        data_customer.kode_customer, 
+        data_customer.phone_customer, 
+        data_customer.nama_customer, 
+        data_customer.nama_paket, 
+        data_customer.name_pppoe, 
+        data_customer.password_pppoe, 
+        data_customer.id_pppoe, 
+        data_customer.alamat_customer, 
+        data_customer.email_customer, 
+        tanggal, 
+        data_customer.stop_date, 
+        data_customer.nama_area, 
+        data_customer.deskripsi_customer, 
+        data_customer.nama_sales, 
+        data_customer.disabled,
+        data_pembayaran.order_id, 
+        data_pembayaran.gross_amount, 
+        data_pembayaran.biaya_admin, 
+        data_pembayaran.nama_admin, 
+        data_pembayaran.keterangan, 
+        data_pembayaran.transaction_time, 
+        data_pembayaran.expired_date,
+        data_paket.nama_paket, 
+        data_paket.harga_paket  
+    ORDER BY nama_customer ASC");
 
         return $query->result_array();
     }

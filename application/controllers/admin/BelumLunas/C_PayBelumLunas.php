@@ -86,6 +86,7 @@ class C_PayBelumLunas extends CI_Controller
 
         // Memanggil mysql dari model
         $data['DataPelanggan']  = $this->M_BelumLunas->Payment($id_customer);
+
         $checkDuplicatePay      = $this->M_BelumLunas->CheckDuplicatePayment($explode[1], $explode[0], $name_pppoe);
 
         // Check Order Id
@@ -115,10 +116,6 @@ class C_PayBelumLunas extends CI_Controller
                 ";
             } else {
                 if ($order_id != $checkDuplicateCode->order_id) {
-                    // Notifikasi Login Berhasil
-                    $this->session->set_flashdata('payment_icon', 'success');
-                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-
                     if ($kode_mikrotik = 'Kraksaan') {
                         $api = connectKraksaaan();
                         $api->comm('/ppp/secret/set', [
@@ -140,35 +137,36 @@ class C_PayBelumLunas extends CI_Controller
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
 
-                    redirect('admin/BelumLunas/C_BelumLunas');
-                } else {
                     // Notifikasi Login Berhasil
                     $this->session->set_flashdata('payment_icon', 'success');
                     $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
+
+                    redirect('admin/BelumLunas/C_BelumLunas');
+                } else {
+                    if ($kode_mikrotik = 'Kraksaan') {
+                        $api = connectKraksaaan();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
+
+                    if ($kode_mikrotik_paiton = 'Paiton') {
+                        $api = connectPaiton();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $id_pppoe_paiton,
+                            "disabled" => 'false',
+                        ]);
+                        $api->disconnect();
+                    }
 
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
 
-                    if ($kode_mikrotik = 'Kraksaan') {
-                        $api = connectKraksaaan();
-                        $api->comm('/ppp/secret/set', [
-                            ".id" => $id_pppoe,
-                            "disabled" => 'false',
-                        ]);
-                        $api->disconnect();
-                    }
-
-                    if ($kode_mikrotik_paiton = 'Paiton') {
-                        $api = connectPaiton();
-                        $api->comm('/ppp/secret/set', [
-                            ".id" => $id_pppoe_paiton,
-                            "disabled" => 'false',
-                        ]);
-                        $api->disconnect();
-                    }
-
-                    $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
-                    $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
+                    // Notifikasi Login Berhasil
+                    $this->session->set_flashdata('payment_icon', 'success');
+                    $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
 
                     redirect('admin/BelumLunas/C_BelumLunas');
                 }

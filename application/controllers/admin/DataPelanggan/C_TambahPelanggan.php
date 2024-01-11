@@ -71,7 +71,6 @@ class C_TambahPelanggan extends CI_Controller
             'nama_area'         => $nama_area,
             'deskripsi_customer' => $deskripsi_customer,
             'nama_sales'        => $nama_sales,
-            'kode_mikrotik'     => $nama_DaerahMikrotik,
             'created_at'        => date('Y-m-d H:i:s', time())
         );
 

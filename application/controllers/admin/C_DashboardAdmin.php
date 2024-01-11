@@ -18,6 +18,9 @@ class C_DashboardAdmin extends CI_Controller
 
     public function index()
     {
+        $this->MikrotikKraksaanModel->index();
+        $this->MikrotikPaitonModel->index();
+
         date_default_timezone_set("Asia/Jakarta");
         $toDay = date('Y-m-d');
 
@@ -45,8 +48,7 @@ class C_DashboardAdmin extends CI_Controller
 
         // Memanggil data Mikrotik
 
-        $this->MikrotikKraksaanModel->index();
-        $this->MikrotikPaitonModel->index();
+
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);

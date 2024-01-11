@@ -37,8 +37,8 @@ class C_DataPelanggan extends CI_Controller
         $data['JumlahPelanggan'] = $this->M_Pelanggan->JumlahPelanggan();
 
         // Memanggil data Mikrotik
-        // $this->MikrotikKraksaanModel->index();
-        // $this->MikrotikPaitonModel->index();
+        $this->MikrotikKraksaanModel->index();
+        $this->MikrotikPaitonModel->index();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);
@@ -56,8 +56,8 @@ class C_DataPelanggan extends CI_Controller
             $StartDate = $dataCustomer['start_date'] == NULL;
 
             $row = array();
-            $row[] = ++$no;
-            $row[] = $dataCustomer['nama_customer'];
+            $row[] = '<div class="text-center">' . ++$no . '</div>';
+            $row[] = $dataCustomer['nama_customer'] . '</div>';
             $row[] = $dataCustomer['name_pppoe'];
             $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
@@ -69,7 +69,7 @@ class C_DataPelanggan extends CI_Controller
                         Opsi
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
-                        <a onclick="EditDataPelanggan(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="EditDataPelanggan(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"><i class="bi bi-pencil-square"></i> Edit</a>
                         <a onclick="TerminatedPelanggan(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Terminated</a>
                     </div>
                 </div>

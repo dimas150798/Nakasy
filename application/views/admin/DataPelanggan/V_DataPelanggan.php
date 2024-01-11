@@ -15,14 +15,14 @@ if (!function_exists('changeDateFormat')) {
         <div class="menuatas">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6">
-                    <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="textmenuatas">Data Pelanggan</b>
+                    <img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/list.svg" alt="Bootstrap" ...> <b class="fw-bold fs-4">Data Pelanggan</b>
                 </div>
                 <div class="col-12 col-xl-auto mt-2">
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_TambahPelanggan') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/plus-circle.svg" alt="Bootstrap" ...> Tambah Pelanggan
+                    <a class="btn btn-primary fw-bold" href="<?php echo base_url('admin/DataPelanggan/C_TambahPelanggan') ?>">Tambah Pelanggan
                     </a>
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_ImportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Import Excel
+                    <a class="btn btn-warning fw-bold" href="<?php echo base_url('admin/DataPelanggan/C_ImportExcel') ?>"> Import Excel
                     </a>
-                    <a class="btn buttonmenuatas" href="<?php echo base_url('admin/DataPelanggan/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-earmark-excel-fill.svg" alt="Bootstrap" ...> Export Excel
+                    <a class="btn btn-warning fw-bold" href="<?php echo base_url('admin/DataPelanggan/C_ExportExcel') ?>"> Export Excel
                     </a>
                 </div>
             </div>
@@ -35,10 +35,10 @@ if (!function_exists('changeDateFormat')) {
                     <div class="textPencarian">
                         <div class="row">
                             <div class="col-6">
-                                <p class="dataPencarian">Total Customer</p>
+                                <p class="fw-bold fs-5">Total Customer</p>
                             </div>
                             <div class="col-6">
-                                <p class="dataPencarian">:
+                                <p class="fw-bold fs-5">:
                                     <?php echo $JumlahPelanggan; ?></p>
                             </div>
                         </div>
@@ -67,13 +67,13 @@ if (!function_exists('changeDateFormat')) {
                             <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Customer</th>
-                                        <th>Name PPPOE</th>
-                                        <th class="text-center">Phone</th>
-                                        <th class="text-center">Nama Paket</th>
-                                        <th class="text-center">Date Registrasi</th>
-                                        <th class="text-center">Action</th>
+                                        <th width="5%">No</th>
+                                        <th width="20%">Nama Customer</th>
+                                        <th width="20%">Name PPPOE</th>
+                                        <th width="10%" class="text-center">Phone</th>
+                                        <th width="10%" class="text-center">Nama Paket</th>
+                                        <th width="10%" class="text-center">Date Registrasi</th>
+                                        <th width="5%" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
