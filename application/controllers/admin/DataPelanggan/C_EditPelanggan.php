@@ -51,12 +51,21 @@ class C_EditPelanggan extends CI_Controller
 
         $name_pppoe_session     = $this->input->post('name_pppoe_session');
 
+        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($nama_paket);
+        $Check_Payment          = $this->M_SudahLunas->Check_Payment($name_pppoe_session);
+
+        $price_paket            = $GetDataPaket->harga_paket;
+        $name_paket             = $GetDataPaket->nama_paket;
+        $Order_ID               = $Check_Payment->order_id;
+
         $updateDataPayment = array(
             'name_pppoe'    => $name_pppoe,
+            'gross_amount'  => $price_paket,
+            'nama_paket'    => $name_paket
         );
 
         $namePPPOE_session = array(
-            'name_pppoe'       => $name_pppoe_session
+            'order_id'       => $Order_ID
         );
 
         // Menyimpan data pelanggan ke dalam array

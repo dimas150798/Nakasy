@@ -113,4 +113,22 @@ class M_SudahLunas extends CI_Model
 
         return $query->result_array();
     }
+
+    // Check Pembayaran
+    public function Check_Payment($name_pppoe)
+    {
+        $this->db->select('order_id, gross_amount, biaya_admin, name_pppoe, nama_paket, nama_admin, keterangan, payment_type, transaction_time, expired_date, bank, va_number, permata_va_number, payment_code, bill_key, biller_code, pdf_url, status_code');
+        $this->db->where('name_pppoe', $name_pppoe);
+        $this->db->order_by('order_id', 'DESC');
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_pembayaran');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }

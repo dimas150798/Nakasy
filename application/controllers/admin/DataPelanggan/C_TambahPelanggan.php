@@ -107,7 +107,7 @@ class C_TambahPelanggan extends CI_Controller
         $checkDuplicate         = $this->M_Pelanggan->CheckDuplicatePelanggan($name_pppoe);
 
         // Check duplicate code
-        $checkDuplicateCode = $this->M_Pelanggan->CheckDuplicateCode($order_id);
+        $checkDuplicateCode     = $this->M_Pelanggan->CheckDuplicateCode($order_id);
 
         // Rules form validation
         $this->form_validation->set_rules('nama_customer', 'Nama Customer', 'required');
